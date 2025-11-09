@@ -1,0 +1,46 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: "{{ target.schema }}"
+    tables:
+      - name: members_raw
+      - name: reservations_raw
+      - name: reservation_cancellations_raw
+
+models:
+  - name: stg_reservations__courtreserve
+    description: "CourtReserve-specific reservation staging layer with PKLYN facility defaults."
+    columns:
+      - name: reservation_pk
+        tests:
+          - unique
+          - not_null
+      - name: client_code
+        tests:
+          - not_null
+
+  - name: stg_reservations__podplay
+    description: "Podplay reservation staging layer derived from API event payloads."
+    columns:
+      - name: reservation_pk
+        tests:
+          - unique
+          - not_null
+      - name: client_code
+        tests:
+          - not_null
+
+  - name: stg_reservations
+    description: "Unified reservation staging model across reservation systems."
+    columns:
+      - name: reservation_pk
+        tests:
+          - unique
+          - not_null
+      - name: client_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('clients')
+              field: client_code

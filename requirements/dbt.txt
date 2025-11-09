@@ -1,0 +1,4 @@
+-r base.txt
+dbt-core==1.9.1
+dbt-postgres==1.9.1
+pytz

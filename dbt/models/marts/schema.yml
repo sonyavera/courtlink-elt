@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: dim_clients
+    description: "Dimension table for facilities and their reservation systems."
+    columns:
+      - name: client_code
+        tests:
+          - unique
+          - not_null
+      - name: reservation_system_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('reservation_systems')
+              field: system_code
+
+  - name: fct_reservations
+    description: "Fact table of individual reservations across all facilities."
+    columns:
+      - name: reservation_pk
+        tests:
+          - unique
+          - not_null
+      - name: client_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_clients')
+              field: client_code
+

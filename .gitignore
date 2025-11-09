@@ -1,0 +1,13 @@
+logs/
+dbt_packages/
+target/
+
+*.dump
+
+.DS_Store
+*.swp
+
+.venv/
+__pycache__/
+*.pyc
+.env
