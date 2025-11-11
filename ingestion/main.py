@@ -174,6 +174,39 @@ def refresh_pklyn_reservations():
             reservations, facility_code=client_code
         )
 
+        cancelled_reservations_by_client: dict[str, set[str]] = {}
+        for record in normalized_reservations:
+            reservation_id = record.get("reservation_id")
+            cancelled_at = record.get("reservation_cancelled_at")
+            if reservation_id and cancelled_at:
+                key_client = record.get("client_code", client_code).lower()
+                cancelled_reservations_by_client.setdefault(key_client, set()).add(
+                    reservation_id
+                )
+
+        for (
+            cancelled_client,
+            reservation_ids,
+        ) in cancelled_reservations_by_client.items():
+            pg_client.delete_reservations_for_ids(
+                cancelled_client, sorted(reservation_ids)
+            )
+
+        if cancelled_reservations_by_client:
+            normalized_reservations = [
+                record
+                for record in normalized_reservations
+                if not (
+                    record.get("reservation_id")
+                    and record.get("client_code", client_code).lower()
+                    in cancelled_reservations_by_client
+                    and record.get("reservation_id")
+                    in cancelled_reservations_by_client[
+                        record.get("client_code", client_code).lower()
+                    ]
+                )
+            ]
+
         if not normalized_reservations:
             print(f"No reservations found for {client_code}")
             pg_client.update_elt_watermark(watermark_key)
@@ -240,6 +273,8 @@ def refresh_podplay_reservations():
                 "items._links.waitlist",
             ],
         )
+
+        print(events[0], events[1], events[2])
         print(f"Pulled {len(events)} Podplay events for {client_code}")
         normalized_reservations = normalize_podplay_reservations(
             events, facility_code=client_code

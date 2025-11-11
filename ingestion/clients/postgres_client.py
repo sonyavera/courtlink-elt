@@ -113,6 +113,41 @@ class PostgresClient(DedupeMixin, InsertMixin):
                 (client_code.lower(),),
             )
 
+    def delete_reservations_for_ids(
+        self, client_code: str, reservation_ids: list[str]
+    ) -> None:
+        if not reservation_ids:
+            return
+
+        normalized_ids = [
+            str(reservation_id)
+            for reservation_id in reservation_ids
+            if reservation_id is not None and str(reservation_id).strip()
+        ]
+
+        if not normalized_ids:
+            return
+
+        client_code = client_code.lower()
+
+        with self._connect() as conn, conn.cursor() as cur:
+            cur.execute(
+                f'''
+                DELETE FROM "{self.schema}"."{Tables.RESERVATIONS_RAW}"
+                WHERE client_code = %s
+                  AND reservation_id = ANY(%s)
+                ''',
+                (client_code, normalized_ids),
+            )
+            cur.execute(
+                f'''
+                DELETE FROM "{self.schema}"."{Tables.RESERVATIONS_RAW_STG}"
+                WHERE client_code = %s
+                  AND reservation_id = ANY(%s)
+                ''',
+                (client_code, normalized_ids),
+            )
+
     def delete_members_stg_for_client(self, client_code: str) -> None:
         with self._connect() as conn, conn.cursor() as cur:
             cur.execute(

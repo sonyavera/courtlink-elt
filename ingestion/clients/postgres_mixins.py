@@ -66,15 +66,16 @@ class DedupeMixin:
                 USING (
                     SELECT ctid
                     FROM (
-                        SELECT
-                            ctid,
-                            ROW_NUMBER() OVER (
-                                PARTITION BY event_id,
-                                            reservation_start_at,
-                                            cancelled_on,
-                                            program_name,
-                                            player_email,
-                                            member_id
+                    SELECT
+                        ctid,
+                        ROW_NUMBER() OVER (
+                            PARTITION BY client_code,
+                                        event_id,
+                                        reservation_start_at,
+                                        cancelled_on,
+                                        program_name,
+                                        player_email,
+                                        member_id
                                 ORDER BY cancelled_on DESC NULLS LAST,
                                         created_at DESC
                             ) AS rn
@@ -92,6 +93,7 @@ class DedupeMixin:
                 DELETE FROM "{self.schema}"."{stg_table}" stg
                 USING "{self.schema}"."{prod_table}" prod
                 WHERE (
+                    stg.client_code,
                     stg.event_id,
                     stg.reservation_start_at,
                     stg.cancelled_on,
@@ -99,6 +101,7 @@ class DedupeMixin:
                     stg.player_email,
                     stg.member_id
                 ) IS NOT DISTINCT FROM (
+                    prod.client_code,
                     prod.event_id,
                     prod.reservation_start_at,
                     prod.cancelled_on,
@@ -299,6 +302,8 @@ class InsertMixin:
     ):
         rows = [
             (
+                m["client_code"],
+                m.get("source_system"),
                 m["event_id"],
                 m["reservation_id"],
                 m["reservation_type"],
@@ -332,6 +337,8 @@ class InsertMixin:
                     cur,
                     f"""
                     INSERT INTO "{self.schema}"."{table_name}" (
+                        client_code,
+                        source_system,
                         event_id,
                         reservation_id,
                         reservation_type,
@@ -441,6 +448,7 @@ class InsertMixin:
                 m["reservation_updated_at"],
                 m["reservation_start_at"],
                 m["reservation_end_at"],
+                m.get("reservation_cancelled_at"),
                 m["member_id"],
                 datetime.now(),
             )
@@ -464,6 +472,7 @@ class InsertMixin:
                             reservation_updated_at,
                             reservation_start_at,
                             reservation_end_at,
+                            reservation_cancelled_at,
                             member_id,
                             created_at
                         ) VALUES %s
@@ -473,6 +482,7 @@ class InsertMixin:
                             reservation_updated_at = EXCLUDED.reservation_updated_at,
                             reservation_start_at = EXCLUDED.reservation_start_at,
                             reservation_end_at = EXCLUDED.reservation_end_at,
+                            reservation_cancelled_at = EXCLUDED.reservation_cancelled_at,
                             created_at = EXCLUDED.created_at
                         """,
                         batch,
@@ -489,6 +499,7 @@ class InsertMixin:
                             reservation_updated_at,
                             reservation_start_at,
                             reservation_end_at,
+                            reservation_cancelled_at,
                             member_id,
                             created_at
                         ) VALUES %s

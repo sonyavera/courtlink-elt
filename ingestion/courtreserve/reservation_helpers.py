@@ -31,6 +31,8 @@ def normalize_reservations(
         end_dt = parse_event_time(res.get("EndTime"))
         created_dt = parse_utc_time(res.get("CreatedOnUtc"))
         updated_dt = parse_utc_time(res.get("UpdatedOnUtc"))
+        cancelled_raw = res.get("CancelledOnUtc") or res.get("CancelledOn")
+        cancelled_dt = parse_utc_time(cancelled_raw) if cancelled_raw else None
         members = res.get("Players")
 
         reservation_type_id = res.get("ReservationTypeId")
@@ -48,6 +50,7 @@ def normalize_reservations(
             "reservation_updated_at": updated_dt,
             "reservation_start_at": start_dt,
             "reservation_end_at": end_dt,
+            "reservation_cancelled_at": cancelled_dt,
         }
 
         print("RES_METADATA", res_metadata)

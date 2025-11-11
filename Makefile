@@ -27,7 +27,6 @@ ingest:
 
 ingest-pklyn-reservations:
 	python3 -m ingestion.main pklyn_reservations
-	python3 -m ingestion.main pklyn_reservation_cancellations
 
 
 ingest-pklyn-members:
@@ -50,7 +49,7 @@ wipe-pklyn-cancellations:
 
 
 wipe-pklyn-non-event-cancellations:
-	python3 -m scripts.pklyn.reset_non_event_reservation_cancellations ${args}
+	python3 -m scripts.pklyn.reset_reservation_cancellations ${args}
 
 wipe-events:
 	python3 -m scripts.pklyn.reset_event_summaries ${args}
