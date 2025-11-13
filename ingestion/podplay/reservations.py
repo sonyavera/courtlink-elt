@@ -82,9 +82,14 @@ def normalize_event_reservations(
 ) -> List[Dict]:
     facility_code = facility_code.lower()
     rows: List[Dict] = []
+    input_events = 0
+    skipped_non_regular = 0
+    total_reservations = 0
 
     for event in events:
+        input_events += 1
         if (event.get("type") or "").upper() != "REGULAR":
+            skipped_non_regular += 1
             continue
 
         event_id = event.get("id")
@@ -93,6 +98,7 @@ def normalize_event_reservations(
         event_end = parse_iso_datetime(event.get("endTime"))
 
         reservations = (event.get("reservations") or {}).get("items") or []
+        total_reservations += len(reservations)
 
         for reservation in reservations:
             raw_reservation_id = reservation.get("id") or reservation.get("code")
@@ -121,5 +127,11 @@ def normalize_event_reservations(
                     }
                 )
 
+    print(
+        f"[NORMALIZATION] Input events: {input_events} | "
+        f"Skipped non-REGULAR: {skipped_non_regular} | "
+        f"Total reservations: {total_reservations} | "
+        f"Normalized reservation rows: {len(rows)}"
+    )
     return rows
 

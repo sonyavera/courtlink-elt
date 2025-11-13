@@ -6,8 +6,15 @@ import json
 
 class DedupeMixin:
     def dedupe_reservation_records(self, stg_table: str, prod_table: str):
-        # 1. Remove duplicates inside staging
+        print(f"[DEDUPE] Starting deduplication for {stg_table} → {prod_table}")
+
         with self._connect() as conn, conn.cursor() as cur:
+            # Check count before dedupe
+            cur.execute(f'SELECT COUNT(*) FROM "{self.schema}"."{stg_table}"')
+            count_before = cur.fetchone()[0]
+            print(f"[DEDUPE] STG records before dedupe: {count_before}")
+
+            # 1. Remove duplicates inside staging
             cur.execute(
                 f"""
                 DELETE FROM "{self.schema}"."{stg_table}" a
@@ -20,8 +27,6 @@ class DedupeMixin:
                                 PARTITION BY event_id,
                                             reservation_start_at,
                                             reservation_created_at,
-                                            program_name,
-                                            player_email,
                                             member_id
                                 ORDER BY reservation_updated_at DESC NULLS LAST,
                                         created_at DESC
@@ -33,6 +38,8 @@ class DedupeMixin:
                 WHERE a.ctid = b.ctid
                 """
             )
+            duplicates_removed = cur.rowcount
+            print(f"[DEDUPE] Removed {duplicates_removed} duplicate records within STG")
 
             # 2. Remove anything in staging that also exists in prod
             cur.execute(
@@ -43,18 +50,26 @@ class DedupeMixin:
                     stg.event_id,
                     stg.reservation_start_at,
                     stg.reservation_created_at,
-                    stg.program_name,
-                    stg.player_email,
                     stg.member_id
                 ) IS NOT DISTINCT FROM (
                     prod.event_id,
                     prod.reservation_start_at,
                     prod.reservation_created_at,
-                    prod.program_name,
-                    prod.player_email,
                     prod.member_id
                 )
                 """
+            )
+            existing_removed = cur.rowcount
+            print(
+                f"[DEDUPE] Removed {existing_removed} records that already exist in PROD"
+            )
+
+            # Check count after dedupe
+            cur.execute(f'SELECT COUNT(*) FROM "{self.schema}"."{stg_table}"')
+            count_after = cur.fetchone()[0]
+            print(
+                f"[DEDUPE] STG records after dedupe: {count_after} "
+                f"(removed {count_before - count_after} total)"
             )
 
     def dedupe_reservation_cancellation_records(self, stg_table: str, prod_table: str):
@@ -73,8 +88,6 @@ class DedupeMixin:
                                         event_id,
                                         reservation_start_at,
                                         cancelled_on,
-                                        program_name,
-                                        player_email,
                                         member_id
                                 ORDER BY cancelled_on DESC NULLS LAST,
                                         created_at DESC
@@ -97,16 +110,12 @@ class DedupeMixin:
                     stg.event_id,
                     stg.reservation_start_at,
                     stg.cancelled_on,
-                    stg.program_name,
-                    stg.player_email,
                     stg.member_id
                 ) IS NOT DISTINCT FROM (
                     prod.client_code,
                     prod.event_id,
                     prod.reservation_start_at,
                     prod.cancelled_on,
-                    prod.program_name,
-                    prod.player_email,
                     prod.member_id
                 )
                 """
@@ -200,39 +209,86 @@ class DedupeMixin:
         stg_table: str,
         prod_table: str,
     ):
+        print(f"[CLEAN STG → PROD] Starting for {source_name}")
+        print(f"[CLEAN STG → PROD] STG table: {stg_table}, PROD table: {prod_table}")
 
         base_source_name = source_name.split("__", 1)[0]
 
         if base_source_name == EltWatermarks.RESERVATIONS:
             timestamp_col_name = "reservation_updated_at"
+            print(f"[CLEAN STG → PROD] Running deduplication for reservations...")
+            self.dedupe_reservation_records(stg_table, prod_table)
         elif base_source_name == EltWatermarks.RESERVATION_CANCELLATIONS:
+            print(f"[CLEAN STG → PROD] Running deduplication for cancellations...")
             self.dedupe_reservation_cancellation_records(stg_table, prod_table)
             timestamp_col_name = "cancelled_on"
         # -------------------------------------------------------------------
 
         # grab the cleaned reservations
         with self._connect() as conn, conn.cursor() as cur:
-            cur.execute(f'SELECT * FROM "{self.schema}"."{stg_table}"')
-            cols = [desc[0] for desc in cur.description]
-            records = [dict(zip(cols, row)) for row in cur.fetchall()]
+            cur.execute(f'SELECT COUNT(*) FROM "{self.schema}"."{stg_table}"')
+            stg_count = cur.fetchone()[0]
+            print(f"[CLEAN STG → PROD] Records in STG after dedupe: {stg_count}")
+
+            if stg_count > 0:
+                cur.execute(f'SELECT * FROM "{self.schema}"."{stg_table}"')
+                cols = [desc[0] for desc in cur.description]
+                records = [dict(zip(cols, row)) for row in cur.fetchall()]
+                print(
+                    f"[CLEAN STG → PROD] Loaded {len(records)} records from STG for insertion into PROD"
+                )
+            else:
+                records = []
+                print(f"[CLEAN STG → PROD] No records to insert into PROD")
+
+        # Check PROD count before insert
+        with self._connect() as conn, conn.cursor() as cur:
+            cur.execute(f'SELECT COUNT(*) FROM "{self.schema}"."{prod_table}"')
+            prod_count_before = cur.fetchone()[0]
             print(
-                f"Count remaining new records after cleanup {len(records)} for {source_name}"
+                f"[CLEAN STG → PROD] PROD table currently has {prod_count_before} records"
             )
 
         # insert into production
         if records:
+            print(f"[CLEAN STG → PROD] Inserting {len(records)} records into PROD...")
             self.insert_records_into_prod_db(prod_table, records)
 
+            # Check PROD count after insert
+            with self._connect() as conn, conn.cursor() as cur:
+                cur.execute(f'SELECT COUNT(*) FROM "{self.schema}"."{prod_table}"')
+                prod_count_after = cur.fetchone()[0]
+                print(
+                    f"[CLEAN STG → PROD] PROD table now has {prod_count_after} records "
+                    f"(was {prod_count_before}, change: {prod_count_after - prod_count_before})"
+                )
+        else:
+            print(f"[CLEAN STG → PROD] No records to insert, skipping PROD insert")
+
         # update watermark using last_loaded_at only
-        print(f"Updating last_loaded_at watermark for {source_name}")
+        print(f"[CLEAN STG → PROD] Updating watermark for {source_name}")
         self.update_elt_watermark(source_name)
 
+        print(f"[CLEAN STG → PROD] Truncating STG table: {stg_table}")
         self.truncate_table(stg_table)
-        print(f"Truncate table: {stg_table}")
+
+        with self._connect() as conn, conn.cursor() as cur:
+            cur.execute(f'SELECT COUNT(*) FROM "{self.schema}"."{stg_table}"')
+            stg_count_final = cur.fetchone()[0]
+            print(
+                f"[CLEAN STG → PROD] STG table after truncate: {stg_count_final} records"
+            )
+
+        print(f"[CLEAN STG → PROD] Complete for {source_name}")
 
 
 class InsertMixin:
     def insert_members(self, members: list[dict], table_name: str):
+        total_members = len(members)
+        print(
+            f"[INSERT MEMBERS] Starting insert of {total_members} members into {table_name}"
+        )
+
         rows = [
             (
                 m["client_code"],
@@ -250,9 +306,15 @@ class InsertMixin:
         ]
 
         BATCH_SIZE = 1000
+        total_batches = (len(rows) + BATCH_SIZE - 1) // BATCH_SIZE
         with self._connect() as conn, conn.cursor() as cur:
             for i in range(0, len(rows), BATCH_SIZE):
                 batch = rows[i : i + BATCH_SIZE]
+                batch_num = i // BATCH_SIZE + 1
+                print(
+                    f"[INSERT MEMBERS] Inserting batch {batch_num}/{total_batches} "
+                    f"({len(batch)} records) into {table_name}"
+                )
                 execute_values(
                     cur,
                     f"""
@@ -280,7 +342,14 @@ class InsertMixin:
                     """,
                     batch,
                 )
-                print(f"Inserted batch {i // BATCH_SIZE + 1}")
+                print(
+                    f"[INSERT MEMBERS] Batch {batch_num} complete: "
+                    f"{cur.rowcount} rows affected (inserts + updates)"
+                )
+
+        print(
+            f"[INSERT MEMBERS] Completed insert of {total_members} members into {table_name}"
+        )
 
     def insert_records_into_prod_db(self, prod_table: str, records):
         if prod_table == Tables.RESERVATIONS_RAW:
@@ -430,6 +499,11 @@ class InsertMixin:
                 print(f"Inserted batch {i // BATCH_SIZE + 1}")
 
     def insert_reservations(self, reservations: list[dict], table_name: str) -> None:
+        total_reservations = len(reservations)
+        print(
+            f"[INSERT RESERVATIONS] Starting insert of {total_reservations} reservations into {table_name}"
+        )
+
         rows = [
             (
                 m["client_code"],
@@ -447,10 +521,16 @@ class InsertMixin:
         ]
 
         BATCH_SIZE = 1000
+        total_batches = (len(rows) + BATCH_SIZE - 1) // BATCH_SIZE
         is_prod_table = table_name == Tables.RESERVATIONS_RAW
         with self._connect() as conn, conn.cursor() as cur:
             for i in range(0, len(rows), BATCH_SIZE):
                 batch = rows[i : i + BATCH_SIZE]
+                batch_num = i // BATCH_SIZE + 1
+                print(
+                    f"[INSERT RESERVATIONS] Inserting batch {batch_num}/{total_batches} "
+                    f"({len(batch)} records) into {table_name}"
+                )
                 if is_prod_table:
                     execute_values(
                         cur,
@@ -497,7 +577,14 @@ class InsertMixin:
                         """,
                         batch,
                     )
-                print(f"Inserted batch {i // BATCH_SIZE + 1}")
+                print(
+                    f"[INSERT RESERVATIONS] Batch {batch_num} complete: "
+                    f"{cur.rowcount} rows affected"
+                )
+
+        print(
+            f"[INSERT RESERVATIONS] Completed insert of {total_reservations} reservations into {table_name}"
+        )
 
     def insert_transactions(self, transactions: list[dict], table_name: str) -> None:
         rows = [

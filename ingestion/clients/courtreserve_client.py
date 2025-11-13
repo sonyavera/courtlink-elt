@@ -35,9 +35,13 @@ class CourtReserveClient:
         include_ratings: bool = True,
     ) -> dict:
         url = f"{self.BASE_URL}/api/v1/member/get"
-        print("Fetching page", page_number)
         start = self._get_utc_datetime(start)
         end = self._get_utc_datetime(end)
+        print(
+            f"[API CALL] GET /api/v1/member/get | "
+            f"window={start.date()} to {end.date()} | "
+            f"page={page_number} | page_size={page_size}"
+        )
         params = {
             "pageNumber": page_number,
             "pageSize": page_size,
@@ -52,7 +56,16 @@ class CourtReserveClient:
         success_status = resp.json().get("IsSuccessStatusCode")
         if error_message or not success_status:
             raise Exception(f"CourtReserve API error: {error_message}")
-        return resp.json()["Data"]
+        data = resp.json()["Data"]
+        members_count = len(data.get("Members", []))
+        total_pages = data.get("TotalPages", 1)
+        print(
+            f"[API RESPONSE] GET /api/v1/member/get | "
+            f"window={start.date()} to {end.date()} | "
+            f"page={page_number} | records_returned={members_count} | "
+            f"total_pages={total_pages}"
+        )
+        return data
 
     def get_members_since(
         self,
@@ -68,20 +81,24 @@ class CourtReserveClient:
         now = self._get_utc_datetime(datetime.now())
 
         members: list[dict] = []
+        window_num = 0
         for window_start in self._generate_date(start, record_window_days):
             if window_start > now:
                 break
+            window_num += 1
             window_end = min(
                 self._get_utc_datetime(datetime.now()),
                 window_start + timedelta(days=record_window_days),
             )
 
+            print(
+                f"\n[COURTRESERVE MEMBERS] Processing date window {window_num}: "
+                f"{window_start.date()} to {window_end.date()} "
+                f"(so far {len(members)} total members)"
+            )
+
             page_number = 1
             while True:
-                print(
-                    f"[CourtReserveClient] members window {window_start} to {window_end} "
-                    f"page={page_number} page_size={page_size} (so far {len(members)} records)"
-                )
                 page = self.get_members_page(
                     start=window_start,
                     end=window_end,
@@ -93,14 +110,31 @@ class CourtReserveClient:
                 page_members = page.get("Members", [])
                 members.extend(page_members)
 
+                print(
+                    f"[COURTRESERVE MEMBERS] Window {window_num} page {page_number}: "
+                    f"added {len(page_members)} members | "
+                    f"total so far: {len(members)}"
+                )
+
                 if max_results and len(members) >= max_results:
+                    print(
+                        f"[COURTRESERVE MEMBERS] Reached max_results={max_results}, "
+                        f"stopping pagination"
+                    )
                     return members[:max_results]
 
                 total_pages = page.get("TotalPages") or 1
                 if page_number >= total_pages:
+                    print(
+                        f"[COURTRESERVE MEMBERS] Window {window_num} complete: "
+                        f"reached last page ({total_pages})"
+                    )
                     break
                 page_number += 1
 
+        print(
+            f"\n[COURTRESERVE MEMBERS] All windows complete: {len(members)} total members"
+        )
         return members
 
     # Non-Event Reservations
