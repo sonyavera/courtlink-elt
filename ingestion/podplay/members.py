@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Dict, Iterable, List, Optional
 
 from ingestion.utils.datetime import format_date, parse_iso_datetime
+from ingestion.utils.normalize import normalize_email, normalize_phone_number
 
 
 def _resolve_primary_membership(user: Dict) -> Dict:
@@ -28,17 +29,11 @@ def normalize_members(
 ) -> List[Dict]:
     facility_code = facility_code.lower()
     normalized: List[Dict] = []
+    input_count = 0
 
     for user in users:
-        print("USER", user)
+        input_count += 1
         membership = _resolve_primary_membership(user)
-        # membership_record = membership.get("membership") or {}
-
-        # membership_start = parse_iso_datetime(
-        #     membership.get("createdAt")
-        #     or membership.get("startedAt")
-        #     or membership_record.get("createdAt")
-        # )
 
         phone_number = user.get("phoneNumber")
         if isinstance(phone_number, dict):
@@ -47,9 +42,12 @@ def normalize_members(
                 or phone_number.get("id")
                 or phone_number.get("value")
             )
+        
+        # Normalize phone number and email
+        phone_number = normalize_phone_number(phone_number)
+        email = normalize_email(user.get("email"))
 
         user_id = user.get("id")
-        email = user.get("email")
 
         birthday_raw = user.get("birthday")
         birthday_date = None
@@ -57,15 +55,6 @@ def normalize_members(
             parsed_birthday = parse_iso_datetime(birthday_raw)
             if parsed_birthday:
                 birthday_date = parsed_birthday.date()
-
-        print("BIRTHDAY DATE", birthday_date)
-        print("EMAIL", email)
-        print("PHONE NUMBER", phone_number)
-        print("USER ID", user_id)
-        print("FIRST NAME", user.get("firstName"))
-        print("LAST NAME", user.get("lastName"))
-        print("GENDER", user.get("gender"))
-        print("BIRTHDAY RAW", birthday_raw)
 
         normalized.append(
             {
@@ -81,4 +70,8 @@ def normalize_members(
             }
         )
 
+    print(
+        f"[NORMALIZATION] Input users: {input_count} | "
+        f"Normalized members: {len(normalized)}"
+    )
     return normalized

@@ -21,15 +21,13 @@ pg_client = PostgresClient(pg_dsn, pg_schema)
 with pg_client._connect() as conn, conn.cursor() as cur:
     conn.autocommit = True
 
-    cur.execute(f"TRUNCATE table {pg_schema}.non_event_reservation_cancellations_raw")
-    cur.execute(
-        f"TRUNCATE table {pg_schema}.non_event_reservation_cancellations_raw_stg"
-    )
+    cur.execute(f"TRUNCATE table {pg_schema}.reservation_cancellations_raw")
+    cur.execute(f"TRUNCATE table {pg_schema}.reservation_cancellations_raw_stg")
     cur.execute(
         f"""UPDATE {pg_schema}.elt_watermarks
             SET last_loaded_at = %s, 
                 last_record_created_at = %s
-            WHERE source_name = 'non_event_reservation_cancellations'
+            WHERE source_name = 'reservation_cancellations'
         """,
         (watermark, watermark),
     )

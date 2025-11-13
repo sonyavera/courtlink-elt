@@ -109,8 +109,8 @@ def _resolve_watermark(
     candidate = None
 
     if record:
-        last_loaded_at, last_record_created_at = record
-        candidate = last_record_created_at or last_loaded_at
+        last_loaded_at, _ = record
+        candidate = last_loaded_at
 
     if not candidate:
         candidate = datetime.now(timezone.utc) - timedelta(days=fallback_days)
@@ -121,58 +121,142 @@ def _resolve_watermark(
     return candidate.astimezone(timezone.utc)
 
 
-def refresh_pklyn_members():
+def refresh_courtreserve_members():
+    print("=" * 80)
+    print("[COURTRESERVE MEMBERS] Starting CourtReserve members ingestion")
+    print("=" * 80)
+
     for client_code in _get_courtreserve_client_codes():
+        print(f"\n[COURTRESERVE MEMBERS] Processing client: {client_code}")
+        print("-" * 80)
+
         client = _get_courtreserve_client(client_code)
         sample_size = _get_sample_size()
         max_results = sample_size
         watermark_key = f"{EltWatermarks.MEMBERS}__{client_code}"
         start = _resolve_watermark(watermark_key)
+        print(f"[COURTRESERVE MEMBERS] Watermark for {client_code}: {start}")
+
         if sample_size:
             recent_start = datetime.now(timezone.utc) - timedelta(days=7)
             start = max(start, recent_start)
+            print(
+                f"[COURTRESERVE MEMBERS] Sample mode: adjusted start to {start} "
+                f"(last 7 days)"
+            )
 
         page_size = max_results or 1000
         page_size = max(1, min(page_size, 1000))
+        record_window_days = 21 if not sample_size else 7
 
+        print(
+            f"[COURTRESERVE MEMBERS] Configuration: page_size={page_size}, "
+            f"max_results={max_results}, record_window_days={record_window_days}, "
+            f"sample_size={sample_size}"
+        )
+
+        print(f"\n[COURTRESERVE MEMBERS] Starting API calls to get members...")
         raw_members = client.get_members_since(
             start=start,
-            record_window_days=21 if not sample_size else 7,
+            record_window_days=record_window_days,
             page_size=page_size,
             max_results=max_results,
         )
-        print(f"Pulled {len(raw_members)} CourtReserve members for {client_code}")
+        print(
+            f"\n[COURTRESERVE MEMBERS] API calls complete: {len(raw_members)} total members retrieved"
+        )
 
-        print(raw_members)
-
+        print(f"\n[COURTRESERVE MEMBERS] Normalizing members...")
         normalized_members = [
             map_cr_member(m, facility_code=client_code) for m in raw_members
         ]
-
-        if max_results:
-            normalized_members = normalized_members[:max_results]
-
-        if not normalized_members:
-            print(f"No CourtReserve members returned for {client_code}")
-            continue
-
-        pg_client.replace_members_for_client(client_code, normalized_members)
-        pg_client.update_elt_watermark(watermark_key)
         print(
-            f"Inserted/updated {len(normalized_members)} CourtReserve members for {client_code}"
+            f"[COURTRESERVE MEMBERS] Normalization complete: {len(raw_members)} raw → "
+            f"{len(normalized_members)} normalized"
         )
 
+        if max_results:
+            original_count = len(normalized_members)
+            normalized_members = normalized_members[:max_results]
+            if original_count > max_results:
+                print(
+                    f"[COURTRESERVE MEMBERS] Limited from {original_count} to {max_results} "
+                    f"due to max_results"
+                )
 
-def refresh_pklyn_reservations():
+        if not normalized_members:
+            print(
+                f"[COURTRESERVE MEMBERS] No normalized members for {client_code}, skipping"
+            )
+            continue
+
+        print(f"\n[COURTRESERVE MEMBERS] Replacing members in database...")
+        pg_client.replace_members_for_client(client_code, normalized_members)
+
+        print(f"\n[COURTRESERVE MEMBERS] Updating watermark...")
+        pg_client.update_elt_watermark(watermark_key)
+
+        print(
+            f"\n[COURTRESERVE MEMBERS] ✓ Complete for {client_code}: {len(normalized_members)} members processed"
+        )
+        print("-" * 80)
+
+    print("\n" + "=" * 80)
+    print("[COURTRESERVE MEMBERS] All clients processed")
+    print("=" * 80)
+
+
+def refresh_courtreserve_reservations():
     for client_code in _get_courtreserve_client_codes():
         client = _get_courtreserve_client(client_code)
         watermark_key = f"{EltWatermarks.RESERVATIONS}__{client_code}"
         watermark = _resolve_watermark(watermark_key)
 
         reservations = client.get_reservations(watermark)
+
+        # Log first 3 API results
+        print(f"\n[COURTRESERVE RESERVATIONS] First 3 API results:")
+        for i, res in enumerate(reservations[:3], 1):
+            print(f"  Result {i}: {res}")
+        if len(reservations) > 3:
+            print(f"  ... and {len(reservations) - 3} more results")
+
         normalized_reservations = normalize_cr_reservations(
             reservations, facility_code=client_code
         )
+
+        cancelled_reservations_by_client: dict[str, set[str]] = {}
+        for record in normalized_reservations:
+            reservation_id = record.get("reservation_id")
+            cancelled_at = record.get("reservation_cancelled_at")
+            if reservation_id and cancelled_at:
+                key_client = record.get("client_code", client_code).lower()
+                cancelled_reservations_by_client.setdefault(key_client, set()).add(
+                    reservation_id
+                )
+
+        for (
+            cancelled_client,
+            reservation_ids,
+        ) in cancelled_reservations_by_client.items():
+            pg_client.delete_reservations_for_ids(
+                cancelled_client, sorted(reservation_ids)
+            )
+
+        if cancelled_reservations_by_client:
+            normalized_reservations = [
+                record
+                for record in normalized_reservations
+                if not (
+                    record.get("reservation_id")
+                    and record.get("client_code", client_code).lower()
+                    in cancelled_reservations_by_client
+                    and record.get("reservation_id")
+                    in cancelled_reservations_by_client[
+                        record.get("client_code", client_code).lower()
+                    ]
+                )
+            ]
 
         if not normalized_reservations:
             print(f"No reservations found for {client_code}")
@@ -190,7 +274,7 @@ def refresh_pklyn_reservations():
         )
 
 
-def refresh_pklyn_reservation_cancellations():
+def refresh_courtreserve_reservation_cancellations():
     for client_code in _get_courtreserve_client_codes():
         client = _get_courtreserve_client(client_code)
         watermark_key = f"{EltWatermarks.RESERVATION_CANCELLATIONS}__{client_code}"
@@ -219,16 +303,38 @@ def refresh_pklyn_reservation_cancellations():
 
 
 def refresh_podplay_reservations():
+    print("=" * 80)
+    print("[PODPLAY RESERVATIONS] Starting Podplay reservations ingestion")
+    print("=" * 80)
+
     for client_code in _get_podplay_client_codes():
+        print(f"\n[PODPLAY RESERVATIONS] Processing client: {client_code}")
+        print("-" * 80)
+
         client = _get_podplay_client(client_code)
         watermark_key = f"{EltWatermarks.RESERVATIONS}__{client_code}"
         watermark = _resolve_watermark(watermark_key)
+        print(f"[PODPLAY RESERVATIONS] Watermark for {client_code}: {watermark}")
 
         sample_size = _get_sample_size()
         max_results = sample_size
-        page_size = max_results or 100
+        page_size = max_results or 500
         page_size = max(1, min(page_size, 500))
 
+        print(
+            f"[PODPLAY RESERVATIONS] Configuration: page_size={page_size}, "
+            f"max_results={max_results}, sample_size={sample_size}"
+        )
+
+        if sample_size:
+            print(
+                f"[PODPLAY RESERVATIONS] Sample mode: will delete existing reservations for {client_code}"
+            )
+
+        print(f"\n[PODPLAY RESERVATIONS] Starting API calls to get events...")
+        print(
+            f"[PODPLAY RESERVATIONS] Filtering for type=REGULAR (court reservations only)"
+        )
         events = client.get_reservations(
             start_time=watermark,
             page_size=page_size,
@@ -239,25 +345,56 @@ def refresh_podplay_reservations():
                 "items._links.invitations",
                 "items._links.waitlist",
             ],
+            event_type="REGULAR",  # Only get court reservations
         )
-        print(f"Pulled {len(events)} Podplay events for {client_code}")
+        print(
+            f"\n[PODPLAY RESERVATIONS] API calls complete: {len(events)} total events retrieved"
+        )
+
+        # Log first 3 API results
+        print(f"\n[PODPLAY RESERVATIONS] First 3 API results:")
+        for i, event in enumerate(events[:3], 1):
+            print(f"  Result {i}: {event}")
+        if len(events) > 3:
+            print(f"  ... and {len(events) - 3} more results")
+
+        print(f"\n[PODPLAY RESERVATIONS] Normalizing events to reservations...")
         normalized_reservations = normalize_podplay_reservations(
             events, facility_code=client_code
         )
+        print(
+            f"[PODPLAY RESERVATIONS] Normalization complete: {len(events)} events → "
+            f"{len(normalized_reservations)} reservations"
+        )
 
         if max_results:
+            original_count = len(normalized_reservations)
             normalized_reservations = normalized_reservations[:max_results]
+            if original_count > max_results:
+                print(
+                    f"[PODPLAY RESERVATIONS] Limited from {original_count} to {max_results} "
+                    f"due to max_results"
+                )
+
         if sample_size:
+            print(
+                f"\n[PODPLAY RESERVATIONS] Deleting existing reservations for {client_code} (sample mode)..."
+            )
             pg_client.delete_reservations_for_client(client_code)
 
         if not normalized_reservations:
-            print(f"No new Podplay reservations found for {client_code}")
+            print(
+                f"[PODPLAY RESERVATIONS] No normalized reservations for {client_code}, skipping"
+            )
             pg_client.update_elt_watermark(watermark_key)
             continue
 
+        print(f"\n[PODPLAY RESERVATIONS] Inserting reservations into STG...")
         pg_client.insert_reservations(
             normalized_reservations, Tables.RESERVATIONS_RAW_STG
         )
+
+        print(f"\n[PODPLAY RESERVATIONS] Cleaning STG and moving to PROD...")
         pg_client.clean_stg_records_and_insert_prod(
             watermark,
             watermark_key,
@@ -265,56 +402,107 @@ def refresh_podplay_reservations():
             Tables.RESERVATIONS_RAW,
         )
 
+        print(
+            f"\n[PODPLAY RESERVATIONS] ✓ Complete for {client_code}: {len(normalized_reservations)} reservations processed"
+        )
+        print("-" * 80)
+
+    print("\n" + "=" * 80)
+    print("[PODPLAY RESERVATIONS] All clients processed")
+    print("=" * 80)
+
 
 def refresh_podplay_members():
+    print("=" * 80)
+    print("[PODPLAY MEMBERS] Starting Podplay members ingestion")
+    print("=" * 80)
+
     for client_code in _get_podplay_client_codes():
+        print(f"\n[PODPLAY MEMBERS] Processing client: {client_code}")
+        print("-" * 80)
+
         client = _get_podplay_client(client_code)
         watermark_key = f"{EltWatermarks.MEMBERS}__{client_code}"
         watermark = _resolve_watermark(watermark_key)
+        print(f"[PODPLAY MEMBERS] Watermark for {client_code}: {watermark}")
 
         sample_size = _get_sample_size()
         max_results = sample_size
-        page_size = max_results or 100
-        page_size = max(1, min(page_size, 100))
+        # Use larger page size for full pulls to reduce API calls (14k members = ~28 calls at 500/page)
+        page_size = max_results or 500
+        page_size = max(1, min(page_size, 500))  # Cap at 500 to be safe
+        print(
+            f"[PODPLAY MEMBERS] Configuration: page_size={page_size}, "
+            f"max_results={max_results}, sample_size={sample_size}"
+        )
+        if not max_results:
+            estimated_calls = 14000 // page_size + 1
+            print(
+                f"[PODPLAY MEMBERS] Estimated ~{estimated_calls} API calls for ~14k members "
+                f"(at {page_size} per page)"
+            )
 
+        print(f"\n[PODPLAY MEMBERS] Starting API calls to get users...")
+        print(
+            f"[PODPLAY MEMBERS] NOTE: Pulling ALL members (not filtering by member_since)"
+        )
         users = client.get_users(
             page_size=page_size,
             max_results=max_results,
             expand=["items._links.phoneNumber", "items._links.profile"],
-            member_since_min=watermark,
-            member_since_max=datetime.now(timezone.utc),
+            # Removed member_since_min/max to get ALL members, not just recent ones
         )
-        print(f"Pulled {len(users)} Podplay members for {client_code}")
+        print(
+            f"\n[PODPLAY MEMBERS] API calls complete: {len(users)} total users retrieved"
+        )
 
+        print(f"\n[PODPLAY MEMBERS] Normalizing users...")
         normalized_members = normalize_podplay_members(users, facility_code=client_code)
 
         if max_results:
+            original_count = len(normalized_members)
             normalized_members = normalized_members[:max_results]
+            if original_count > max_results:
+                print(
+                    f"[PODPLAY MEMBERS] Limited from {original_count} to {max_results} "
+                    f"due to max_results"
+                )
 
         if not normalized_members:
-            print(f"No Podplay members returned for {client_code}")
+            print(
+                f"[PODPLAY MEMBERS] No normalized members for {client_code}, skipping"
+            )
             continue
 
+        print(f"\n[PODPLAY MEMBERS] Replacing members in database...")
         pg_client.replace_members_for_client(client_code, normalized_members)
+
+        print(f"\n[PODPLAY MEMBERS] Updating watermark...")
         pg_client.update_elt_watermark(watermark_key)
+
         print(
-            f"Inserted/updated {len(normalized_members)} Podplay members for {client_code}"
+            f"\n[PODPLAY MEMBERS] ✓ Complete for {client_code}: {len(normalized_members)} members processed"
         )
+        print("-" * 80)
+
+    print("\n" + "=" * 80)
+    print("[PODPLAY MEMBERS] All clients processed")
+    print("=" * 80)
 
 
 def _run(option: str) -> None:
-    if option == "pklyn_reservations":
-        refresh_pklyn_reservations()
-        refresh_pklyn_reservation_cancellations()
-    elif option == "pklyn_members":
-        refresh_pklyn_members()
+    if option == "courtreserve_reservations":
+        refresh_courtreserve_reservations()
+        refresh_courtreserve_reservation_cancellations()
+    elif option == "courtreserve_members":
+        refresh_courtreserve_members()
     elif option == "podplay_members":
         refresh_podplay_members()
     elif option == "podplay_reservations":
         refresh_podplay_reservations()
     elif option == "all":
-        refresh_pklyn_reservations()
-        refresh_pklyn_reservation_cancellations()
+        refresh_courtreserve_reservations()
+        refresh_courtreserve_reservation_cancellations()
         refresh_podplay_members()
         refresh_podplay_reservations()
     else:

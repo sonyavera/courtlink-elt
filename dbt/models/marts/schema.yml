@@ -29,3 +29,25 @@ models:
               to: ref('dim_clients')
               field: client_code
 
+  - name: dim_members
+    description: "Dimension table for members across all facilities with all columns from members_raw plus reservation system code."
+    columns:
+      - name: member_pk
+        tests:
+          - unique
+          - not_null
+      - name: client_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_clients')
+              field: client_code
+      - name: external_member_id
+        tests:
+          - not_null
+      - name: reservation_system_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('reservation_systems')
+              field: system_code

@@ -26,11 +26,24 @@ def normalize_reservations(
 ) -> list[dict]:
     facility_code = facility_code.lower()
     all_reservations = []
+    skipped_non_court = 0
+    input_count = 0
+    
     for res in reservations:
+        input_count += 1
+        
+        # Filter: Only process "Court Reservation" type
+        reservation_type_name = res.get("ReservationTypeName", "").strip()
+        if reservation_type_name != "Court Reservation":
+            skipped_non_court += 1
+            continue
+        
         start_dt = parse_event_time(res.get("StartTime"))
         end_dt = parse_event_time(res.get("EndTime"))
         created_dt = parse_utc_time(res.get("CreatedOnUtc"))
         updated_dt = parse_utc_time(res.get("UpdatedOnUtc"))
+        cancelled_raw = res.get("CancelledOnUtc") or res.get("CancelledOn")
+        cancelled_dt = parse_utc_time(cancelled_raw) if cancelled_raw else None
         members = res.get("Players")
 
         reservation_type_id = res.get("ReservationTypeId")
@@ -48,11 +61,15 @@ def normalize_reservations(
             "reservation_updated_at": updated_dt,
             "reservation_start_at": start_dt,
             "reservation_end_at": end_dt,
+            "reservation_cancelled_at": cancelled_dt,
         }
-
-        print("RES_METADATA", res_metadata)
 
         rows = map_members_on_reservation(members, res_metadata, facility_code)
         all_reservations.extend(rows)
 
+    print(
+        f"[NORMALIZATION] Input reservations: {input_count} | "
+        f"Skipped non-Court Reservation: {skipped_non_court} | "
+        f"Normalized reservation rows: {len(all_reservations)}"
+    )
     return all_reservations

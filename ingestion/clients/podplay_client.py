@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from typing import Dict, Iterable, List, Optional
+import time
 
 import requests
 
@@ -59,19 +60,34 @@ class PodplayClient:
         while True:
             page_params = {**base_params, "page": page}
             print(
-                f"[PodplayClient] GET {path} page={page_params.get('page')} "
-                f"ipp={page_params.get('ipp')} (so far {yielded} records)"
+                f"[API CALL] GET {path} | page={page_params.get('page')} | "
+                f"ipp={page_params.get('ipp')} | yielded_so_far={yielded}"
             )
             payload = self._request("GET", path, params=page_params)
             items = payload.get("items", [])
+            items_count = len(items)
+
+            print(
+                f"[API RESPONSE] GET {path} | page={page} | "
+                f"records_returned={items_count} | total_yielded={yielded + items_count}"
+            )
+
+            # Small delay between API calls to avoid rate limiting (0.1s = ~10 req/sec max)
+            if page > 1:  # Don't delay before first call
+                time.sleep(0.1)
 
             if not items:
+                print(f"[API PAGINATION] No more items returned, stopping pagination")
                 break
 
             for item in items:
                 yield item
                 yielded += 1
                 if max_results and yielded >= max_results:
+                    print(
+                        f"[API PAGINATION] Reached max_results={max_results}, "
+                        f"stopping pagination"
+                    )
                     return
 
             pagination = payload.get("_pagination") or {}
@@ -84,14 +100,27 @@ class PodplayClient:
                 or pagination.get("pages")
             )
 
+            print(
+                f"[API PAGINATION] page={page} | total={total} | count={count} | "
+                f"ipp={ipp} | total_pages={total_pages}"
+            )
+
             if total_pages and page >= total_pages:
+                print(f"[API PAGINATION] Reached last page ({total_pages}), stopping")
                 break
             if total and ipp and page * ipp >= total:
+                print(f"[API PAGINATION] Reached total records ({total}), stopping")
                 break
             if count is not None and ipp and count < ipp:
+                print(
+                    f"[API PAGINATION] Last page detected (count={count} < ipp={ipp}), "
+                    f"stopping"
+                )
                 break
 
             page += 1
+
+        print(f"[API SUMMARY] Total records yielded from {path}: {yielded}")
 
     def get_reservations(
         self,
@@ -103,6 +132,7 @@ class PodplayClient:
         max_results: Optional[int] = None,
         expand: Optional[List[str]] = None,
         extra_filters: Optional[Dict] = None,
+        event_type: Optional[str] = None,
     ) -> List[Dict]:
         params: Dict = {"ipp": page_size}
 
@@ -114,6 +144,8 @@ class PodplayClient:
             params["includeCanceled"] = True
         if expand:
             params["expand"] = expand
+        if event_type:
+            params["type"] = event_type
         if extra_filters:
             params.update(extra_filters)
 
@@ -128,7 +160,7 @@ class PodplayClient:
     def get_users(
         self,
         *,
-        page_size: int = 100,
+        page_size: int = 500,
         max_results: Optional[int] = None,
         search: Optional[str] = None,
         role: Optional[List[str]] = None,

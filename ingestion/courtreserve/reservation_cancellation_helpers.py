@@ -6,36 +6,34 @@ def normalize_reservation_cancellations(
     facility_code: str = "pklyn",
 ) -> list[dict]:
     facility_code = facility_code.lower()
+    source_system = "courtreserve"
     rows = []
     for cancellation in reservation_cancellations:
         print(cancellation)
         start_dt = parse_event_time(cancellation.get("StartTime"))
         end_dt = parse_event_time(cancellation.get("EndTime"))
         created_dt = parse_utc_time(cancellation.get("SignedUpOnUtc"))
-        canceled_at = parse_utc_time(cancellation.get("CancelledOnUtc"))
+        cancelled_raw = cancellation.get("CancelledOnUtc") or cancellation.get(
+            "CancelledOn"
+        )
+        canceled_at = parse_utc_time(cancelled_raw) if cancelled_raw else None
 
         event_id = cancellation.get("EventId")
         reservation_id = cancellation.get("EventDateId")
         member_id_raw = cancellation.get("OrganizationMemberId")
-
-        event_identifier = (
-            f"{facility_code}:{event_id}" if event_id is not None else None
-        )
-        reservation_identifier = (
-            f"{facility_code}:{reservation_id}" if reservation_id is not None else None
-        )
-        member_identifier = (
-            f"{facility_code}:{member_id_raw}" if member_id_raw is not None else None
-        )
 
         player_first = cancellation.get("FirstName")
         player_last = cancellation.get("LastName")
         player_name = " ".join(filter(None, [player_first, player_last]))
 
         reservation_metadata = {
-            "event_id": event_identifier,
-            "reservation_id": reservation_identifier,
-            "member_id": member_identifier,
+            "client_code": facility_code,
+            "source_system": source_system,
+            "event_id": str(event_id) if event_id is not None else None,
+            "reservation_id": (
+                str(reservation_id) if reservation_id is not None else None
+            ),
+            "member_id": str(member_id_raw) if member_id_raw is not None else None,
             "reservation_type": cancellation.get("EventCategoryName"),
             "reservation_created_at": created_dt,
             "reservation_start_at": start_dt,

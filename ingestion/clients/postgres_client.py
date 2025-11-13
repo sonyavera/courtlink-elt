@@ -113,6 +113,41 @@ class PostgresClient(DedupeMixin, InsertMixin):
                 (client_code.lower(),),
             )
 
+    def delete_reservations_for_ids(
+        self, client_code: str, reservation_ids: list[str]
+    ) -> None:
+        if not reservation_ids:
+            return
+
+        normalized_ids = [
+            str(reservation_id)
+            for reservation_id in reservation_ids
+            if reservation_id is not None and str(reservation_id).strip()
+        ]
+
+        if not normalized_ids:
+            return
+
+        client_code = client_code.lower()
+
+        with self._connect() as conn, conn.cursor() as cur:
+            cur.execute(
+                f'''
+                DELETE FROM "{self.schema}"."{Tables.RESERVATIONS_RAW}"
+                WHERE client_code = %s
+                  AND reservation_id = ANY(%s)
+                ''',
+                (client_code, normalized_ids),
+            )
+            cur.execute(
+                f'''
+                DELETE FROM "{self.schema}"."{Tables.RESERVATIONS_RAW_STG}"
+                WHERE client_code = %s
+                  AND reservation_id = ANY(%s)
+                ''',
+                (client_code, normalized_ids),
+            )
+
     def delete_members_stg_for_client(self, client_code: str) -> None:
         with self._connect() as conn, conn.cursor() as cur:
             cur.execute(
@@ -122,8 +157,43 @@ class PostgresClient(DedupeMixin, InsertMixin):
 
     def replace_members_for_client(self, client_code: str, members: list[dict]) -> None:
         client_code = client_code.lower()
+        print(f"[REPLACE MEMBERS] Starting for client_code={client_code} with {len(members)} members")
+        
+        # Step 1: Clear STG table
+        print(f"[REPLACE MEMBERS] Step 1: Clearing STG table for {client_code}")
+        with self._connect() as conn, conn.cursor() as cur:
+            cur.execute(
+                f'SELECT COUNT(*) FROM "{self.schema}"."{Tables.MEMBERS_RAW_STG}" WHERE client_code = %s',
+                (client_code,),
+            )
+            stg_count_before = cur.fetchone()[0]
+        
         self.delete_members_stg_for_client(client_code)
+        print(f"[REPLACE MEMBERS] Deleted {stg_count_before} existing records from STG")
+        
+        # Step 2: Insert into STG
+        print(f"[REPLACE MEMBERS] Step 2: Inserting {len(members)} members into STG")
         self.insert_members(members, Tables.MEMBERS_RAW_STG)
+        
+        # Step 3: Check STG count before moving to PROD
+        with self._connect() as conn, conn.cursor() as cur:
+            cur.execute(
+                f'SELECT COUNT(*) FROM "{self.schema}"."{Tables.MEMBERS_RAW_STG}" WHERE client_code = %s',
+                (client_code,),
+            )
+            stg_count_after_insert = cur.fetchone()[0]
+            print(f"[REPLACE MEMBERS] STG table now has {stg_count_after_insert} records")
+            
+            # Check PROD count before insert
+            cur.execute(
+                f'SELECT COUNT(*) FROM "{self.schema}"."{Tables.MEMBERS_RAW}" WHERE client_code = %s',
+                (client_code,),
+            )
+            prod_count_before = cur.fetchone()[0]
+            print(f"[REPLACE MEMBERS] PROD table currently has {prod_count_before} records for {client_code}")
+        
+        # Step 4: Move from STG to PROD (with deduplication via ON CONFLICT)
+        print(f"[REPLACE MEMBERS] Step 3: Moving records from STG to PROD (deduplication via ON CONFLICT)")
         with self._connect() as conn, conn.cursor() as cur:
             cur.execute(
                 f"""
@@ -161,7 +231,45 @@ class PostgresClient(DedupeMixin, InsertMixin):
                 """,
                 (client_code,),
             )
+            rows_affected = cur.rowcount
+            print(f"[REPLACE MEMBERS] PROD insert/update complete: {rows_affected} rows affected")
+            
+            # Check PROD count after insert
+            cur.execute(
+                f'SELECT COUNT(*) FROM "{self.schema}"."{Tables.MEMBERS_RAW}" WHERE client_code = %s',
+                (client_code,),
+            )
+            prod_count_after = cur.fetchone()[0]
+            print(
+                f"[REPLACE MEMBERS] PROD table now has {prod_count_after} records "
+                f"(was {prod_count_before}, change: {prod_count_after - prod_count_before})"
+            )
+            
+            # Calculate new vs updated
+            # Since we can't easily distinguish inserts from updates with ON CONFLICT,
+            # we'll estimate: if prod_count increased, those are new; otherwise mostly updates
+            if prod_count_after > prod_count_before:
+                estimated_new = prod_count_after - prod_count_before
+                estimated_updates = rows_affected - estimated_new
+                print(
+                    f"[REPLACE MEMBERS] Estimated: ~{estimated_new} new records, "
+                    f"~{estimated_updates} updated records"
+                )
+            else:
+                print(f"[REPLACE MEMBERS] All {rows_affected} records were updates (no new records)")
 
+        # Step 5: Clean up STG
+        print(f"[REPLACE MEMBERS] Step 4: Cleaning up STG table")
         self.delete_members_stg_for_client(client_code)
+        
+        with self._connect() as conn, conn.cursor() as cur:
+            cur.execute(
+                f'SELECT COUNT(*) FROM "{self.schema}"."{Tables.MEMBERS_RAW_STG}" WHERE client_code = %s',
+                (client_code,),
+            )
+            stg_count_final = cur.fetchone()[0]
+            print(f"[REPLACE MEMBERS] STG cleanup complete: {stg_count_final} records remaining")
+        
+        print(f"[REPLACE MEMBERS] Complete for {client_code}: {rows_affected} total rows processed")
 
     # Methods for inserts/dedupe/cleanup are inherited from mixins
