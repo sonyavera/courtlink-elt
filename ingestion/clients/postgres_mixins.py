@@ -204,7 +204,7 @@ class DedupeMixin:
         base_source_name = source_name.split("__", 1)[0]
 
         if base_source_name == EltWatermarks.RESERVATIONS:
-            timestamp_col_name = "reservation_start_at"
+            timestamp_col_name = "reservation_updated_at"
         elif base_source_name == EltWatermarks.RESERVATION_CANCELLATIONS:
             self.dedupe_reservation_cancellation_records(stg_table, prod_table)
             timestamp_col_name = "cancelled_on"
@@ -223,18 +223,9 @@ class DedupeMixin:
         if records:
             self.insert_records_into_prod_db(prod_table, records)
 
-        # update watermark
-        with self._connect() as conn, conn.cursor() as cur:
-            cur.execute(
-                f'SELECT max({timestamp_col_name}) from "{self.schema}".{stg_table}'
-            )
-            row = cur.fetchone()
-            if row and row[0]:
-                print(f"New last record created for {source_name} at {row[0]}")
-                self.update_elt_watermark(source_name, row[0])
-            else:
-                print(f"No new records, updating last_loaded_at anyway")
-                self.update_elt_watermark(source_name)
+        # update watermark using last_loaded_at only
+        print(f"Updating last_loaded_at watermark for {source_name}")
+        self.update_elt_watermark(source_name)
 
         self.truncate_table(stg_table)
         print(f"Truncate table: {stg_table}")

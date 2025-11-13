@@ -109,7 +109,7 @@ class CourtReserveClient:
         elt_watermarket_reservations_events: date,
         include_user_defined_fields: bool = False,
     ) -> dict:
-        print("Get non event reservations")
+        print("Get reservations")
         url = f"{self.BASE_URL}/api/v1/reservationreport/listactive"
 
         reservations = []
@@ -123,7 +123,9 @@ class CourtReserveClient:
         for start_date in self._generate_date(
             elt_watermarket_reservations_events, record_window_days
         ):
+            print(f"Start date {start_date}")
             if start_date > datetime.now(timezone.utc):
+                print("break")
                 break
             end_date = min(
                 self._get_utc_datetime(datetime.now()),

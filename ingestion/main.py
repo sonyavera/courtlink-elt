@@ -109,8 +109,8 @@ def _resolve_watermark(
     candidate = None
 
     if record:
-        last_loaded_at, last_record_created_at = record
-        candidate = last_record_created_at or last_loaded_at
+        last_loaded_at, _ = record
+        candidate = last_loaded_at
 
     if not candidate:
         candidate = datetime.now(timezone.utc) - timedelta(days=fallback_days)
@@ -121,7 +121,7 @@ def _resolve_watermark(
     return candidate.astimezone(timezone.utc)
 
 
-def refresh_pklyn_members():
+def refresh_courtreserve_members():
     for client_code in _get_courtreserve_client_codes():
         client = _get_courtreserve_client(client_code)
         sample_size = _get_sample_size()
@@ -163,13 +163,14 @@ def refresh_pklyn_members():
         )
 
 
-def refresh_pklyn_reservations():
+def refresh_courtreserve_reservations():
     for client_code in _get_courtreserve_client_codes():
         client = _get_courtreserve_client(client_code)
         watermark_key = f"{EltWatermarks.RESERVATIONS}__{client_code}"
         watermark = _resolve_watermark(watermark_key)
 
         reservations = client.get_reservations(watermark)
+        print(reservations)
         normalized_reservations = normalize_cr_reservations(
             reservations, facility_code=client_code
         )
@@ -223,7 +224,7 @@ def refresh_pklyn_reservations():
         )
 
 
-def refresh_pklyn_reservation_cancellations():
+def refresh_courtreserve_reservation_cancellations():
     for client_code in _get_courtreserve_client_codes():
         client = _get_courtreserve_client(client_code)
         watermark_key = f"{EltWatermarks.RESERVATION_CANCELLATIONS}__{client_code}"
@@ -338,18 +339,18 @@ def refresh_podplay_members():
 
 
 def _run(option: str) -> None:
-    if option == "pklyn_reservations":
-        refresh_pklyn_reservations()
-        refresh_pklyn_reservation_cancellations()
-    elif option == "pklyn_members":
-        refresh_pklyn_members()
+    if option == "courtreserve_reservations":
+        refresh_courtreserve_reservations()
+        refresh_courtreserve_reservation_cancellations()
+    elif option == "courtreserve_members":
+        refresh_courtreserve_members()
     elif option == "podplay_members":
         refresh_podplay_members()
     elif option == "podplay_reservations":
         refresh_podplay_reservations()
     elif option == "all":
-        refresh_pklyn_reservations()
-        refresh_pklyn_reservation_cancellations()
+        refresh_courtreserve_reservations()
+        refresh_courtreserve_reservation_cancellations()
         refresh_podplay_members()
         refresh_podplay_reservations()
     else:

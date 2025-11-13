@@ -1,4 +1,4 @@
-.PHONY: venv install setup dev activate ingest ingest-pklyn-reservations ingest-pklyn-members ingest-podplay-reservations ingest-podplay-members wipe-pklyn-res wipe-pklyn-cancellations wipe-events import-duprs
+.PHONY: venv install setup dev activate ingest ingest-courtreserve-reservations ingest-courtreserve-members ingest-podplay-reservations ingest-podplay-members wipe-pklyn-res wipe-pklyn-cancellations wipe-events import-duprs
 
 venv:
 	python3 -m venv .venv
@@ -25,12 +25,12 @@ ingest:
 	python3 -m ingestion.main all
 
 
-ingest-pklyn-reservations:
-	python3 -m ingestion.main pklyn_reservations
+ingest-courtreserve-reservations:
+	python3 -m ingestion.main courtreserve_reservations
 
 
-ingest-pklyn-members:
-	python3 -m ingestion.main pklyn_members
+ingest-courtreserve-members:
+	python3 -m ingestion.main courtreserve_members
 
 
 ingest-podplay-reservations:
