@@ -1,3 +1,5 @@
+{{ config(materialized='table', tags=['members']) }}
+
 with base as (
     select *
     from {{ ref('stg_reservations') }}
