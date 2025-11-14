@@ -147,7 +147,7 @@ class CourtReserveClient:
         url = f"{self.BASE_URL}/api/v1/reservationreport/listactive"
 
         reservations = []
-        record_window_days = 10  # 10-day windows for batching
+        record_window_days = 15  # 15-day windows for batching
         elt_watermarket_reservations_events = (
             elt_watermarket_reservations_events.replace(
                 hour=0, minute=0, second=0, microsecond=0

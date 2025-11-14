@@ -336,12 +336,12 @@ def refresh_podplay_reservations():
             f"[PODPLAY RESERVATIONS] Filtering for type=REGULAR (court reservations only)"
         )
         print(
-            f"[PODPLAY RESERVATIONS] Will pull in 10-day windows until 3 weeks from today"
+            f"[PODPLAY RESERVATIONS] Will pull in 15-day windows until 3 weeks from today"
         )
 
         # Stop 3 weeks from today (21 days ahead)
         max_end_time = datetime.now(timezone.utc) + timedelta(days=21)
-        window_days = 10
+        window_days = 15
         current_start = watermark
         all_normalized_reservations = []
         window_num = 0
