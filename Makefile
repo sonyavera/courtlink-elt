@@ -45,7 +45,7 @@ wipe-pklyn-res:
 
 
 wipe-pklyn-cancellations:
-	python3 -m scripts.pklyn.eset_reservation_cancellations ${args}
+	python3 -m scripts.pklyn.reset_reservation_cancellations ${args}
 
 
 wipe-pklyn-non-event-cancellations:
