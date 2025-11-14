@@ -147,22 +147,28 @@ class CourtReserveClient:
         url = f"{self.BASE_URL}/api/v1/reservationreport/listactive"
 
         reservations = []
-        record_window_days = 7
+        record_window_days = 10  # 10-day windows for batching
         elt_watermarket_reservations_events = (
             elt_watermarket_reservations_events.replace(
                 hour=0, minute=0, second=0, microsecond=0
             )
         )
 
+        # Stop 3 weeks from today (21 days ahead)
+        max_end_date = datetime.now(timezone.utc) + timedelta(days=21)
+
         for start_date in self._generate_date(
             elt_watermarket_reservations_events, record_window_days
         ):
             print(f"Start date {start_date}")
-            if start_date > datetime.now(timezone.utc):
-                print("break")
+            # Stop when start_date is beyond 3 weeks from today
+            if start_date > max_end_date:
+                print(
+                    f"Reached max end date (3 weeks from today: {max_end_date.date()}), stopping"
+                )
                 break
             end_date = min(
-                self._get_utc_datetime(datetime.now()),
+                max_end_date,
                 start_date + timedelta(days=record_window_days),
             )
             params = {

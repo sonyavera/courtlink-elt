@@ -331,50 +331,86 @@ def refresh_podplay_reservations():
                 f"[PODPLAY RESERVATIONS] Sample mode: will delete existing reservations for {client_code}"
             )
 
-        print(f"\n[PODPLAY RESERVATIONS] Starting API calls to get events...")
+        print(f"\n[PODPLAY RESERVATIONS] Starting batched API calls...")
         print(
             f"[PODPLAY RESERVATIONS] Filtering for type=REGULAR (court reservations only)"
         )
-        events = client.get_reservations(
-            start_time=watermark,
-            page_size=page_size,
-            max_results=max_results,
-            expand=[
-                "items._links.reservations",
-                "items._links.bookedBy",
-                "items._links.invitations",
-                "items._links.waitlist",
-            ],
-            event_type="REGULAR",  # Only get court reservations
-        )
         print(
-            f"\n[PODPLAY RESERVATIONS] API calls complete: {len(events)} total events retrieved"
+            f"[PODPLAY RESERVATIONS] Will pull in 10-day windows until 3 weeks from today"
         )
 
-        # Log first 3 API results
-        print(f"\n[PODPLAY RESERVATIONS] First 3 API results:")
-        for i, event in enumerate(events[:3], 1):
-            print(f"  Result {i}: {event}")
-        if len(events) > 3:
-            print(f"  ... and {len(events) - 3} more results")
+        # Stop 3 weeks from today (21 days ahead)
+        max_end_time = datetime.now(timezone.utc) + timedelta(days=21)
+        window_days = 10
+        current_start = watermark
+        all_normalized_reservations = []
+        window_num = 0
 
-        print(f"\n[PODPLAY RESERVATIONS] Normalizing events to reservations...")
-        normalized_reservations = normalize_podplay_reservations(
-            events, facility_code=client_code
-        )
-        print(
-            f"[PODPLAY RESERVATIONS] Normalization complete: {len(events)} events → "
-            f"{len(normalized_reservations)} reservations"
-        )
+        while current_start < max_end_time:
+            window_num += 1
+            current_end = min(current_start + timedelta(days=window_days), max_end_time)
 
-        if max_results:
-            original_count = len(normalized_reservations)
-            normalized_reservations = normalized_reservations[:max_results]
-            if original_count > max_results:
+            print(
+                f"\n[PODPLAY RESERVATIONS] Window {window_num}: "
+                f"{current_start.date()} to {current_end.date()}"
+            )
+
+            events = client.get_reservations(
+                start_time=current_start,
+                end_time=current_end,
+                page_size=page_size,
+                max_results=max_results,
+                expand=[
+                    "items._links.reservations",
+                    "items._links.bookedBy",
+                    "items._links.invitations",
+                    "items._links.waitlist",
+                ],
+                event_type="REGULAR",  # Only get court reservations
+            )
+
+            print(
+                f"[PODPLAY RESERVATIONS] Window {window_num}: {len(events)} events retrieved"
+            )
+
+            if window_num == 1 and events:
+                # Log first 3 API results from first window only
+                print(f"\n[PODPLAY RESERVATIONS] First 3 API results (from window 1):")
+                for i, event in enumerate(events[:3], 1):
+                    print(f"  Result {i}: {event}")
+                if len(events) > 3:
+                    print(f"  ... and {len(events) - 3} more results")
+
+            print(
+                f"[PODPLAY RESERVATIONS] Normalizing events from window {window_num}..."
+            )
+            window_reservations = normalize_podplay_reservations(
+                events, facility_code=client_code
+            )
+            print(
+                f"[PODPLAY RESERVATIONS] Window {window_num}: {len(events)} events → "
+                f"{len(window_reservations)} reservations"
+            )
+
+            all_normalized_reservations.extend(window_reservations)
+
+            # Move to next window
+            current_start = current_end
+
+            # If we hit max_results, stop
+            if max_results and len(all_normalized_reservations) >= max_results:
                 print(
-                    f"[PODPLAY RESERVATIONS] Limited from {original_count} to {max_results} "
-                    f"due to max_results"
+                    f"[PODPLAY RESERVATIONS] Reached max_results={max_results}, stopping"
                 )
+                all_normalized_reservations = all_normalized_reservations[:max_results]
+                break
+
+        print(
+            f"\n[PODPLAY RESERVATIONS] All windows complete: "
+            f"{len(all_normalized_reservations)} total reservations from {window_num} windows"
+        )
+
+        normalized_reservations = all_normalized_reservations
 
         if sample_size:
             print(
