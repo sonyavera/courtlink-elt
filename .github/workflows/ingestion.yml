@@ -7,12 +7,23 @@ on:
     # Run every 6 hours: podplay-members
     - cron: "0 */6 * * *"
   workflow_dispatch: # Allow manual triggering
+    inputs:
+      job_to_run:
+        description: "Which job(s) to run"
+        required: true
+        type: choice
+        options:
+          - "30min"
+          - "6hour"
+          - "both"
+        default: "both"
 
 jobs:
   ingest-30min:
     name: Ingest (30 min schedule)
     runs-on: ubuntu-latest
     environment: prod
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '30min' || github.event.inputs.job_to_run == 'both'))
 
     steps:
       - name: Checkout code
@@ -60,6 +71,9 @@ jobs:
     name: Ingest Podplay Members (6 hour schedule)
     runs-on: ubuntu-latest
     environment: prod
+    if: |
+      (github.event_name == 'schedule') ||
+      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '6hour' || github.event.inputs.job_to_run == 'both'))
 
     # Only run if the current hour is divisible by 6 (0, 6, 12, 18)
     # This ensures it only runs on the 6-hour schedule, not every 30 minutes
@@ -75,21 +89,25 @@ jobs:
       - name: Check if should run (6 hour boundary)
         id: check-time
         run: |
-          HOUR=$(date -u +%H)
-          if [ $((HOUR % 6)) -eq 0 ]; then
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "should_run=true" >> $GITHUB_OUTPUT
           else
-            echo "should_run=false" >> $GITHUB_OUTPUT
+            HOUR=$(date -u +%H)
+            if [ $((HOUR % 6)) -eq 0 ]; then
+              echo "should_run=true" >> $GITHUB_OUTPUT
+            else
+              echo "should_run=false" >> $GITHUB_OUTPUT
+            fi
           fi
 
       - name: Install dependencies
-        if: steps.check-time.outputs.should_run == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.check-time.outputs.should_run == 'true'
         run: |
           python3 -m pip install --upgrade pip
           pip install -r requirements/all.txt
 
       - name: Setup environment variables from client-specific secrets
-        if: steps.check-time.outputs.should_run == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.check-time.outputs.should_run == 'true'
         run: |
           python3 scripts/setup_github_env_vars.py
         env:
@@ -100,7 +118,7 @@ jobs:
           GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
 
       - name: Ingest Podplay Members
-        if: steps.check-time.outputs.should_run == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.check-time.outputs.should_run == 'true'
         run: make ingest-podplay-members
         env:
           PG_DSN: ${{ secrets.PG_DSN }}
