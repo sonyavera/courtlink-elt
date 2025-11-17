@@ -54,14 +54,13 @@ def _get_courtreserve_client(client_code: str) -> CourtReserveClient:
     global _courtreserve_clients
     code = client_code.lower()
     if code not in _courtreserve_clients:
-        user_env = f"CR_API_USER_{code.upper()}"
-        pw_env = f"CR_API_PW_{code.upper()}"
-        username = os.getenv(user_env) or os.getenv("CR_API_USER")
-        password = os.getenv(pw_env) or os.getenv("CR_API_PW")
+        code_upper = code.upper()
+        username = os.getenv(f"{code_upper}_USERNAME")
+        password = os.getenv(f"{code_upper}_PASSWORD")
         if not username or not password:
             raise RuntimeError(
                 f"CourtReserve credentials are not configured for client '{client_code}'. "
-                f"Set {user_env}/{pw_env} or CR_API_USER/CR_API_PW."
+                f"Set {code_upper}_USERNAME and {code_upper}_PASSWORD."
             )
         _courtreserve_clients[code] = CourtReserveClient(username, password)
     return _courtreserve_clients[code]
@@ -75,32 +74,35 @@ def _get_courtreserve_client_codes() -> list[str]:
         codes = [c.strip().lower() for c in raw_codes.split(",") if c.strip()]
         if codes:
             return codes
-    
+
     # Query database for customer organizations
     try:
         import psycopg2
+
         schema = os.getenv("COURT_SCRAPER_SCHEMA", "court_availability_scraper")
         conn = psycopg2.connect(pg_dsn)
         cur = conn.cursor()
-        
+
         query = f"""
         SELECT client_code
         FROM {schema}.organizations
         WHERE is_customer = true AND source_system_code = 'courtreserve'
         ORDER BY client_code
         """
-        
+
         cur.execute(query)
         rows = cur.fetchall()
         cur.close()
         conn.close()
-        
+
         codes = [row[0].strip().lower() for row in rows if row[0]]
         if codes:
             return codes
     except Exception as e:
-        print(f"Warning: Could not query database for client codes: {e}", file=sys.stderr)
-    
+        print(
+            f"Warning: Could not query database for client codes: {e}", file=sys.stderr
+        )
+
     # Fallback to default
     return ["pklyn"]
 
@@ -109,12 +111,12 @@ def _get_podplay_client(client_code: str) -> PodplayClient:
     global _podplay_clients
     code = client_code.lower()
     if code not in _podplay_clients:
-        env_var = f"PODPLAY_API_KEY_{code.upper()}"
-        api_key = os.getenv(env_var) or os.getenv("PODPLAY_API_KEY")
+        code_upper = code.upper()
+        api_key = os.getenv(f"{code_upper}_API_KEY")
         if not api_key:
             raise RuntimeError(
                 f"Podplay API key is not configured for client '{client_code}'. "
-                f"Set {env_var} or PODPLAY_API_KEY."
+                f"Set {code_upper}_API_KEY."
             )
         _podplay_clients[code] = PodplayClient(api_key)
     return _podplay_clients[code]
@@ -128,32 +130,35 @@ def _get_podplay_client_codes() -> list[str]:
         codes = [c.strip().lower() for c in raw_codes.split(",") if c.strip()]
         if codes:
             return codes
-    
+
     # Query database for customer organizations
     try:
         import psycopg2
+
         schema = os.getenv("COURT_SCRAPER_SCHEMA", "court_availability_scraper")
         conn = psycopg2.connect(pg_dsn)
         cur = conn.cursor()
-        
+
         query = f"""
         SELECT client_code
         FROM {schema}.organizations
         WHERE is_customer = true AND source_system_code = 'podplay'
         ORDER BY client_code
         """
-        
+
         cur.execute(query)
         rows = cur.fetchall()
         cur.close()
         conn.close()
-        
+
         codes = [row[0].strip().lower() for row in rows if row[0]]
         if codes:
             return codes
     except Exception as e:
-        print(f"Warning: Could not query database for client codes: {e}", file=sys.stderr)
-    
+        print(
+            f"Warning: Could not query database for client codes: {e}", file=sys.stderr
+        )
+
     # Fallback to default
     return ["gotham"]
 
