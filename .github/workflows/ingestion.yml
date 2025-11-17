@@ -39,9 +39,8 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install -r requirements/all.txt
 
-      - name: Setup environment variables from client-specific secrets
-        run: |
-          python3 scripts/setup_github_env_vars.py
+      - name: Ingest CourtReserve Reservations
+        run: make ingest-courtreserve-reservations
         env:
           PG_DSN: ${{ secrets.PG_DSN }}
           PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
@@ -49,23 +48,23 @@ jobs:
           PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
           GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
 
-      - name: Ingest CourtReserve Reservations
-        run: make ingest-courtreserve-reservations
-        env:
-          PG_DSN: ${{ secrets.PG_DSN }}
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-
       - name: Ingest CourtReserve Members
         run: make ingest-courtreserve-members
         env:
           PG_DSN: ${{ secrets.PG_DSN }}
           PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
+          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
+          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
 
       - name: Ingest Podplay Reservations
         run: make ingest-podplay-reservations
         env:
           PG_DSN: ${{ secrets.PG_DSN }}
           PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
+          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
+          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
 
   ingest-podplay-members:
     name: Ingest Podplay Members (6 hour schedule)
@@ -106,20 +105,12 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install -r requirements/all.txt
 
-      - name: Setup environment variables from client-specific secrets
-        if: steps.check-time.outputs.should_run == 'true'
-        run: |
-          python3 scripts/setup_github_env_vars.py
-        env:
-          PG_DSN: ${{ secrets.PG_DSN }}
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
-          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
-          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
-
       - name: Ingest Podplay Members
         if: steps.check-time.outputs.should_run == 'true'
         run: make ingest-podplay-members
         env:
           PG_DSN: ${{ secrets.PG_DSN }}
           PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
+          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
+          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}

@@ -28,10 +28,8 @@ ingest:
 ingest-courtreserve-reservations:
 	python3 -m ingestion.main courtreserve_reservations
 
-
 ingest-courtreserve-members:
 	python3 -m ingestion.main courtreserve_members
-
 
 ingest-podplay-reservations:
 	python3 -m ingestion.main podplay_reservations
