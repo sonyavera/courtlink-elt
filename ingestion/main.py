@@ -68,13 +68,41 @@ def _get_courtreserve_client(client_code: str) -> CourtReserveClient:
 
 
 def _get_courtreserve_client_codes() -> list[str]:
-    raw_codes = os.getenv("CR_CLIENT_CODES", "pklyn")
-    codes = [c.strip().lower() for c in raw_codes.split(",") if c.strip()]
-    if not codes:
-        raise RuntimeError(
-            "CR_CLIENT_CODES is empty; configure at least one client code."
-        )
-    return codes
+    """Get CourtReserve client codes from database."""
+    # Try environment variable first (for backward compatibility)
+    raw_codes = os.getenv("CR_CLIENT_CODES")
+    if raw_codes:
+        codes = [c.strip().lower() for c in raw_codes.split(",") if c.strip()]
+        if codes:
+            return codes
+    
+    # Query database for customer organizations
+    try:
+        import psycopg2
+        schema = os.getenv("COURT_SCRAPER_SCHEMA", "court_availability_scraper")
+        conn = psycopg2.connect(pg_dsn)
+        cur = conn.cursor()
+        
+        query = f"""
+        SELECT client_code
+        FROM {schema}.organizations
+        WHERE is_customer = true AND source_system_code = 'courtreserve'
+        ORDER BY client_code
+        """
+        
+        cur.execute(query)
+        rows = cur.fetchall()
+        cur.close()
+        conn.close()
+        
+        codes = [row[0].strip().lower() for row in rows if row[0]]
+        if codes:
+            return codes
+    except Exception as e:
+        print(f"Warning: Could not query database for client codes: {e}", file=sys.stderr)
+    
+    # Fallback to default
+    return ["pklyn"]
 
 
 def _get_podplay_client(client_code: str) -> PodplayClient:
@@ -93,13 +121,41 @@ def _get_podplay_client(client_code: str) -> PodplayClient:
 
 
 def _get_podplay_client_codes() -> list[str]:
-    raw_codes = os.getenv("PODPLAY_CLIENT_CODES", "gotham")
-    codes = [c.strip().lower() for c in raw_codes.split(",") if c.strip()]
-    if not codes:
-        raise RuntimeError(
-            "PODPLAY_CLIENT_CODES is empty; configure at least one client code."
-        )
-    return codes
+    """Get Podplay client codes from database."""
+    # Try environment variable first (for backward compatibility)
+    raw_codes = os.getenv("PODPLAY_CLIENT_CODES")
+    if raw_codes:
+        codes = [c.strip().lower() for c in raw_codes.split(",") if c.strip()]
+        if codes:
+            return codes
+    
+    # Query database for customer organizations
+    try:
+        import psycopg2
+        schema = os.getenv("COURT_SCRAPER_SCHEMA", "court_availability_scraper")
+        conn = psycopg2.connect(pg_dsn)
+        cur = conn.cursor()
+        
+        query = f"""
+        SELECT client_code
+        FROM {schema}.organizations
+        WHERE is_customer = true AND source_system_code = 'podplay'
+        ORDER BY client_code
+        """
+        
+        cur.execute(query)
+        rows = cur.fetchall()
+        cur.close()
+        conn.close()
+        
+        codes = [row[0].strip().lower() for row in rows if row[0]]
+        if codes:
+            return codes
+    except Exception as e:
+        print(f"Warning: Could not query database for client codes: {e}", file=sys.stderr)
+    
+    # Fallback to default
+    return ["gotham"]
 
 
 def _resolve_watermark(
