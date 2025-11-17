@@ -1,4 +1,4 @@
-.PHONY: venv install setup dev activate ingest ingest-courtreserve-reservations ingest-courtreserve-members ingest-podplay-reservations ingest-podplay-members wipe-pklyn-res wipe-pklyn-cancellations wipe-events import-duprs dbt dbt-run dbt-run-staging
+.PHONY: venv install setup dev activate ingest ingest-courtreserve-reservations ingest-courtreserve-members ingest-podplay-reservations ingest-podplay-members wipe-pklyn-res wipe-pklyn-cancellations wipe-events import-duprs dbt dbt-run dbt-run-staging test-github-env-vars list-required-secrets
 
 venv:
 	python3 -m venv .venv
@@ -59,3 +59,25 @@ import-duprs:
 
 dbt-run-staging:
 	python -m dotenv -f .env run -- dbt run --select stg_reservations fct_reservations dim_clients
+
+# GitHub Actions workflow testing
+list-required-secrets:
+	@echo "Querying database for required environment variables..."
+	@python3 scripts/get_required_env_vars.py
+
+test-github-env-vars:
+	@echo "Testing GitHub Actions environment variable mapping..."
+	@echo "This simulates what happens in GitHub Actions to map .env-style secrets"
+	@echo "The script will query the database to find customer organizations"
+	@echo ""
+	@export GITHUB_ENV=/tmp/github_env_test.txt && \
+	rm -f /tmp/github_env_test.txt && \
+	python3 scripts/setup_github_env_vars.py && \
+	echo "" && \
+	echo "Mapped environment variables:" && \
+	if [ -f /tmp/github_env_test.txt ]; then \
+		cat /tmp/github_env_test.txt; \
+	else \
+		echo "  (No variables mapped - check that customer organizations exist in database)"; \
+	fi && \
+	rm -f /tmp/github_env_test.txt

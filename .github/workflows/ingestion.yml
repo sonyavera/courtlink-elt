@@ -1,0 +1,107 @@
+name: Data Ingestion
+
+on:
+  schedule:
+    # Run every 30 minutes: courtreserve-reservations, courtreserve-members, podplay-reservations
+    - cron: "*/30 * * * *"
+    # Run every 6 hours: podplay-members
+    - cron: "0 */6 * * *"
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  ingest-30min:
+    name: Ingest (30 min schedule)
+    runs-on: ubuntu-latest
+    environment: prod
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -r requirements/all.txt
+
+      - name: Setup environment variables from client-specific secrets
+        run: |
+          python3 scripts/setup_github_env_vars.py
+        env:
+          PG_DSN: ${{ secrets.PG_DSN }}
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
+          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
+          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
+
+      - name: Ingest CourtReserve Reservations
+        run: make ingest-courtreserve-reservations
+        env:
+          PG_DSN: ${{ secrets.PG_DSN }}
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+
+      - name: Ingest CourtReserve Members
+        run: make ingest-courtreserve-members
+        env:
+          PG_DSN: ${{ secrets.PG_DSN }}
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+
+      - name: Ingest Podplay Reservations
+        run: make ingest-podplay-reservations
+        env:
+          PG_DSN: ${{ secrets.PG_DSN }}
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+
+  ingest-podplay-members:
+    name: Ingest Podplay Members (6 hour schedule)
+    runs-on: ubuntu-latest
+    environment: prod
+
+    # Only run if the current hour is divisible by 6 (0, 6, 12, 18)
+    # This ensures it only runs on the 6-hour schedule, not every 30 minutes
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check if should run (6 hour boundary)
+        id: check-time
+        run: |
+          HOUR=$(date -u +%H)
+          if [ $((HOUR % 6)) -eq 0 ]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_run=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install dependencies
+        if: steps.check-time.outputs.should_run == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -r requirements/all.txt
+
+      - name: Setup environment variables from client-specific secrets
+        if: steps.check-time.outputs.should_run == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          python3 scripts/setup_github_env_vars.py
+        env:
+          PG_DSN: ${{ secrets.PG_DSN }}
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
+          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
+          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
+
+      - name: Ingest Podplay Members
+        if: steps.check-time.outputs.should_run == 'true' || github.event_name == 'workflow_dispatch'
+        run: make ingest-podplay-members
+        env:
+          PG_DSN: ${{ secrets.PG_DSN }}
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
