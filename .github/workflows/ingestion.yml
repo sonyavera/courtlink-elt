@@ -66,6 +66,16 @@ jobs:
           PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
           GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
 
+      - name: Install dbt package dependencies
+        run: python3 -m scripts.run_dbt deps
+        env:
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+
       - name: Run dbt
         run: python3 -m scripts.run_dbt run --target prod
         env:
@@ -124,6 +134,17 @@ jobs:
           PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
           PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
           GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
+
+      - name: Install dbt package dependencies
+        if: steps.check-time.outputs.should_run == 'true'
+        run: python3 -m scripts.run_dbt deps
+        env:
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_NAME: ${{ secrets.DB_NAME }}
 
       - name: Run dbt
         if: steps.check-time.outputs.should_run == 'true'
