@@ -31,24 +31,28 @@ For each customer organization found in the database query, add secrets based on
 #### CourtReserve Clients (`source_system_code = 'courtreserve'`)
 
 For each CourtReserve client with `client_code = 'X'`, add:
+
 - `{X}_USERNAME` - CourtReserve API username (e.g., `PKLYN_USERNAME`)
 - `{X}_PASSWORD` - CourtReserve API password (e.g., `PKLYN_PASSWORD`)
 
 **Example:** For client_code `pklyn`:
+
 - `PKLYN_USERNAME`
 - `PKLYN_PASSWORD`
 
 #### Podplay Clients (`source_system_code = 'podplay'`)
 
 For each Podplay client with `client_code = 'X'`, add:
+
 - `{X}_API_KEY` - Podplay API key (e.g., `GOTHAM_API_KEY`)
 
 **Example:** For client_code `gotham`:
+
 - `GOTHAM_API_KEY`
 
 ### Client Code Lists
 
-**Note:** Client codes are automatically determined by querying the `court_availability_scraper.organizations` table. You do **not** need to set `CR_CLIENT_CODES` or `PODPLAY_CLIENT_CODES` environment variables. The system will query the database to find all organizations where `is_customer = true`.
+**Note:** Client codes are automatically determined by querying the `courtlink_elt_dev.organizations` table. You do **not** need to set `CR_CLIENT_CODES` or `PODPLAY_CLIENT_CODES` environment variables. The system will query the database to find all organizations where `is_customer = true`.
 
 ### Optional Variables
 
@@ -58,14 +62,15 @@ For each Podplay client with `client_code = 'X'`, add:
 ## Example Setup
 
 Based on the example query results:
+
 - `courtreserve` / `pklyn` → Add `PKLYN_USERNAME`, `PKLYN_PASSWORD`
 - `podplay` / `gotham` → Add `GOTHAM_API_KEY`
 
-The system will automatically detect these clients by querying the `court_availability_scraper.organizations` table.
+The system will automatically detect these clients by querying the `courtlink_elt_dev.organizations` table.
 
 ## How It Works
 
-1. The workflow uses `scripts/setup_github_env_vars.py` to query the `court_availability_scraper.organizations` table for all customer organizations (`is_customer = true`).
+1. The workflow uses `scripts/setup_github_env_vars.py` to query the `courtlink_elt_dev.organizations` table for all customer organizations (`is_customer = true`).
 2. For each organization found, it maps the `.env`-style secrets (`{CLIENT_CODE}_USERNAME`) to the format expected by the ingestion code (`CR_API_USER_{CLIENT_CODE}`).
 3. The ingestion code also queries the database to get client codes, so no manual configuration of client lists is needed.
 
@@ -102,17 +107,19 @@ This simulates what happens in GitHub Actions to map `.env`-style secrets to the
 When you add a new customer organization:
 
 1. **Add the organization to the database:**
-   - Insert a new row in `court_availability_scraper.organizations` with `is_customer = true`
+
+   - Insert a new row in `courtlink_elt_dev.organizations` with `is_customer = true`
    - Set the `source_system_code` (`courtreserve` or `podplay`) and `client_code`
 
 2. **Add the secrets to GitHub:**
+
    - For CourtReserve: Add `{CLIENT_CODE}_USERNAME` and `{CLIENT_CODE}_PASSWORD`
    - For Podplay: Add `{CLIENT_CODE}_API_KEY`
 
 3. **Update the workflow file** (`.github/workflows/ingestion.yml`):
+
    - Add the new client secrets to the `env` section under the "Setup environment variables" step in both jobs
 
 4. **Test locally** using `make test-github-workflow-setup` before deploying
 
 The system will automatically detect the new client by querying the database - no need to set `CR_CLIENT_CODES` or `PODPLAY_CLIENT_CODES`!
-
