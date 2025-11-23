@@ -303,10 +303,10 @@ def refresh_courtreserve_reservations():
 
         # Log first 3 API results
         print(f"\n[COURTRESERVE RESERVATIONS] First 3 API results:")
-        for i, res in enumerate(reservations[:3], 1):
+        for i, res in enumerate(reservations[:1], 1):
             print(f"  Result {i}: {res}")
-        if len(reservations) > 3:
-            print(f"  ... and {len(reservations) - 3} more results")
+        if len(reservations) > 1:
+            print(f"  ... and {len(reservations) - 1} more results")
 
         normalized_reservations = normalize_cr_reservations(
             reservations, facility_code=client_code
@@ -439,11 +439,11 @@ def refresh_podplay_reservations():
         )
 
         # Log first 3 API results
-        print(f"\n[PODPLAY RESERVATIONS] First 3 API results:")
-        for i, event in enumerate(events[:3], 1):
+        print(f"\n[PODPLAY RESERVATIONS] First API results")
+        for i, event in enumerate(events[:1], 1):
             print(f"  Result {i}: {event}")
-        if len(events) > 3:
-            print(f"  ... and {len(events) - 3} more results")
+        if len(events) > 1:
+            print(f"  ... and {len(events) - 1} more results")
 
         print(f"\n[PODPLAY RESERVATIONS] Normalizing events to reservations...")
         normalized_reservations = normalize_podplay_reservations(
