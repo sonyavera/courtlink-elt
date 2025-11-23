@@ -24,6 +24,17 @@ jobs:
     runs-on: ubuntu-latest
     environment: prod
     if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '45min' || github.event.inputs.job_to_run == 'all'))
+    env:
+      PG_DSN: ${{ secrets.PG_DSN }}
+      PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+      PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
+      PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
+      GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_NAME: ${{ secrets.DB_NAME }}
 
     steps:
       - name: Checkout code
@@ -41,77 +52,27 @@ jobs:
 
       - name: Ingest CourtReserve Events
         run: make ingest-courtreserve-events
-        env:
-          PG_DSN: ${{ secrets.PG_DSN }}
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
-          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
-          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
 
       - name: Ingest Podplay Events
         run: make ingest-podplay-events
-        env:
-          PG_DSN: ${{ secrets.PG_DSN }}
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
-          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
-          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
 
       - name: Ingest Podplay Court Availability
         run: make ingest-podplay-court-availability
-        env:
-          PG_DSN: ${{ secrets.PG_DSN }}
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
-          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
-          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
 
       - name: Ingest CourtReserve Reservations
         run: make ingest-courtreserve-reservations
-        env:
-          PG_DSN: ${{ secrets.PG_DSN }}
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
-          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
-          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
 
       - name: Ingest CourtReserve Members
         run: make ingest-courtreserve-members
-        env:
-          PG_DSN: ${{ secrets.PG_DSN }}
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
-          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
-          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
 
       - name: Ingest Podplay Reservations
         run: make ingest-podplay-reservations
-        env:
-          PG_DSN: ${{ secrets.PG_DSN }}
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
-          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
-          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
 
       - name: Install dbt package dependencies
         run: python3 -m scripts.run_dbt deps
-        env:
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
 
       - name: Run dbt
         run: python3 -m scripts.run_dbt run --target prod
-        env:
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
 
   ingest-podplay-members:
     name: Ingest Podplay Members (6 hour schedule)
@@ -120,6 +81,15 @@ jobs:
     if: |
       (github.event_name == 'schedule') ||
       (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '6hour' || github.event.inputs.job_to_run == 'all'))
+    env:
+      PG_DSN: ${{ secrets.PG_DSN }}
+      PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+      GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_NAME: ${{ secrets.DB_NAME }}
 
     # Only run if the current hour is divisible by 6 (0, 6, 12, 18)
     # This ensures it only runs on the 6-hour schedule, not every 30 minutes
@@ -155,31 +125,11 @@ jobs:
       - name: Ingest Podplay Members
         if: steps.check-time.outputs.should_run == 'true'
         run: make ingest-podplay-members
-        env:
-          PG_DSN: ${{ secrets.PG_DSN }}
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
-          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
-          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
 
       - name: Install dbt package dependencies
         if: steps.check-time.outputs.should_run == 'true'
         run: python3 -m scripts.run_dbt deps
-        env:
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
 
       - name: Run dbt
         if: steps.check-time.outputs.should_run == 'true'
         run: python3 -m scripts.run_dbt run --target prod
-        env:
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
