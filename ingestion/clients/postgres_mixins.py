@@ -559,6 +559,9 @@ class InsertMixin:
                         batch,
                     )
                 else:
+                    # Staging table: handle conflicts on (client_code, reservation_id, member_id)
+                    # This allows multiple people with the same reservation_id
+                    # Update with latest data to ensure we have the most recent information
                     execute_values(
                         cur,
                         f"""
@@ -574,6 +577,14 @@ class InsertMixin:
                             member_id,
                             created_at
                         ) VALUES %s
+                        ON CONFLICT (client_code, reservation_id, member_id) DO UPDATE SET
+                            event_id = EXCLUDED.event_id,
+                            reservation_created_at = EXCLUDED.reservation_created_at,
+                            reservation_updated_at = EXCLUDED.reservation_updated_at,
+                            reservation_start_at = EXCLUDED.reservation_start_at,
+                            reservation_end_at = EXCLUDED.reservation_end_at,
+                            reservation_cancelled_at = EXCLUDED.reservation_cancelled_at,
+                            created_at = EXCLUDED.created_at
                         """,
                         batch,
                     )
