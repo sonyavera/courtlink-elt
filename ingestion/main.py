@@ -622,6 +622,11 @@ def refresh_podplay_events():
                 f"[PODPLAY EVENTS] Normalized {len(normalized)} events for {client_code}"
             )
 
+            # Update watermark for this client
+            watermark_key = f"events__{client_code}"
+            pg_client.update_elt_watermark(watermark_key)
+            print(f"[PODPLAY EVENTS] Updated watermark for {watermark_key}")
+
         except Exception as e:
             print(
                 f"[PODPLAY EVENTS] Error processing {client_code}: {e}", file=sys.stderr
@@ -702,6 +707,11 @@ def refresh_courtreserve_events():
             print(
                 f"[COURTRESERVE EVENTS] Normalized {len(normalized)} events for {client_code}"
             )
+
+            # Update watermark for this client
+            watermark_key = f"events__{client_code}"
+            pg_client.update_elt_watermark(watermark_key)
+            print(f"[COURTRESERVE EVENTS] Updated watermark for {watermark_key}")
 
         except Exception as e:
             print(

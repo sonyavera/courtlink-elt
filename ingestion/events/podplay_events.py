@@ -29,8 +29,8 @@ def normalize_podplay_events(
         # Extract event name
         event_name = event.get("name") or event.get("title") or ""
         
-        # Extract event type
-        event_type = event.get("type") or ""
+        # Extract event type (using subtype from Podplay API)
+        event_type = event.get("subtype") or ""
         
         # Extract start and end times
         start_time_str = event.get("startTime") or event.get("start_time")

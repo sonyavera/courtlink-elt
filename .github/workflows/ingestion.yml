@@ -2,10 +2,8 @@ name: Data Ingestion
 
 on:
   schedule:
-    # Run every 45 minutes: courtreserve-events, podplay-events, podplay-court-availability
+    # Run every 45 minutes: all jobs except podplay-members
     - cron: "*/45 * * * *"
-    # Run every 30 minutes: courtreserve-reservations, courtreserve-members, podplay-reservations
-    - cron: "*/30 * * * *"
     # Run every 6 hours: podplay-members
     - cron: "0 */6 * * *"
   workflow_dispatch: # Allow manual triggering
@@ -16,14 +14,13 @@ on:
         type: choice
         options:
           - "45min"
-          - "30min"
           - "6hour"
           - "all"
         default: "all"
 
 jobs:
   ingest-45min:
-    name: Ingest Events & Court Availability (45 min schedule)
+    name: Ingest All (45 min schedule - excludes podplay-members)
     runs-on: ubuntu-latest
     environment: prod
     if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '45min' || github.event.inputs.job_to_run == 'all'))
@@ -68,46 +65,6 @@ jobs:
           PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
           PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
           GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
-
-      - name: Install dbt package dependencies
-        run: python3 -m scripts.run_dbt deps
-        env:
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-
-      - name: Run dbt
-        run: python3 -m scripts.run_dbt run --target prod
-        env:
-          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-
-  ingest-30min:
-    name: Ingest (30 min schedule)
-    runs-on: ubuntu-latest
-    environment: prod
-    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '30min' || github.event.inputs.job_to_run == 'all'))
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        run: |
-          python3 -m pip install --upgrade pip
-          pip install -r requirements/all.txt
 
       - name: Ingest CourtReserve Reservations
         run: make ingest-courtreserve-reservations

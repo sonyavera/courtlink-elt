@@ -1,320 +1,5 @@
 [
   {
-    "id": "ef567354-66e3-470f-bad3-15992fc54f34",
-    "type": "EVENT",
-    "subtype": "OPEN_PLAY",
-    "customType": "Open Play",
-    "paymentMethod": null,
-    "name": "Open Play - Intermediate ",
-    "description": "**Intermediate Open Play (3.25 to 3.75 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
-    "startTime": "2025-11-23T20:00:00.000Z",
-    "endTime": "2025-11-23T22:00:00.000Z",
-    "pods": {
-      "items": [
-        {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
-          "slug": "courts",
-          "displayName": "Courts",
-          "displayNameShort": "Courts",
-          "description": "4 Pickleball Courts",
-          "address": {
-            "street": "5-25 46th Ave. ",
-            "floor": " ",
-            "city": "Long Island City",
-            "zip": "11101",
-            "displayName": "5-25 46th Ave. , Long Island City, 11101"
-          },
-          "guests": {
-            "private": {
-              "min": "1-4",
-              "max": "6"
-            },
-            "coach": {
-              "min": "1-4",
-              "max": "6"
-            }
-          },
-          "rates": null,
-          "timezone": "America/New_York",
-          "type": "MULTI_TABLE",
-          "status": "AVAILABLE",
-          "sport": "PICKLEBALL",
-          "area": {
-            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
-          },
-          "tables": null,
-          "openTime": {
-            "hours": "05",
-            "minutes": "00"
-          },
-          "closeTime": {
-            "hours": "01",
-            "minutes": "00"
-          },
-          "closedTimeOverrides": null,
-          "_links": {
-            "self": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-            },
-            "area": {
-              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
-            },
-            "tables": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
-            },
-            "closedTimeOverrides": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
-            },
-            "settings": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
-            },
-            "rates": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/pods"
-        }
-      }
-    },
-    "tables": {
-      "items": [
-        {
-          "id": "ef567354-66e3-470f-bad3-15992fc54f34-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1763928000000",
-          "type": "FIXED_TABLE",
-          "table": {
-            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
-            "slug": "court-3",
-            "displayName": "Court 3",
-            "displayNameShort": "C3",
-            "description": "Court 3",
-            "type": "STANDARD",
-            "status": "AVAILABLE",
-            "features": [
-              "REPLAYS",
-              "QUICK_REPLAYS",
-              "CUSTOM_REPLAYS",
-              "ENHANCED_REPLAYS",
-              "SCOREBOARD"
-            ],
-            "pod": {
-              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-            },
-            "_links": {
-              "self": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
-              },
-              "pod": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-              },
-              "settings": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
-              }
-            }
-          },
-          "startTime": "2025-11-23T20:00:00.000Z",
-          "endTime": "2025-11-23T22:00:00.000Z",
-          "features": [
-            "REPLAYS",
-            "QUICK_REPLAYS",
-            "CUSTOM_REPLAYS",
-            "ENHANCED_REPLAYS",
-            "SCOREBOARD"
-          ],
-          "_links": {
-            "self": {
-              "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/tables/ef567354-66e3-470f-bad3-15992fc54f34-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1763928000000"
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/tables"
-        }
-      }
-    },
-    "guests": {
-      "displayName": "1 person",
-      "displayNameShort": "1",
-      "max": 1
-    },
-    "totalTeams": 6,
-    "teamSize": 1,
-    "admission": "OPEN",
-    "admissionRating": {
-      "type": "DOUBLES"
-    },
-    "admissionRate": {
-      "regular": 40,
-      "member": 32,
-      "membersDefault": 32,
-      "dayPass": null,
-      "memberships": {
-        "items": [
-          {
-            "membership": {
-              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
-            },
-            "rate": 20,
-            "_links": {
-              "self": {
-                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
-              }
-            }
-          },
-          {
-            "membership": {
-              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
-            },
-            "rate": 20,
-            "_links": {
-              "self": {
-                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
-              }
-            }
-          }
-        ],
-        "_total": 2,
-        "_links": {
-          "self": {
-            "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/admission-rate/memberships"
-          }
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/admission-rate"
-        },
-        "memberships": {
-          "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/admission-rate/memberships"
-        }
-      }
-    },
-    "admissionDate": {
-      "regular": "2025-11-16T17:00:00.000Z",
-      "member": "2025-11-16T17:00:00.000Z",
-      "membersDefault": "2025-11-09T17:00:00.000Z",
-      "memberships": {
-        "items": [],
-        "_total": 0,
-        "_links": {
-          "self": {
-            "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/admission-date/memberships"
-          }
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/admission-date"
-        },
-        "memberships": {
-          "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/admission-date/memberships"
-        }
-      }
-    },
-    "admissionKids": "CLOSED",
-    "coachRate": null,
-    "freeSignupCancellationHorizonHours": 24,
-    "picture": null,
-    "tags": [
-      "Open Play",
-      "Intermediate (3.25 - 3.75)"
-    ],
-    "visibility": "LISTED",
-    "access": {
-      "id": "access-ef567354-66e3-470f-bad3-15992fc54f34",
-      "type": "RESTRICTED",
-      "startTime": "2025-11-23T19:45:00.000Z",
-      "endTime": "2025-11-23T22:30:00.000Z"
-    },
-    "reservations": null,
-    "visibilitySchedules": null,
-    "bookingMode": "FREE_OF_CHARGE",
-    "bookedBy": {
-      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
-    },
-    "invitations": {
-      "_total": 5
-    },
-    "payments": null,
-    "completeInvitations": 0,
-    "replays": null,
-    "notes": null,
-    "openInvitations": null,
-    "signups": {
-      "_total": 6
-    },
-    "waitlist": null,
-    "stats": null,
-    "features": [
-      "QUICK_REPLAYS",
-      "CUSTOM_REPLAYS",
-      "ENHANCED_REPLAYS",
-      "SUBMIT_MATCHES_RESULTS",
-      "WAITLIST",
-      "PUBLIC_ATTENDEE_LIST",
-      "SHOW_SPOTS_LEFT"
-    ],
-    "status": "PUBLISHED",
-    "tournamentDivision": null,
-    "_links": {
-      "self": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34"
-      },
-      "tables": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/tables"
-      },
-      "reservations": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/reservations"
-      },
-      "bookedBy": {
-        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
-      },
-      "invitations": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/invitations"
-      },
-      "payments": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/payments"
-      },
-      "replays": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/replays"
-      },
-      "notes": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/notes"
-      },
-      "purchases": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/purchases"
-      },
-      "openInvitations": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/open-invitations"
-      },
-      "signups": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/signups"
-      },
-      "waitlist": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/waitlist"
-      },
-      "stats": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/stats"
-      },
-      "visibilitySchedules": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/visibility-schedules"
-      },
-      "coaches": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/coaches"
-      },
-      "tournamentDivision": {
-        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/tournament-division"
-      }
-    }
-  },
-  {
     "id": "2f4039c2-3a1d-4891-8abb-04db5c6c9dd5",
     "type": "EVENT",
     "subtype": "OPEN_PLAY",
@@ -649,6 +334,321 @@
       },
       "tournamentDivision": {
         "href": "/events/2f4039c2-3a1d-4891-8abb-04db5c6c9dd5/tournament-division"
+      }
+    }
+  },
+  {
+    "id": "ef567354-66e3-470f-bad3-15992fc54f34",
+    "type": "EVENT",
+    "subtype": "OPEN_PLAY",
+    "customType": "Open Play",
+    "paymentMethod": null,
+    "name": "Open Play - Intermediate ",
+    "description": "**Intermediate Open Play (3.25 to 3.75 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
+    "startTime": "2025-11-23T20:00:00.000Z",
+    "endTime": "2025-11-23T22:00:00.000Z",
+    "pods": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
+          "slug": "courts",
+          "displayName": "Courts",
+          "displayNameShort": "Courts",
+          "description": "4 Pickleball Courts",
+          "address": {
+            "street": "5-25 46th Ave. ",
+            "floor": " ",
+            "city": "Long Island City",
+            "zip": "11101",
+            "displayName": "5-25 46th Ave. , Long Island City, 11101"
+          },
+          "guests": {
+            "private": {
+              "min": "1-4",
+              "max": "6"
+            },
+            "coach": {
+              "min": "1-4",
+              "max": "6"
+            }
+          },
+          "rates": null,
+          "timezone": "America/New_York",
+          "type": "MULTI_TABLE",
+          "status": "AVAILABLE",
+          "sport": "PICKLEBALL",
+          "area": {
+            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
+          },
+          "tables": null,
+          "openTime": {
+            "hours": "05",
+            "minutes": "00"
+          },
+          "closeTime": {
+            "hours": "01",
+            "minutes": "00"
+          },
+          "closedTimeOverrides": null,
+          "_links": {
+            "self": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "area": {
+              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
+            },
+            "tables": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
+            },
+            "closedTimeOverrides": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
+            },
+            "settings": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
+            },
+            "rates": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/pods"
+        }
+      }
+    },
+    "tables": {
+      "items": [
+        {
+          "id": "ef567354-66e3-470f-bad3-15992fc54f34-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1763928000000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
+            "slug": "court-3",
+            "displayName": "Court 3",
+            "displayNameShort": "C3",
+            "description": "Court 3",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
+              }
+            }
+          },
+          "startTime": "2025-11-23T20:00:00.000Z",
+          "endTime": "2025-11-23T22:00:00.000Z",
+          "features": [
+            "REPLAYS",
+            "QUICK_REPLAYS",
+            "CUSTOM_REPLAYS",
+            "ENHANCED_REPLAYS",
+            "SCOREBOARD"
+          ],
+          "_links": {
+            "self": {
+              "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/tables/ef567354-66e3-470f-bad3-15992fc54f34-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1763928000000"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/tables"
+        }
+      }
+    },
+    "guests": {
+      "displayName": "1 person",
+      "displayNameShort": "1",
+      "max": 1
+    },
+    "totalTeams": 6,
+    "teamSize": 1,
+    "admission": "OPEN",
+    "admissionRating": {
+      "type": "DOUBLES"
+    },
+    "admissionRate": {
+      "regular": 40,
+      "member": 32,
+      "membersDefault": 32,
+      "dayPass": null,
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+              }
+            }
+          }
+        ],
+        "_total": 2,
+        "_links": {
+          "self": {
+            "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/admission-rate/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/admission-rate"
+        },
+        "memberships": {
+          "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/admission-rate/memberships"
+        }
+      }
+    },
+    "admissionDate": {
+      "regular": "2025-11-16T17:00:00.000Z",
+      "member": "2025-11-16T17:00:00.000Z",
+      "membersDefault": "2025-11-09T17:00:00.000Z",
+      "memberships": {
+        "items": [],
+        "_total": 0,
+        "_links": {
+          "self": {
+            "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/admission-date/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/admission-date"
+        },
+        "memberships": {
+          "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/admission-date/memberships"
+        }
+      }
+    },
+    "admissionKids": "CLOSED",
+    "coachRate": null,
+    "freeSignupCancellationHorizonHours": 24,
+    "picture": null,
+    "tags": [
+      "Open Play",
+      "Intermediate (3.25 - 3.75)"
+    ],
+    "visibility": "LISTED",
+    "access": {
+      "id": "access-ef567354-66e3-470f-bad3-15992fc54f34",
+      "type": "RESTRICTED",
+      "startTime": "2025-11-23T19:45:00.000Z",
+      "endTime": "2025-11-23T22:30:00.000Z"
+    },
+    "reservations": null,
+    "visibilitySchedules": null,
+    "bookingMode": "FREE_OF_CHARGE",
+    "bookedBy": {
+      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
+    },
+    "invitations": {
+      "_total": 5
+    },
+    "payments": null,
+    "completeInvitations": 0,
+    "replays": null,
+    "notes": null,
+    "openInvitations": null,
+    "signups": {
+      "_total": 6
+    },
+    "waitlist": null,
+    "stats": null,
+    "features": [
+      "QUICK_REPLAYS",
+      "CUSTOM_REPLAYS",
+      "ENHANCED_REPLAYS",
+      "SUBMIT_MATCHES_RESULTS",
+      "WAITLIST",
+      "PUBLIC_ATTENDEE_LIST",
+      "SHOW_SPOTS_LEFT"
+    ],
+    "status": "PUBLISHED",
+    "tournamentDivision": null,
+    "_links": {
+      "self": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34"
+      },
+      "tables": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/tables"
+      },
+      "reservations": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/reservations"
+      },
+      "bookedBy": {
+        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
+      },
+      "invitations": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/invitations"
+      },
+      "payments": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/payments"
+      },
+      "replays": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/replays"
+      },
+      "notes": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/notes"
+      },
+      "purchases": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/purchases"
+      },
+      "openInvitations": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/open-invitations"
+      },
+      "signups": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/signups"
+      },
+      "waitlist": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/waitlist"
+      },
+      "stats": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/stats"
+      },
+      "visibilitySchedules": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/visibility-schedules"
+      },
+      "coaches": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/coaches"
+      },
+      "tournamentDivision": {
+        "href": "/events/ef567354-66e3-470f-bad3-15992fc54f34/tournament-division"
       }
     }
   },
@@ -2123,7 +2123,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 14
+      "_total": 15
     },
     "payments": null,
     "completeInvitations": 0,
@@ -2131,7 +2131,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 13
+      "_total": 14
     },
     "waitlist": null,
     "stats": null,
@@ -3455,7 +3455,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 16
+      "_total": 18
     },
     "payments": null,
     "completeInvitations": 0,
@@ -3463,7 +3463,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 15
+      "_total": 18
     },
     "waitlist": null,
     "stats": null,
@@ -4157,320 +4157,6 @@
     }
   },
   {
-    "id": "e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd",
-    "type": "EVENT",
-    "subtype": "OPEN_PLAY",
-    "customType": "Open Play",
-    "paymentMethod": null,
-    "name": "Open Play - Intermediate ",
-    "description": "**Intermediate Open Play (3.25 to 3.75 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
-    "startTime": "2025-11-24T23:00:00.000Z",
-    "endTime": "2025-11-25T01:00:00.000Z",
-    "pods": {
-      "items": [
-        {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
-          "slug": "courts",
-          "displayName": "Courts",
-          "displayNameShort": "Courts",
-          "description": "4 Pickleball Courts",
-          "address": {
-            "street": "5-25 46th Ave. ",
-            "floor": " ",
-            "city": "Long Island City",
-            "zip": "11101",
-            "displayName": "5-25 46th Ave. , Long Island City, 11101"
-          },
-          "guests": {
-            "private": {
-              "min": "1-4",
-              "max": "6"
-            },
-            "coach": {
-              "min": "1-4",
-              "max": "6"
-            }
-          },
-          "rates": null,
-          "timezone": "America/New_York",
-          "type": "MULTI_TABLE",
-          "status": "AVAILABLE",
-          "sport": "PICKLEBALL",
-          "area": {
-            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
-          },
-          "tables": null,
-          "openTime": {
-            "hours": "05",
-            "minutes": "00"
-          },
-          "closeTime": {
-            "hours": "01",
-            "minutes": "00"
-          },
-          "closedTimeOverrides": null,
-          "_links": {
-            "self": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-            },
-            "area": {
-              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
-            },
-            "tables": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
-            },
-            "closedTimeOverrides": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
-            },
-            "settings": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
-            },
-            "rates": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/pods"
-        }
-      }
-    },
-    "tables": {
-      "items": [
-        {
-          "id": "e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764025200000",
-          "type": "FIXED_TABLE",
-          "table": {
-            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
-            "slug": "court-3",
-            "displayName": "Court 3",
-            "displayNameShort": "C3",
-            "description": "Court 3",
-            "type": "STANDARD",
-            "status": "AVAILABLE",
-            "features": [
-              "REPLAYS",
-              "QUICK_REPLAYS",
-              "CUSTOM_REPLAYS",
-              "ENHANCED_REPLAYS",
-              "SCOREBOARD"
-            ],
-            "pod": {
-              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-            },
-            "_links": {
-              "self": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
-              },
-              "pod": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-              },
-              "settings": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
-              }
-            }
-          },
-          "startTime": "2025-11-24T23:00:00.000Z",
-          "endTime": "2025-11-25T01:00:00.000Z",
-          "features": [
-            "REPLAYS",
-            "QUICK_REPLAYS",
-            "CUSTOM_REPLAYS",
-            "ENHANCED_REPLAYS",
-            "SCOREBOARD"
-          ],
-          "_links": {
-            "self": {
-              "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/tables/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764025200000"
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/tables"
-        }
-      }
-    },
-    "guests": {
-      "displayName": "1 person",
-      "displayNameShort": "1",
-      "max": 1
-    },
-    "totalTeams": 6,
-    "teamSize": 1,
-    "admission": "OPEN",
-    "admissionRating": {
-      "type": "DOUBLES"
-    },
-    "admissionRate": {
-      "regular": 40,
-      "member": 32,
-      "membersDefault": 32,
-      "dayPass": null,
-      "memberships": {
-        "items": [
-          {
-            "membership": {
-              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
-            },
-            "rate": 20,
-            "_links": {
-              "self": {
-                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
-              }
-            }
-          },
-          {
-            "membership": {
-              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
-            },
-            "rate": 20,
-            "_links": {
-              "self": {
-                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
-              }
-            }
-          }
-        ],
-        "_total": 2,
-        "_links": {
-          "self": {
-            "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/admission-rate/memberships"
-          }
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/admission-rate"
-        },
-        "memberships": {
-          "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/admission-rate/memberships"
-        }
-      }
-    },
-    "admissionDate": {
-      "regular": "2025-11-17T17:00:00.000Z",
-      "member": "2025-11-17T17:00:00.000Z",
-      "membersDefault": "2025-11-10T17:00:00.000Z",
-      "memberships": {
-        "items": [],
-        "_total": 0,
-        "_links": {
-          "self": {
-            "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/admission-date/memberships"
-          }
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/admission-date"
-        },
-        "memberships": {
-          "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/admission-date/memberships"
-        }
-      }
-    },
-    "admissionKids": "CLOSED",
-    "coachRate": null,
-    "freeSignupCancellationHorizonHours": 24,
-    "picture": null,
-    "tags": [
-      "Open Play",
-      "Intermediate (3.25 - 3.75)"
-    ],
-    "visibility": "LISTED",
-    "access": {
-      "id": "access-e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd",
-      "type": "RESTRICTED",
-      "startTime": "2025-11-24T22:45:00.000Z",
-      "endTime": "2025-11-25T01:30:00.000Z"
-    },
-    "reservations": null,
-    "visibilitySchedules": null,
-    "bookingMode": "FREE_OF_CHARGE",
-    "bookedBy": {
-      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
-    },
-    "invitations": {
-      "_total": 5
-    },
-    "payments": null,
-    "completeInvitations": 0,
-    "replays": null,
-    "notes": null,
-    "openInvitations": null,
-    "signups": {
-      "_total": 5
-    },
-    "waitlist": null,
-    "stats": null,
-    "features": [
-      "QUICK_REPLAYS",
-      "CUSTOM_REPLAYS",
-      "ENHANCED_REPLAYS",
-      "WAITLIST",
-      "PUBLIC_ATTENDEE_LIST",
-      "SHOW_SPOTS_LEFT"
-    ],
-    "status": "PUBLISHED",
-    "tournamentDivision": null,
-    "_links": {
-      "self": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd"
-      },
-      "tables": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/tables"
-      },
-      "reservations": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/reservations"
-      },
-      "bookedBy": {
-        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
-      },
-      "invitations": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/invitations"
-      },
-      "payments": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/payments"
-      },
-      "replays": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/replays"
-      },
-      "notes": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/notes"
-      },
-      "purchases": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/purchases"
-      },
-      "openInvitations": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/open-invitations"
-      },
-      "signups": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/signups"
-      },
-      "waitlist": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/waitlist"
-      },
-      "stats": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/stats"
-      },
-      "visibilitySchedules": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/visibility-schedules"
-      },
-      "coaches": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/coaches"
-      },
-      "tournamentDivision": {
-        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/tournament-division"
-      }
-    }
-  },
-  {
     "id": "513a7864-28fa-4d40-843b-75a405334952",
     "type": "EVENT",
     "subtype": "OPEN_PLAY",
@@ -4811,6 +4497,320 @@
     }
   },
   {
+    "id": "e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd",
+    "type": "EVENT",
+    "subtype": "OPEN_PLAY",
+    "customType": "Open Play",
+    "paymentMethod": null,
+    "name": "Open Play - Intermediate ",
+    "description": "**Intermediate Open Play (3.25 to 3.75 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
+    "startTime": "2025-11-24T23:00:00.000Z",
+    "endTime": "2025-11-25T01:00:00.000Z",
+    "pods": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
+          "slug": "courts",
+          "displayName": "Courts",
+          "displayNameShort": "Courts",
+          "description": "4 Pickleball Courts",
+          "address": {
+            "street": "5-25 46th Ave. ",
+            "floor": " ",
+            "city": "Long Island City",
+            "zip": "11101",
+            "displayName": "5-25 46th Ave. , Long Island City, 11101"
+          },
+          "guests": {
+            "private": {
+              "min": "1-4",
+              "max": "6"
+            },
+            "coach": {
+              "min": "1-4",
+              "max": "6"
+            }
+          },
+          "rates": null,
+          "timezone": "America/New_York",
+          "type": "MULTI_TABLE",
+          "status": "AVAILABLE",
+          "sport": "PICKLEBALL",
+          "area": {
+            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
+          },
+          "tables": null,
+          "openTime": {
+            "hours": "05",
+            "minutes": "00"
+          },
+          "closeTime": {
+            "hours": "01",
+            "minutes": "00"
+          },
+          "closedTimeOverrides": null,
+          "_links": {
+            "self": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "area": {
+              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
+            },
+            "tables": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
+            },
+            "closedTimeOverrides": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
+            },
+            "settings": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
+            },
+            "rates": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/pods"
+        }
+      }
+    },
+    "tables": {
+      "items": [
+        {
+          "id": "e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764025200000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
+            "slug": "court-3",
+            "displayName": "Court 3",
+            "displayNameShort": "C3",
+            "description": "Court 3",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
+              }
+            }
+          },
+          "startTime": "2025-11-24T23:00:00.000Z",
+          "endTime": "2025-11-25T01:00:00.000Z",
+          "features": [
+            "REPLAYS",
+            "QUICK_REPLAYS",
+            "CUSTOM_REPLAYS",
+            "ENHANCED_REPLAYS",
+            "SCOREBOARD"
+          ],
+          "_links": {
+            "self": {
+              "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/tables/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764025200000"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/tables"
+        }
+      }
+    },
+    "guests": {
+      "displayName": "1 person",
+      "displayNameShort": "1",
+      "max": 1
+    },
+    "totalTeams": 6,
+    "teamSize": 1,
+    "admission": "OPEN",
+    "admissionRating": {
+      "type": "DOUBLES"
+    },
+    "admissionRate": {
+      "regular": 40,
+      "member": 32,
+      "membersDefault": 32,
+      "dayPass": null,
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+              }
+            }
+          }
+        ],
+        "_total": 2,
+        "_links": {
+          "self": {
+            "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/admission-rate/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/admission-rate"
+        },
+        "memberships": {
+          "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/admission-rate/memberships"
+        }
+      }
+    },
+    "admissionDate": {
+      "regular": "2025-11-17T17:00:00.000Z",
+      "member": "2025-11-17T17:00:00.000Z",
+      "membersDefault": "2025-11-10T17:00:00.000Z",
+      "memberships": {
+        "items": [],
+        "_total": 0,
+        "_links": {
+          "self": {
+            "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/admission-date/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/admission-date"
+        },
+        "memberships": {
+          "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/admission-date/memberships"
+        }
+      }
+    },
+    "admissionKids": "CLOSED",
+    "coachRate": null,
+    "freeSignupCancellationHorizonHours": 24,
+    "picture": null,
+    "tags": [
+      "Open Play",
+      "Intermediate (3.25 - 3.75)"
+    ],
+    "visibility": "LISTED",
+    "access": {
+      "id": "access-e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd",
+      "type": "RESTRICTED",
+      "startTime": "2025-11-24T22:45:00.000Z",
+      "endTime": "2025-11-25T01:30:00.000Z"
+    },
+    "reservations": null,
+    "visibilitySchedules": null,
+    "bookingMode": "FREE_OF_CHARGE",
+    "bookedBy": {
+      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
+    },
+    "invitations": {
+      "_total": 4
+    },
+    "payments": null,
+    "completeInvitations": 0,
+    "replays": null,
+    "notes": null,
+    "openInvitations": null,
+    "signups": {
+      "_total": 4
+    },
+    "waitlist": null,
+    "stats": null,
+    "features": [
+      "QUICK_REPLAYS",
+      "CUSTOM_REPLAYS",
+      "ENHANCED_REPLAYS",
+      "WAITLIST",
+      "PUBLIC_ATTENDEE_LIST",
+      "SHOW_SPOTS_LEFT"
+    ],
+    "status": "PUBLISHED",
+    "tournamentDivision": null,
+    "_links": {
+      "self": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd"
+      },
+      "tables": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/tables"
+      },
+      "reservations": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/reservations"
+      },
+      "bookedBy": {
+        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
+      },
+      "invitations": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/invitations"
+      },
+      "payments": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/payments"
+      },
+      "replays": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/replays"
+      },
+      "notes": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/notes"
+      },
+      "purchases": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/purchases"
+      },
+      "openInvitations": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/open-invitations"
+      },
+      "signups": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/signups"
+      },
+      "waitlist": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/waitlist"
+      },
+      "stats": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/stats"
+      },
+      "visibilitySchedules": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/visibility-schedules"
+      },
+      "coaches": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/coaches"
+      },
+      "tournamentDivision": {
+        "href": "/events/e553c8be-f4ee-4c4e-afbf-dadbcf8bbbcd/tournament-division"
+      }
+    }
+  },
+  {
     "id": "30b54ac1-42dd-4517-93b6-a2f0bf0f7ae2",
     "type": "CLASS",
     "subtype": "ADULT_CLASS",
@@ -5051,7 +5051,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 5
+      "_total": 4
     },
     "payments": null,
     "completeInvitations": 0,
@@ -5059,7 +5059,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 4
+      "_total": 3
     },
     "waitlist": null,
     "stats": null,
@@ -6337,7 +6337,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 24
+      "_total": 25
     },
     "payments": null,
     "completeInvitations": 0,
@@ -6345,7 +6345,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 23
+      "_total": 24
     },
     "waitlist": null,
     "stats": null,
@@ -6829,7 +6829,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 11
+      "_total": 13
     },
     "payments": null,
     "completeInvitations": 0,
@@ -6837,7 +6837,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 12
+      "_total": 14
     },
     "waitlist": null,
     "stats": null,
@@ -9120,6 +9120,54 @@
           }
         },
         {
+          "id": "1c6e8a40-4851-4da8-84a6-3ced33eae036-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764158400000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
+            "slug": "court-3",
+            "displayName": "Court 3",
+            "displayNameShort": "C3",
+            "description": "Court 3",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
+              }
+            }
+          },
+          "startTime": "2025-11-26T12:00:00.000Z",
+          "endTime": "2025-11-26T14:00:00.000Z",
+          "features": [
+            "REPLAYS",
+            "QUICK_REPLAYS",
+            "CUSTOM_REPLAYS",
+            "ENHANCED_REPLAYS",
+            "SCOREBOARD"
+          ],
+          "_links": {
+            "self": {
+              "href": "/events/1c6e8a40-4851-4da8-84a6-3ced33eae036/tables/1c6e8a40-4851-4da8-84a6-3ced33eae036-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764158400000"
+            }
+          }
+        },
+        {
           "id": "1c6e8a40-4851-4da8-84a6-3ced33eae036-a603b3f5-5232-4746-ac52-915bb34b3d40-1764158400000",
           "type": "FIXED_TABLE",
           "table": {
@@ -9168,14 +9216,14 @@
           }
         },
         {
-          "id": "1c6e8a40-4851-4da8-84a6-3ced33eae036-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764158400000",
+          "id": "1c6e8a40-4851-4da8-84a6-3ced33eae036-fdae99b4-5424-4f70-ad7c-14873658e7a3-1764158400000",
           "type": "FIXED_TABLE",
           "table": {
-            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
-            "slug": "court-3",
-            "displayName": "Court 3",
-            "displayNameShort": "C3",
-            "description": "Court 3",
+            "id": "fdae99b4-5424-4f70-ad7c-14873658e7a3",
+            "slug": "court-1",
+            "displayName": "Court 1",
+            "displayNameShort": "C1",
+            "description": "Court 1",
             "type": "STANDARD",
             "status": "AVAILABLE",
             "features": [
@@ -9190,13 +9238,13 @@
             },
             "_links": {
               "self": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/fdae99b4-5424-4f70-ad7c-14873658e7a3"
               },
               "pod": {
                 "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
               },
               "settings": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/fdae99b4-5424-4f70-ad7c-14873658e7a3/settings"
               }
             }
           },
@@ -9211,12 +9259,12 @@
           ],
           "_links": {
             "self": {
-              "href": "/events/1c6e8a40-4851-4da8-84a6-3ced33eae036/tables/1c6e8a40-4851-4da8-84a6-3ced33eae036-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764158400000"
+              "href": "/events/1c6e8a40-4851-4da8-84a6-3ced33eae036/tables/1c6e8a40-4851-4da8-84a6-3ced33eae036-fdae99b4-5424-4f70-ad7c-14873658e7a3-1764158400000"
             }
           }
         }
       ],
-      "_total": 3,
+      "_total": 4,
       "_links": {
         "self": {
           "href": "/events/1c6e8a40-4851-4da8-84a6-3ced33eae036/tables"
@@ -9228,7 +9276,7 @@
       "displayNameShort": "1",
       "max": 1
     },
-    "totalTeams": 18,
+    "totalTeams": 24,
     "teamSize": 1,
     "admission": "OPEN",
     "admissionRating": {
@@ -11583,6 +11631,368 @@
     }
   },
   {
+    "id": "9d14586d-5941-49ca-b062-125a781af2d3",
+    "type": "EVENT",
+    "subtype": "OPEN_PLAY",
+    "customType": "Open Play",
+    "paymentMethod": null,
+    "name": "Open Play - Intermediate ",
+    "description": "**Intermediate Open Play (3.25 to 3.75 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
+    "startTime": "2025-11-27T01:00:00.000Z",
+    "endTime": "2025-11-27T03:00:00.000Z",
+    "pods": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
+          "slug": "courts",
+          "displayName": "Courts",
+          "displayNameShort": "Courts",
+          "description": "4 Pickleball Courts",
+          "address": {
+            "street": "5-25 46th Ave. ",
+            "floor": " ",
+            "city": "Long Island City",
+            "zip": "11101",
+            "displayName": "5-25 46th Ave. , Long Island City, 11101"
+          },
+          "guests": {
+            "private": {
+              "min": "1-4",
+              "max": "6"
+            },
+            "coach": {
+              "min": "1-4",
+              "max": "6"
+            }
+          },
+          "rates": null,
+          "timezone": "America/New_York",
+          "type": "MULTI_TABLE",
+          "status": "AVAILABLE",
+          "sport": "PICKLEBALL",
+          "area": {
+            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
+          },
+          "tables": null,
+          "openTime": {
+            "hours": "05",
+            "minutes": "00"
+          },
+          "closeTime": {
+            "hours": "01",
+            "minutes": "00"
+          },
+          "closedTimeOverrides": null,
+          "_links": {
+            "self": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "area": {
+              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
+            },
+            "tables": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
+            },
+            "closedTimeOverrides": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
+            },
+            "settings": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
+            },
+            "rates": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/pods"
+        }
+      }
+    },
+    "tables": {
+      "items": [
+        {
+          "id": "9d14586d-5941-49ca-b062-125a781af2d3-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764205200000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
+            "slug": "court-3",
+            "displayName": "Court 3",
+            "displayNameShort": "C3",
+            "description": "Court 3",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
+              }
+            }
+          },
+          "startTime": "2025-11-27T01:00:00.000Z",
+          "endTime": "2025-11-27T03:00:00.000Z",
+          "features": [
+            "REPLAYS",
+            "QUICK_REPLAYS",
+            "CUSTOM_REPLAYS",
+            "ENHANCED_REPLAYS",
+            "SCOREBOARD"
+          ],
+          "_links": {
+            "self": {
+              "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/tables/9d14586d-5941-49ca-b062-125a781af2d3-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764205200000"
+            }
+          }
+        },
+        {
+          "id": "9d14586d-5941-49ca-b062-125a781af2d3-a603b3f5-5232-4746-ac52-915bb34b3d40-1764205200000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "a603b3f5-5232-4746-ac52-915bb34b3d40",
+            "slug": "court-4",
+            "displayName": "Court 4",
+            "displayNameShort": "C4",
+            "description": "Court 4",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40/settings"
+              }
+            }
+          },
+          "startTime": "2025-11-27T01:00:00.000Z",
+          "endTime": "2025-11-27T03:00:00.000Z",
+          "features": [
+            "REPLAYS",
+            "QUICK_REPLAYS",
+            "CUSTOM_REPLAYS",
+            "ENHANCED_REPLAYS",
+            "SCOREBOARD"
+          ],
+          "_links": {
+            "self": {
+              "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/tables/9d14586d-5941-49ca-b062-125a781af2d3-a603b3f5-5232-4746-ac52-915bb34b3d40-1764205200000"
+            }
+          }
+        }
+      ],
+      "_total": 2,
+      "_links": {
+        "self": {
+          "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/tables"
+        }
+      }
+    },
+    "guests": {
+      "displayName": "1 person",
+      "displayNameShort": "1",
+      "max": 1
+    },
+    "totalTeams": 12,
+    "teamSize": 1,
+    "admission": "OPEN",
+    "admissionRating": {
+      "type": "DOUBLES"
+    },
+    "admissionRate": {
+      "regular": 40,
+      "member": 32,
+      "membersDefault": 32,
+      "dayPass": null,
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+              }
+            }
+          }
+        ],
+        "_total": 2,
+        "_links": {
+          "self": {
+            "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/admission-rate/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/admission-rate"
+        },
+        "memberships": {
+          "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/admission-rate/memberships"
+        }
+      }
+    },
+    "admissionDate": {
+      "regular": "2025-11-19T17:00:00.000Z",
+      "member": "2025-11-19T17:00:00.000Z",
+      "membersDefault": "2025-11-12T17:00:00.000Z",
+      "memberships": {
+        "items": [],
+        "_total": 0,
+        "_links": {
+          "self": {
+            "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/admission-date/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/admission-date"
+        },
+        "memberships": {
+          "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/admission-date/memberships"
+        }
+      }
+    },
+    "admissionKids": "CLOSED",
+    "coachRate": null,
+    "freeSignupCancellationHorizonHours": 24,
+    "picture": null,
+    "tags": [
+      "Open Play",
+      "Intermediate (3.25 - 3.75)"
+    ],
+    "visibility": "LISTED",
+    "access": {
+      "id": "access-9d14586d-5941-49ca-b062-125a781af2d3",
+      "type": "RESTRICTED",
+      "startTime": "2025-11-27T00:45:00.000Z",
+      "endTime": "2025-11-27T03:30:00.000Z"
+    },
+    "reservations": null,
+    "visibilitySchedules": null,
+    "bookingMode": "FREE_OF_CHARGE",
+    "bookedBy": {
+      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
+    },
+    "invitations": {
+      "_total": 9
+    },
+    "payments": null,
+    "completeInvitations": 0,
+    "replays": null,
+    "notes": null,
+    "openInvitations": null,
+    "signups": {
+      "_total": 8
+    },
+    "waitlist": null,
+    "stats": null,
+    "features": [
+      "QUICK_REPLAYS",
+      "CUSTOM_REPLAYS",
+      "ENHANCED_REPLAYS",
+      "WAITLIST",
+      "PUBLIC_ATTENDEE_LIST",
+      "SHOW_SPOTS_LEFT"
+    ],
+    "status": "PUBLISHED",
+    "tournamentDivision": null,
+    "_links": {
+      "self": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3"
+      },
+      "tables": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/tables"
+      },
+      "reservations": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/reservations"
+      },
+      "bookedBy": {
+        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
+      },
+      "invitations": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/invitations"
+      },
+      "payments": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/payments"
+      },
+      "replays": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/replays"
+      },
+      "notes": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/notes"
+      },
+      "purchases": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/purchases"
+      },
+      "openInvitations": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/open-invitations"
+      },
+      "signups": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/signups"
+      },
+      "waitlist": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/waitlist"
+      },
+      "stats": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/stats"
+      },
+      "visibilitySchedules": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/visibility-schedules"
+      },
+      "coaches": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/coaches"
+      },
+      "tournamentDivision": {
+        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/tournament-division"
+      }
+    }
+  },
+  {
     "id": "b0772f4b-88ca-4802-b764-2cb601832198",
     "type": "EVENT",
     "subtype": "OPEN_PLAY",
@@ -11667,14 +12077,14 @@
     "tables": {
       "items": [
         {
-          "id": "b0772f4b-88ca-4802-b764-2cb601832198-a603b3f5-5232-4746-ac52-915bb34b3d40-1764205200000",
+          "id": "b0772f4b-88ca-4802-b764-2cb601832198-148def4f-9cae-4223-8d51-1e1ab48ae621-1764205200000",
           "type": "FIXED_TABLE",
           "table": {
-            "id": "a603b3f5-5232-4746-ac52-915bb34b3d40",
-            "slug": "court-4",
-            "displayName": "Court 4",
-            "displayNameShort": "C4",
-            "description": "Court 4",
+            "id": "148def4f-9cae-4223-8d51-1e1ab48ae621",
+            "slug": "court-2",
+            "displayName": "Court 2",
+            "displayNameShort": "C2",
+            "description": "Court 2",
             "type": "STANDARD",
             "status": "AVAILABLE",
             "features": [
@@ -11689,13 +12099,13 @@
             },
             "_links": {
               "self": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40"
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/148def4f-9cae-4223-8d51-1e1ab48ae621"
               },
               "pod": {
                 "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
               },
               "settings": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40/settings"
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/148def4f-9cae-4223-8d51-1e1ab48ae621/settings"
               }
             }
           },
@@ -11710,7 +12120,7 @@
           ],
           "_links": {
             "self": {
-              "href": "/events/b0772f4b-88ca-4802-b764-2cb601832198/tables/b0772f4b-88ca-4802-b764-2cb601832198-a603b3f5-5232-4746-ac52-915bb34b3d40-1764205200000"
+              "href": "/events/b0772f4b-88ca-4802-b764-2cb601832198/tables/b0772f4b-88ca-4802-b764-2cb601832198-148def4f-9cae-4223-8d51-1e1ab48ae621-1764205200000"
             }
           }
         }
@@ -11849,7 +12259,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 2
+      "_total": 3
     },
     "payments": null,
     "completeInvitations": 0,
@@ -11857,7 +12267,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 2
+      "_total": 3
     },
     "waitlist": null,
     "stats": null,
@@ -11919,320 +12329,6 @@
       },
       "tournamentDivision": {
         "href": "/events/b0772f4b-88ca-4802-b764-2cb601832198/tournament-division"
-      }
-    }
-  },
-  {
-    "id": "9d14586d-5941-49ca-b062-125a781af2d3",
-    "type": "EVENT",
-    "subtype": "OPEN_PLAY",
-    "customType": "Open Play",
-    "paymentMethod": null,
-    "name": "Open Play - Intermediate ",
-    "description": "**Intermediate Open Play (3.25 to 3.75 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
-    "startTime": "2025-11-27T01:00:00.000Z",
-    "endTime": "2025-11-27T03:00:00.000Z",
-    "pods": {
-      "items": [
-        {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
-          "slug": "courts",
-          "displayName": "Courts",
-          "displayNameShort": "Courts",
-          "description": "4 Pickleball Courts",
-          "address": {
-            "street": "5-25 46th Ave. ",
-            "floor": " ",
-            "city": "Long Island City",
-            "zip": "11101",
-            "displayName": "5-25 46th Ave. , Long Island City, 11101"
-          },
-          "guests": {
-            "private": {
-              "min": "1-4",
-              "max": "6"
-            },
-            "coach": {
-              "min": "1-4",
-              "max": "6"
-            }
-          },
-          "rates": null,
-          "timezone": "America/New_York",
-          "type": "MULTI_TABLE",
-          "status": "AVAILABLE",
-          "sport": "PICKLEBALL",
-          "area": {
-            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
-          },
-          "tables": null,
-          "openTime": {
-            "hours": "05",
-            "minutes": "00"
-          },
-          "closeTime": {
-            "hours": "01",
-            "minutes": "00"
-          },
-          "closedTimeOverrides": null,
-          "_links": {
-            "self": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-            },
-            "area": {
-              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
-            },
-            "tables": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
-            },
-            "closedTimeOverrides": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
-            },
-            "settings": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
-            },
-            "rates": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/pods"
-        }
-      }
-    },
-    "tables": {
-      "items": [
-        {
-          "id": "9d14586d-5941-49ca-b062-125a781af2d3-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764205200000",
-          "type": "FIXED_TABLE",
-          "table": {
-            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
-            "slug": "court-3",
-            "displayName": "Court 3",
-            "displayNameShort": "C3",
-            "description": "Court 3",
-            "type": "STANDARD",
-            "status": "AVAILABLE",
-            "features": [
-              "REPLAYS",
-              "QUICK_REPLAYS",
-              "CUSTOM_REPLAYS",
-              "ENHANCED_REPLAYS",
-              "SCOREBOARD"
-            ],
-            "pod": {
-              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-            },
-            "_links": {
-              "self": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
-              },
-              "pod": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-              },
-              "settings": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
-              }
-            }
-          },
-          "startTime": "2025-11-27T01:00:00.000Z",
-          "endTime": "2025-11-27T03:00:00.000Z",
-          "features": [
-            "REPLAYS",
-            "QUICK_REPLAYS",
-            "CUSTOM_REPLAYS",
-            "ENHANCED_REPLAYS",
-            "SCOREBOARD"
-          ],
-          "_links": {
-            "self": {
-              "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/tables/9d14586d-5941-49ca-b062-125a781af2d3-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764205200000"
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/tables"
-        }
-      }
-    },
-    "guests": {
-      "displayName": "1 person",
-      "displayNameShort": "1",
-      "max": 1
-    },
-    "totalTeams": 6,
-    "teamSize": 1,
-    "admission": "OPEN",
-    "admissionRating": {
-      "type": "DOUBLES"
-    },
-    "admissionRate": {
-      "regular": 40,
-      "member": 32,
-      "membersDefault": 32,
-      "dayPass": null,
-      "memberships": {
-        "items": [
-          {
-            "membership": {
-              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
-            },
-            "rate": 20,
-            "_links": {
-              "self": {
-                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
-              }
-            }
-          },
-          {
-            "membership": {
-              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
-            },
-            "rate": 20,
-            "_links": {
-              "self": {
-                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
-              }
-            }
-          }
-        ],
-        "_total": 2,
-        "_links": {
-          "self": {
-            "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/admission-rate/memberships"
-          }
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/admission-rate"
-        },
-        "memberships": {
-          "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/admission-rate/memberships"
-        }
-      }
-    },
-    "admissionDate": {
-      "regular": "2025-11-19T17:00:00.000Z",
-      "member": "2025-11-19T17:00:00.000Z",
-      "membersDefault": "2025-11-12T17:00:00.000Z",
-      "memberships": {
-        "items": [],
-        "_total": 0,
-        "_links": {
-          "self": {
-            "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/admission-date/memberships"
-          }
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/admission-date"
-        },
-        "memberships": {
-          "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/admission-date/memberships"
-        }
-      }
-    },
-    "admissionKids": "CLOSED",
-    "coachRate": null,
-    "freeSignupCancellationHorizonHours": 24,
-    "picture": null,
-    "tags": [
-      "Open Play",
-      "Intermediate (3.25 - 3.75)"
-    ],
-    "visibility": "LISTED",
-    "access": {
-      "id": "access-9d14586d-5941-49ca-b062-125a781af2d3",
-      "type": "RESTRICTED",
-      "startTime": "2025-11-27T00:45:00.000Z",
-      "endTime": "2025-11-27T03:30:00.000Z"
-    },
-    "reservations": null,
-    "visibilitySchedules": null,
-    "bookingMode": "FREE_OF_CHARGE",
-    "bookedBy": {
-      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
-    },
-    "invitations": {
-      "_total": 7
-    },
-    "payments": null,
-    "completeInvitations": 0,
-    "replays": null,
-    "notes": null,
-    "openInvitations": null,
-    "signups": {
-      "_total": 6
-    },
-    "waitlist": null,
-    "stats": null,
-    "features": [
-      "QUICK_REPLAYS",
-      "CUSTOM_REPLAYS",
-      "ENHANCED_REPLAYS",
-      "WAITLIST",
-      "PUBLIC_ATTENDEE_LIST",
-      "SHOW_SPOTS_LEFT"
-    ],
-    "status": "PUBLISHED",
-    "tournamentDivision": null,
-    "_links": {
-      "self": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3"
-      },
-      "tables": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/tables"
-      },
-      "reservations": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/reservations"
-      },
-      "bookedBy": {
-        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
-      },
-      "invitations": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/invitations"
-      },
-      "payments": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/payments"
-      },
-      "replays": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/replays"
-      },
-      "notes": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/notes"
-      },
-      "purchases": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/purchases"
-      },
-      "openInvitations": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/open-invitations"
-      },
-      "signups": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/signups"
-      },
-      "waitlist": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/waitlist"
-      },
-      "stats": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/stats"
-      },
-      "visibilitySchedules": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/visibility-schedules"
-      },
-      "coaches": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/coaches"
-      },
-      "tournamentDivision": {
-        "href": "/events/9d14586d-5941-49ca-b062-125a781af2d3/tournament-division"
       }
     }
   },
@@ -12655,7 +12751,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 19
+      "_total": 20
     },
     "payments": null,
     "completeInvitations": 0,
@@ -12663,7 +12759,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 18
+      "_total": 19
     },
     "waitlist": null,
     "stats": null,
@@ -14527,7 +14623,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 15
+      "_total": 14
     },
     "payments": null,
     "completeInvitations": 0,
@@ -14535,7 +14631,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 14
+      "_total": 13
     },
     "waitlist": null,
     "stats": null,
@@ -15511,7 +15607,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 21
+      "_total": 22
     },
     "payments": null,
     "completeInvitations": 0,
@@ -15519,7 +15615,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 22
+      "_total": 24
     },
     "waitlist": null,
     "stats": null,
@@ -16570,321 +16666,6 @@
     }
   },
   {
-    "id": "8f57794c-231f-418b-a950-ff6e13c51205",
-    "type": "EVENT",
-    "subtype": "OPEN_PLAY",
-    "customType": "Open Play",
-    "paymentMethod": null,
-    "name": "Open Play - Intermediate ",
-    "description": "**Intermediate Open Play (3.25 to 3.75 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
-    "startTime": "2025-11-28T22:00:00.000Z",
-    "endTime": "2025-11-29T00:00:00.000Z",
-    "pods": {
-      "items": [
-        {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
-          "slug": "courts",
-          "displayName": "Courts",
-          "displayNameShort": "Courts",
-          "description": "4 Pickleball Courts",
-          "address": {
-            "street": "5-25 46th Ave. ",
-            "floor": " ",
-            "city": "Long Island City",
-            "zip": "11101",
-            "displayName": "5-25 46th Ave. , Long Island City, 11101"
-          },
-          "guests": {
-            "private": {
-              "min": "1-4",
-              "max": "6"
-            },
-            "coach": {
-              "min": "1-4",
-              "max": "6"
-            }
-          },
-          "rates": null,
-          "timezone": "America/New_York",
-          "type": "MULTI_TABLE",
-          "status": "AVAILABLE",
-          "sport": "PICKLEBALL",
-          "area": {
-            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
-          },
-          "tables": null,
-          "openTime": {
-            "hours": "05",
-            "minutes": "00"
-          },
-          "closeTime": {
-            "hours": "01",
-            "minutes": "00"
-          },
-          "closedTimeOverrides": null,
-          "_links": {
-            "self": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-            },
-            "area": {
-              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
-            },
-            "tables": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
-            },
-            "closedTimeOverrides": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
-            },
-            "settings": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
-            },
-            "rates": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/pods"
-        }
-      }
-    },
-    "tables": {
-      "items": [
-        {
-          "id": "8f57794c-231f-418b-a950-ff6e13c51205-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764367200000",
-          "type": "FIXED_TABLE",
-          "table": {
-            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
-            "slug": "court-3",
-            "displayName": "Court 3",
-            "displayNameShort": "C3",
-            "description": "Court 3",
-            "type": "STANDARD",
-            "status": "AVAILABLE",
-            "features": [
-              "REPLAYS",
-              "QUICK_REPLAYS",
-              "CUSTOM_REPLAYS",
-              "ENHANCED_REPLAYS",
-              "SCOREBOARD"
-            ],
-            "pod": {
-              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-            },
-            "_links": {
-              "self": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
-              },
-              "pod": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-              },
-              "settings": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
-              }
-            }
-          },
-          "startTime": "2025-11-28T22:00:00.000Z",
-          "endTime": "2025-11-29T00:00:00.000Z",
-          "features": [
-            "REPLAYS",
-            "QUICK_REPLAYS",
-            "CUSTOM_REPLAYS",
-            "ENHANCED_REPLAYS",
-            "SCOREBOARD"
-          ],
-          "_links": {
-            "self": {
-              "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/tables/8f57794c-231f-418b-a950-ff6e13c51205-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764367200000"
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/tables"
-        }
-      }
-    },
-    "guests": {
-      "displayName": "1 person",
-      "displayNameShort": "1",
-      "max": 1
-    },
-    "totalTeams": 6,
-    "teamSize": 1,
-    "admission": "OPEN",
-    "admissionRating": {
-      "type": "DOUBLES"
-    },
-    "admissionRate": {
-      "regular": 40,
-      "member": 32,
-      "membersDefault": 32,
-      "dayPass": null,
-      "memberships": {
-        "items": [
-          {
-            "membership": {
-              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
-            },
-            "rate": 20,
-            "_links": {
-              "self": {
-                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
-              }
-            }
-          },
-          {
-            "membership": {
-              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
-            },
-            "rate": 20,
-            "_links": {
-              "self": {
-                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
-              }
-            }
-          }
-        ],
-        "_total": 2,
-        "_links": {
-          "self": {
-            "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/admission-rate/memberships"
-          }
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/admission-rate"
-        },
-        "memberships": {
-          "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/admission-rate/memberships"
-        }
-      }
-    },
-    "admissionDate": {
-      "regular": "2025-11-21T17:00:00.000Z",
-      "member": "2025-11-21T17:00:00.000Z",
-      "membersDefault": "2025-11-14T17:00:00.000Z",
-      "memberships": {
-        "items": [],
-        "_total": 0,
-        "_links": {
-          "self": {
-            "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/admission-date/memberships"
-          }
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/admission-date"
-        },
-        "memberships": {
-          "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/admission-date/memberships"
-        }
-      }
-    },
-    "admissionKids": "CLOSED",
-    "coachRate": null,
-    "freeSignupCancellationHorizonHours": 24,
-    "picture": null,
-    "tags": [
-      "Open Play",
-      "Intermediate (3.25 - 3.75)"
-    ],
-    "visibility": "LISTED",
-    "access": {
-      "id": "access-8f57794c-231f-418b-a950-ff6e13c51205",
-      "type": "RESTRICTED",
-      "startTime": "2025-11-28T21:45:00.000Z",
-      "endTime": "2025-11-29T00:30:00.000Z"
-    },
-    "reservations": null,
-    "visibilitySchedules": null,
-    "bookingMode": "FREE_OF_CHARGE",
-    "bookedBy": {
-      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
-    },
-    "invitations": {
-      "_total": 7
-    },
-    "payments": null,
-    "completeInvitations": 0,
-    "replays": null,
-    "notes": null,
-    "openInvitations": null,
-    "signups": {
-      "_total": 6
-    },
-    "waitlist": null,
-    "stats": null,
-    "features": [
-      "QUICK_REPLAYS",
-      "CUSTOM_REPLAYS",
-      "ENHANCED_REPLAYS",
-      "SUBMIT_MATCHES_RESULTS",
-      "WAITLIST",
-      "PUBLIC_ATTENDEE_LIST",
-      "SHOW_SPOTS_LEFT"
-    ],
-    "status": "PUBLISHED",
-    "tournamentDivision": null,
-    "_links": {
-      "self": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205"
-      },
-      "tables": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/tables"
-      },
-      "reservations": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/reservations"
-      },
-      "bookedBy": {
-        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
-      },
-      "invitations": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/invitations"
-      },
-      "payments": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/payments"
-      },
-      "replays": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/replays"
-      },
-      "notes": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/notes"
-      },
-      "purchases": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/purchases"
-      },
-      "openInvitations": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/open-invitations"
-      },
-      "signups": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/signups"
-      },
-      "waitlist": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/waitlist"
-      },
-      "stats": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/stats"
-      },
-      "visibilitySchedules": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/visibility-schedules"
-      },
-      "coaches": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/coaches"
-      },
-      "tournamentDivision": {
-        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/tournament-division"
-      }
-    }
-  },
-  {
     "id": "ae3f019e-8486-4ee6-bd3d-7690dce1790e",
     "type": "EVENT",
     "subtype": "OPEN_PLAY",
@@ -17219,6 +17000,321 @@
       },
       "tournamentDivision": {
         "href": "/events/ae3f019e-8486-4ee6-bd3d-7690dce1790e/tournament-division"
+      }
+    }
+  },
+  {
+    "id": "8f57794c-231f-418b-a950-ff6e13c51205",
+    "type": "EVENT",
+    "subtype": "OPEN_PLAY",
+    "customType": "Open Play",
+    "paymentMethod": null,
+    "name": "Open Play - Intermediate ",
+    "description": "**Intermediate Open Play (3.25 to 3.75 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
+    "startTime": "2025-11-28T22:00:00.000Z",
+    "endTime": "2025-11-29T00:00:00.000Z",
+    "pods": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
+          "slug": "courts",
+          "displayName": "Courts",
+          "displayNameShort": "Courts",
+          "description": "4 Pickleball Courts",
+          "address": {
+            "street": "5-25 46th Ave. ",
+            "floor": " ",
+            "city": "Long Island City",
+            "zip": "11101",
+            "displayName": "5-25 46th Ave. , Long Island City, 11101"
+          },
+          "guests": {
+            "private": {
+              "min": "1-4",
+              "max": "6"
+            },
+            "coach": {
+              "min": "1-4",
+              "max": "6"
+            }
+          },
+          "rates": null,
+          "timezone": "America/New_York",
+          "type": "MULTI_TABLE",
+          "status": "AVAILABLE",
+          "sport": "PICKLEBALL",
+          "area": {
+            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
+          },
+          "tables": null,
+          "openTime": {
+            "hours": "05",
+            "minutes": "00"
+          },
+          "closeTime": {
+            "hours": "01",
+            "minutes": "00"
+          },
+          "closedTimeOverrides": null,
+          "_links": {
+            "self": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "area": {
+              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
+            },
+            "tables": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
+            },
+            "closedTimeOverrides": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
+            },
+            "settings": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
+            },
+            "rates": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/pods"
+        }
+      }
+    },
+    "tables": {
+      "items": [
+        {
+          "id": "8f57794c-231f-418b-a950-ff6e13c51205-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764367200000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
+            "slug": "court-3",
+            "displayName": "Court 3",
+            "displayNameShort": "C3",
+            "description": "Court 3",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
+              }
+            }
+          },
+          "startTime": "2025-11-28T22:00:00.000Z",
+          "endTime": "2025-11-29T00:00:00.000Z",
+          "features": [
+            "REPLAYS",
+            "QUICK_REPLAYS",
+            "CUSTOM_REPLAYS",
+            "ENHANCED_REPLAYS",
+            "SCOREBOARD"
+          ],
+          "_links": {
+            "self": {
+              "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/tables/8f57794c-231f-418b-a950-ff6e13c51205-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764367200000"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/tables"
+        }
+      }
+    },
+    "guests": {
+      "displayName": "1 person",
+      "displayNameShort": "1",
+      "max": 1
+    },
+    "totalTeams": 6,
+    "teamSize": 1,
+    "admission": "OPEN",
+    "admissionRating": {
+      "type": "DOUBLES"
+    },
+    "admissionRate": {
+      "regular": 40,
+      "member": 32,
+      "membersDefault": 32,
+      "dayPass": null,
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+              }
+            }
+          }
+        ],
+        "_total": 2,
+        "_links": {
+          "self": {
+            "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/admission-rate/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/admission-rate"
+        },
+        "memberships": {
+          "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/admission-rate/memberships"
+        }
+      }
+    },
+    "admissionDate": {
+      "regular": "2025-11-21T17:00:00.000Z",
+      "member": "2025-11-21T17:00:00.000Z",
+      "membersDefault": "2025-11-14T17:00:00.000Z",
+      "memberships": {
+        "items": [],
+        "_total": 0,
+        "_links": {
+          "self": {
+            "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/admission-date/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/admission-date"
+        },
+        "memberships": {
+          "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/admission-date/memberships"
+        }
+      }
+    },
+    "admissionKids": "CLOSED",
+    "coachRate": null,
+    "freeSignupCancellationHorizonHours": 24,
+    "picture": null,
+    "tags": [
+      "Open Play",
+      "Intermediate (3.25 - 3.75)"
+    ],
+    "visibility": "LISTED",
+    "access": {
+      "id": "access-8f57794c-231f-418b-a950-ff6e13c51205",
+      "type": "RESTRICTED",
+      "startTime": "2025-11-28T21:45:00.000Z",
+      "endTime": "2025-11-29T00:30:00.000Z"
+    },
+    "reservations": null,
+    "visibilitySchedules": null,
+    "bookingMode": "FREE_OF_CHARGE",
+    "bookedBy": {
+      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
+    },
+    "invitations": {
+      "_total": 7
+    },
+    "payments": null,
+    "completeInvitations": 0,
+    "replays": null,
+    "notes": null,
+    "openInvitations": null,
+    "signups": {
+      "_total": 6
+    },
+    "waitlist": null,
+    "stats": null,
+    "features": [
+      "QUICK_REPLAYS",
+      "CUSTOM_REPLAYS",
+      "ENHANCED_REPLAYS",
+      "SUBMIT_MATCHES_RESULTS",
+      "WAITLIST",
+      "PUBLIC_ATTENDEE_LIST",
+      "SHOW_SPOTS_LEFT"
+    ],
+    "status": "PUBLISHED",
+    "tournamentDivision": null,
+    "_links": {
+      "self": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205"
+      },
+      "tables": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/tables"
+      },
+      "reservations": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/reservations"
+      },
+      "bookedBy": {
+        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
+      },
+      "invitations": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/invitations"
+      },
+      "payments": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/payments"
+      },
+      "replays": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/replays"
+      },
+      "notes": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/notes"
+      },
+      "purchases": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/purchases"
+      },
+      "openInvitations": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/open-invitations"
+      },
+      "signups": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/signups"
+      },
+      "waitlist": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/waitlist"
+      },
+      "stats": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/stats"
+      },
+      "visibilitySchedules": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/visibility-schedules"
+      },
+      "coaches": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/coaches"
+      },
+      "tournamentDivision": {
+        "href": "/events/8f57794c-231f-418b-a950-ff6e13c51205/tournament-division"
       }
     }
   },
@@ -18092,6 +18188,320 @@
     }
   },
   {
+    "id": "c002c56e-a0af-446e-b1d1-8a3042273de9",
+    "type": "EVENT",
+    "subtype": "OPEN_PLAY",
+    "customType": "Open Play",
+    "paymentMethod": null,
+    "name": "Open Play - Intermediate ",
+    "description": "**Intermediate Open Play (3.25 to 3.75 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
+    "startTime": "2025-11-29T13:00:00.000Z",
+    "endTime": "2025-11-29T15:00:00.000Z",
+    "pods": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
+          "slug": "courts",
+          "displayName": "Courts",
+          "displayNameShort": "Courts",
+          "description": "4 Pickleball Courts",
+          "address": {
+            "street": "5-25 46th Ave. ",
+            "floor": " ",
+            "city": "Long Island City",
+            "zip": "11101",
+            "displayName": "5-25 46th Ave. , Long Island City, 11101"
+          },
+          "guests": {
+            "private": {
+              "min": "1-4",
+              "max": "6"
+            },
+            "coach": {
+              "min": "1-4",
+              "max": "6"
+            }
+          },
+          "rates": null,
+          "timezone": "America/New_York",
+          "type": "MULTI_TABLE",
+          "status": "AVAILABLE",
+          "sport": "PICKLEBALL",
+          "area": {
+            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
+          },
+          "tables": null,
+          "openTime": {
+            "hours": "05",
+            "minutes": "00"
+          },
+          "closeTime": {
+            "hours": "01",
+            "minutes": "00"
+          },
+          "closedTimeOverrides": null,
+          "_links": {
+            "self": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "area": {
+              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
+            },
+            "tables": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
+            },
+            "closedTimeOverrides": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
+            },
+            "settings": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
+            },
+            "rates": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/pods"
+        }
+      }
+    },
+    "tables": {
+      "items": [
+        {
+          "id": "c002c56e-a0af-446e-b1d1-8a3042273de9-a603b3f5-5232-4746-ac52-915bb34b3d40-1764421200000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "a603b3f5-5232-4746-ac52-915bb34b3d40",
+            "slug": "court-4",
+            "displayName": "Court 4",
+            "displayNameShort": "C4",
+            "description": "Court 4",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40/settings"
+              }
+            }
+          },
+          "startTime": "2025-11-29T13:00:00.000Z",
+          "endTime": "2025-11-29T15:00:00.000Z",
+          "features": [
+            "REPLAYS",
+            "QUICK_REPLAYS",
+            "CUSTOM_REPLAYS",
+            "ENHANCED_REPLAYS",
+            "SCOREBOARD"
+          ],
+          "_links": {
+            "self": {
+              "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/tables/c002c56e-a0af-446e-b1d1-8a3042273de9-a603b3f5-5232-4746-ac52-915bb34b3d40-1764421200000"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/tables"
+        }
+      }
+    },
+    "guests": {
+      "displayName": "1 person",
+      "displayNameShort": "1",
+      "max": 1
+    },
+    "totalTeams": 6,
+    "teamSize": 1,
+    "admission": "OPEN",
+    "admissionRating": {
+      "type": "DOUBLES"
+    },
+    "admissionRate": {
+      "regular": 40,
+      "member": 32,
+      "membersDefault": 32,
+      "dayPass": null,
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+              }
+            }
+          }
+        ],
+        "_total": 2,
+        "_links": {
+          "self": {
+            "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/admission-rate/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/admission-rate"
+        },
+        "memberships": {
+          "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/admission-rate/memberships"
+        }
+      }
+    },
+    "admissionDate": {
+      "regular": "2025-11-22T17:00:00.000Z",
+      "member": "2025-11-22T17:00:00.000Z",
+      "membersDefault": "2025-11-15T17:00:00.000Z",
+      "memberships": {
+        "items": [],
+        "_total": 0,
+        "_links": {
+          "self": {
+            "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/admission-date/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/admission-date"
+        },
+        "memberships": {
+          "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/admission-date/memberships"
+        }
+      }
+    },
+    "admissionKids": "CLOSED",
+    "coachRate": null,
+    "freeSignupCancellationHorizonHours": 24,
+    "picture": null,
+    "tags": [
+      "Open Play",
+      "Intermediate (3.25 - 3.75)"
+    ],
+    "visibility": "LISTED",
+    "access": {
+      "id": "access-c002c56e-a0af-446e-b1d1-8a3042273de9",
+      "type": "RESTRICTED",
+      "startTime": "2025-11-29T12:45:00.000Z",
+      "endTime": "2025-11-29T15:30:00.000Z"
+    },
+    "reservations": null,
+    "visibilitySchedules": null,
+    "bookingMode": "FREE_OF_CHARGE",
+    "bookedBy": {
+      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
+    },
+    "invitations": {
+      "_total": 2
+    },
+    "payments": null,
+    "completeInvitations": 0,
+    "replays": null,
+    "notes": null,
+    "openInvitations": null,
+    "signups": {
+      "_total": 3
+    },
+    "waitlist": null,
+    "stats": null,
+    "features": [
+      "QUICK_REPLAYS",
+      "CUSTOM_REPLAYS",
+      "ENHANCED_REPLAYS",
+      "WAITLIST",
+      "PUBLIC_ATTENDEE_LIST",
+      "SHOW_SPOTS_LEFT"
+    ],
+    "status": "PUBLISHED",
+    "tournamentDivision": null,
+    "_links": {
+      "self": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9"
+      },
+      "tables": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/tables"
+      },
+      "reservations": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/reservations"
+      },
+      "bookedBy": {
+        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
+      },
+      "invitations": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/invitations"
+      },
+      "payments": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/payments"
+      },
+      "replays": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/replays"
+      },
+      "notes": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/notes"
+      },
+      "purchases": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/purchases"
+      },
+      "openInvitations": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/open-invitations"
+      },
+      "signups": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/signups"
+      },
+      "waitlist": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/waitlist"
+      },
+      "stats": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/stats"
+      },
+      "visibilitySchedules": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/visibility-schedules"
+      },
+      "coaches": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/coaches"
+      },
+      "tournamentDivision": {
+        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/tournament-division"
+      }
+    }
+  },
+  {
     "id": "1f476c44-e1f9-4ead-95a7-34feb4bc882b",
     "type": "EVENT",
     "subtype": "OPEN_PLAY",
@@ -18425,657 +18835,6 @@
       },
       "tournamentDivision": {
         "href": "/events/1f476c44-e1f9-4ead-95a7-34feb4bc882b/tournament-division"
-      }
-    }
-  },
-  {
-    "id": "c002c56e-a0af-446e-b1d1-8a3042273de9",
-    "type": "EVENT",
-    "subtype": "OPEN_PLAY",
-    "customType": "Open Play",
-    "paymentMethod": null,
-    "name": "Open Play - Intermediate ",
-    "description": "**Intermediate Open Play (3.25 to 3.75 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
-    "startTime": "2025-11-29T13:00:00.000Z",
-    "endTime": "2025-11-29T15:00:00.000Z",
-    "pods": {
-      "items": [
-        {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
-          "slug": "courts",
-          "displayName": "Courts",
-          "displayNameShort": "Courts",
-          "description": "4 Pickleball Courts",
-          "address": {
-            "street": "5-25 46th Ave. ",
-            "floor": " ",
-            "city": "Long Island City",
-            "zip": "11101",
-            "displayName": "5-25 46th Ave. , Long Island City, 11101"
-          },
-          "guests": {
-            "private": {
-              "min": "1-4",
-              "max": "6"
-            },
-            "coach": {
-              "min": "1-4",
-              "max": "6"
-            }
-          },
-          "rates": null,
-          "timezone": "America/New_York",
-          "type": "MULTI_TABLE",
-          "status": "AVAILABLE",
-          "sport": "PICKLEBALL",
-          "area": {
-            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
-          },
-          "tables": null,
-          "openTime": {
-            "hours": "05",
-            "minutes": "00"
-          },
-          "closeTime": {
-            "hours": "01",
-            "minutes": "00"
-          },
-          "closedTimeOverrides": null,
-          "_links": {
-            "self": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-            },
-            "area": {
-              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
-            },
-            "tables": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
-            },
-            "closedTimeOverrides": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
-            },
-            "settings": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
-            },
-            "rates": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/pods"
-        }
-      }
-    },
-    "tables": {
-      "items": [
-        {
-          "id": "c002c56e-a0af-446e-b1d1-8a3042273de9-a603b3f5-5232-4746-ac52-915bb34b3d40-1764421200000",
-          "type": "FIXED_TABLE",
-          "table": {
-            "id": "a603b3f5-5232-4746-ac52-915bb34b3d40",
-            "slug": "court-4",
-            "displayName": "Court 4",
-            "displayNameShort": "C4",
-            "description": "Court 4",
-            "type": "STANDARD",
-            "status": "AVAILABLE",
-            "features": [
-              "REPLAYS",
-              "QUICK_REPLAYS",
-              "CUSTOM_REPLAYS",
-              "ENHANCED_REPLAYS",
-              "SCOREBOARD"
-            ],
-            "pod": {
-              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-            },
-            "_links": {
-              "self": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40"
-              },
-              "pod": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-              },
-              "settings": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40/settings"
-              }
-            }
-          },
-          "startTime": "2025-11-29T13:00:00.000Z",
-          "endTime": "2025-11-29T15:00:00.000Z",
-          "features": [
-            "REPLAYS",
-            "QUICK_REPLAYS",
-            "CUSTOM_REPLAYS",
-            "ENHANCED_REPLAYS",
-            "SCOREBOARD"
-          ],
-          "_links": {
-            "self": {
-              "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/tables/c002c56e-a0af-446e-b1d1-8a3042273de9-a603b3f5-5232-4746-ac52-915bb34b3d40-1764421200000"
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/tables"
-        }
-      }
-    },
-    "guests": {
-      "displayName": "1 person",
-      "displayNameShort": "1",
-      "max": 1
-    },
-    "totalTeams": 6,
-    "teamSize": 1,
-    "admission": "OPEN",
-    "admissionRating": {
-      "type": "DOUBLES"
-    },
-    "admissionRate": {
-      "regular": 40,
-      "member": 32,
-      "membersDefault": 32,
-      "dayPass": null,
-      "memberships": {
-        "items": [
-          {
-            "membership": {
-              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
-            },
-            "rate": 20,
-            "_links": {
-              "self": {
-                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
-              }
-            }
-          },
-          {
-            "membership": {
-              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
-            },
-            "rate": 20,
-            "_links": {
-              "self": {
-                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
-              }
-            }
-          }
-        ],
-        "_total": 2,
-        "_links": {
-          "self": {
-            "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/admission-rate/memberships"
-          }
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/admission-rate"
-        },
-        "memberships": {
-          "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/admission-rate/memberships"
-        }
-      }
-    },
-    "admissionDate": {
-      "regular": "2025-11-22T17:00:00.000Z",
-      "member": "2025-11-22T17:00:00.000Z",
-      "membersDefault": "2025-11-15T17:00:00.000Z",
-      "memberships": {
-        "items": [],
-        "_total": 0,
-        "_links": {
-          "self": {
-            "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/admission-date/memberships"
-          }
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/admission-date"
-        },
-        "memberships": {
-          "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/admission-date/memberships"
-        }
-      }
-    },
-    "admissionKids": "CLOSED",
-    "coachRate": null,
-    "freeSignupCancellationHorizonHours": 24,
-    "picture": null,
-    "tags": [
-      "Open Play",
-      "Intermediate (3.25 - 3.75)"
-    ],
-    "visibility": "LISTED",
-    "access": {
-      "id": "access-c002c56e-a0af-446e-b1d1-8a3042273de9",
-      "type": "RESTRICTED",
-      "startTime": "2025-11-29T12:45:00.000Z",
-      "endTime": "2025-11-29T15:30:00.000Z"
-    },
-    "reservations": null,
-    "visibilitySchedules": null,
-    "bookingMode": "FREE_OF_CHARGE",
-    "bookedBy": {
-      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
-    },
-    "invitations": {
-      "_total": 1
-    },
-    "payments": null,
-    "completeInvitations": 0,
-    "replays": null,
-    "notes": null,
-    "openInvitations": null,
-    "signups": {
-      "_total": 1
-    },
-    "waitlist": null,
-    "stats": null,
-    "features": [
-      "QUICK_REPLAYS",
-      "CUSTOM_REPLAYS",
-      "ENHANCED_REPLAYS",
-      "WAITLIST",
-      "PUBLIC_ATTENDEE_LIST",
-      "SHOW_SPOTS_LEFT"
-    ],
-    "status": "PUBLISHED",
-    "tournamentDivision": null,
-    "_links": {
-      "self": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9"
-      },
-      "tables": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/tables"
-      },
-      "reservations": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/reservations"
-      },
-      "bookedBy": {
-        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
-      },
-      "invitations": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/invitations"
-      },
-      "payments": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/payments"
-      },
-      "replays": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/replays"
-      },
-      "notes": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/notes"
-      },
-      "purchases": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/purchases"
-      },
-      "openInvitations": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/open-invitations"
-      },
-      "signups": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/signups"
-      },
-      "waitlist": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/waitlist"
-      },
-      "stats": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/stats"
-      },
-      "visibilitySchedules": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/visibility-schedules"
-      },
-      "coaches": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/coaches"
-      },
-      "tournamentDivision": {
-        "href": "/events/c002c56e-a0af-446e-b1d1-8a3042273de9/tournament-division"
-      }
-    }
-  },
-  {
-    "id": "a5ddaa30-f78d-4d05-86c8-f9ec138c94bd",
-    "type": "EVENT",
-    "subtype": "OPEN_PLAY",
-    "customType": "Open Play",
-    "paymentMethod": null,
-    "name": "Open Play - Advanced Beginner",
-    "description": "**Advanced Beginner Open Play (2.75 to 3.25 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
-    "startTime": "2025-11-29T15:00:00.000Z",
-    "endTime": "2025-11-29T17:00:00.000Z",
-    "pods": {
-      "items": [
-        {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
-          "slug": "courts",
-          "displayName": "Courts",
-          "displayNameShort": "Courts",
-          "description": "4 Pickleball Courts",
-          "address": {
-            "street": "5-25 46th Ave. ",
-            "floor": " ",
-            "city": "Long Island City",
-            "zip": "11101",
-            "displayName": "5-25 46th Ave. , Long Island City, 11101"
-          },
-          "guests": {
-            "private": {
-              "min": "1-4",
-              "max": "6"
-            },
-            "coach": {
-              "min": "1-4",
-              "max": "6"
-            }
-          },
-          "rates": null,
-          "timezone": "America/New_York",
-          "type": "MULTI_TABLE",
-          "status": "AVAILABLE",
-          "sport": "PICKLEBALL",
-          "area": {
-            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
-          },
-          "tables": null,
-          "openTime": {
-            "hours": "05",
-            "minutes": "00"
-          },
-          "closeTime": {
-            "hours": "01",
-            "minutes": "00"
-          },
-          "closedTimeOverrides": null,
-          "_links": {
-            "self": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-            },
-            "area": {
-              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
-            },
-            "tables": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
-            },
-            "closedTimeOverrides": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
-            },
-            "settings": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
-            },
-            "rates": {
-              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/pods"
-        }
-      }
-    },
-    "tables": {
-      "items": [
-        {
-          "id": "a5ddaa30-f78d-4d05-86c8-f9ec138c94bd-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764428400000",
-          "type": "FIXED_TABLE",
-          "table": {
-            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
-            "slug": "court-3",
-            "displayName": "Court 3",
-            "displayNameShort": "C3",
-            "description": "Court 3",
-            "type": "STANDARD",
-            "status": "AVAILABLE",
-            "features": [
-              "REPLAYS",
-              "QUICK_REPLAYS",
-              "CUSTOM_REPLAYS",
-              "ENHANCED_REPLAYS",
-              "SCOREBOARD"
-            ],
-            "pod": {
-              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-            },
-            "_links": {
-              "self": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
-              },
-              "pod": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-              },
-              "settings": {
-                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
-              }
-            }
-          },
-          "startTime": "2025-11-29T15:00:00.000Z",
-          "endTime": "2025-11-29T17:00:00.000Z",
-          "features": [
-            "REPLAYS",
-            "QUICK_REPLAYS",
-            "CUSTOM_REPLAYS",
-            "ENHANCED_REPLAYS",
-            "SCOREBOARD"
-          ],
-          "_links": {
-            "self": {
-              "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/tables/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764428400000"
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/tables"
-        }
-      }
-    },
-    "guests": {
-      "displayName": "1 person",
-      "displayNameShort": "1",
-      "max": 1
-    },
-    "totalTeams": 6,
-    "teamSize": 1,
-    "admission": "OPEN",
-    "admissionRating": {
-      "type": "DOUBLES"
-    },
-    "admissionRate": {
-      "regular": 40,
-      "member": 32,
-      "membersDefault": 32,
-      "dayPass": null,
-      "memberships": {
-        "items": [
-          {
-            "membership": {
-              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
-            },
-            "rate": 20,
-            "_links": {
-              "self": {
-                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
-              }
-            }
-          },
-          {
-            "membership": {
-              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
-            },
-            "rate": 20,
-            "_links": {
-              "self": {
-                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
-              }
-            }
-          }
-        ],
-        "_total": 2,
-        "_links": {
-          "self": {
-            "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/admission-rate/memberships"
-          }
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/admission-rate"
-        },
-        "memberships": {
-          "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/admission-rate/memberships"
-        }
-      }
-    },
-    "admissionDate": {
-      "regular": "2025-11-22T17:00:00.000Z",
-      "member": "2025-11-22T17:00:00.000Z",
-      "membersDefault": "2025-11-15T17:00:00.000Z",
-      "memberships": {
-        "items": [
-          {
-            "membership": {
-              "id": "2ab9c8c2-9a1e-4312-9a35-f0b66fdec120"
-            },
-            "date": "2025-11-15T17:00:00.000Z",
-            "_links": {
-              "self": {
-                "href": "/memberships/2ab9c8c2-9a1e-4312-9a35-f0b66fdec120"
-              }
-            }
-          },
-          {
-            "membership": {
-              "id": "8b973862-cb6d-4161-80a7-12a0b29df106"
-            },
-            "date": "2025-11-15T17:00:00.000Z",
-            "_links": {
-              "self": {
-                "href": "/memberships/8b973862-cb6d-4161-80a7-12a0b29df106"
-              }
-            }
-          }
-        ],
-        "_total": 2,
-        "_links": {
-          "self": {
-            "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/admission-date/memberships"
-          }
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/admission-date"
-        },
-        "memberships": {
-          "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/admission-date/memberships"
-        }
-      }
-    },
-    "admissionKids": "CLOSED",
-    "coachRate": null,
-    "freeSignupCancellationHorizonHours": 24,
-    "picture": null,
-    "tags": [
-      "Open Play",
-      "Advanced Beginner (2.75 - 3.25)"
-    ],
-    "visibility": "LISTED",
-    "access": {
-      "id": "access-a5ddaa30-f78d-4d05-86c8-f9ec138c94bd",
-      "type": "RESTRICTED",
-      "startTime": "2025-11-29T14:45:00.000Z",
-      "endTime": "2025-11-29T17:30:00.000Z"
-    },
-    "reservations": null,
-    "visibilitySchedules": null,
-    "bookingMode": "FREE_OF_CHARGE",
-    "bookedBy": {
-      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
-    },
-    "invitations": {
-      "_total": 6
-    },
-    "payments": null,
-    "completeInvitations": 0,
-    "replays": null,
-    "notes": null,
-    "openInvitations": null,
-    "signups": {
-      "_total": 5
-    },
-    "waitlist": null,
-    "stats": null,
-    "features": [
-      "QUICK_REPLAYS",
-      "CUSTOM_REPLAYS",
-      "ENHANCED_REPLAYS",
-      "WAITLIST",
-      "PUBLIC_ATTENDEE_LIST",
-      "SHOW_SPOTS_LEFT"
-    ],
-    "status": "PUBLISHED",
-    "tournamentDivision": null,
-    "_links": {
-      "self": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd"
-      },
-      "tables": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/tables"
-      },
-      "reservations": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/reservations"
-      },
-      "bookedBy": {
-        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
-      },
-      "invitations": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/invitations"
-      },
-      "payments": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/payments"
-      },
-      "replays": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/replays"
-      },
-      "notes": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/notes"
-      },
-      "purchases": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/purchases"
-      },
-      "openInvitations": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/open-invitations"
-      },
-      "signups": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/signups"
-      },
-      "waitlist": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/waitlist"
-      },
-      "stats": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/stats"
-      },
-      "visibilitySchedules": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/visibility-schedules"
-      },
-      "coaches": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/coaches"
-      },
-      "tournamentDivision": {
-        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/tournament-division"
       }
     }
   },
@@ -19414,6 +19173,343 @@
       },
       "tournamentDivision": {
         "href": "/events/cfba487f-1c64-464c-95d6-d264ff168121/tournament-division"
+      }
+    }
+  },
+  {
+    "id": "a5ddaa30-f78d-4d05-86c8-f9ec138c94bd",
+    "type": "EVENT",
+    "subtype": "OPEN_PLAY",
+    "customType": "Open Play",
+    "paymentMethod": null,
+    "name": "Open Play - Advanced Beginner",
+    "description": "**Advanced Beginner Open Play (2.75 to 3.25 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
+    "startTime": "2025-11-29T15:00:00.000Z",
+    "endTime": "2025-11-29T17:00:00.000Z",
+    "pods": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
+          "slug": "courts",
+          "displayName": "Courts",
+          "displayNameShort": "Courts",
+          "description": "4 Pickleball Courts",
+          "address": {
+            "street": "5-25 46th Ave. ",
+            "floor": " ",
+            "city": "Long Island City",
+            "zip": "11101",
+            "displayName": "5-25 46th Ave. , Long Island City, 11101"
+          },
+          "guests": {
+            "private": {
+              "min": "1-4",
+              "max": "6"
+            },
+            "coach": {
+              "min": "1-4",
+              "max": "6"
+            }
+          },
+          "rates": null,
+          "timezone": "America/New_York",
+          "type": "MULTI_TABLE",
+          "status": "AVAILABLE",
+          "sport": "PICKLEBALL",
+          "area": {
+            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
+          },
+          "tables": null,
+          "openTime": {
+            "hours": "05",
+            "minutes": "00"
+          },
+          "closeTime": {
+            "hours": "01",
+            "minutes": "00"
+          },
+          "closedTimeOverrides": null,
+          "_links": {
+            "self": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "area": {
+              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
+            },
+            "tables": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
+            },
+            "closedTimeOverrides": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
+            },
+            "settings": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
+            },
+            "rates": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/pods"
+        }
+      }
+    },
+    "tables": {
+      "items": [
+        {
+          "id": "a5ddaa30-f78d-4d05-86c8-f9ec138c94bd-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764428400000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
+            "slug": "court-3",
+            "displayName": "Court 3",
+            "displayNameShort": "C3",
+            "description": "Court 3",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
+              }
+            }
+          },
+          "startTime": "2025-11-29T15:00:00.000Z",
+          "endTime": "2025-11-29T17:00:00.000Z",
+          "features": [
+            "REPLAYS",
+            "QUICK_REPLAYS",
+            "CUSTOM_REPLAYS",
+            "ENHANCED_REPLAYS",
+            "SCOREBOARD"
+          ],
+          "_links": {
+            "self": {
+              "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/tables/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764428400000"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/tables"
+        }
+      }
+    },
+    "guests": {
+      "displayName": "1 person",
+      "displayNameShort": "1",
+      "max": 1
+    },
+    "totalTeams": 6,
+    "teamSize": 1,
+    "admission": "OPEN",
+    "admissionRating": {
+      "type": "DOUBLES"
+    },
+    "admissionRate": {
+      "regular": 40,
+      "member": 32,
+      "membersDefault": 32,
+      "dayPass": null,
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+              }
+            }
+          }
+        ],
+        "_total": 2,
+        "_links": {
+          "self": {
+            "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/admission-rate/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/admission-rate"
+        },
+        "memberships": {
+          "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/admission-rate/memberships"
+        }
+      }
+    },
+    "admissionDate": {
+      "regular": "2025-11-22T17:00:00.000Z",
+      "member": "2025-11-22T17:00:00.000Z",
+      "membersDefault": "2025-11-15T17:00:00.000Z",
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "2ab9c8c2-9a1e-4312-9a35-f0b66fdec120"
+            },
+            "date": "2025-11-15T17:00:00.000Z",
+            "_links": {
+              "self": {
+                "href": "/memberships/2ab9c8c2-9a1e-4312-9a35-f0b66fdec120"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "8b973862-cb6d-4161-80a7-12a0b29df106"
+            },
+            "date": "2025-11-15T17:00:00.000Z",
+            "_links": {
+              "self": {
+                "href": "/memberships/8b973862-cb6d-4161-80a7-12a0b29df106"
+              }
+            }
+          }
+        ],
+        "_total": 2,
+        "_links": {
+          "self": {
+            "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/admission-date/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/admission-date"
+        },
+        "memberships": {
+          "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/admission-date/memberships"
+        }
+      }
+    },
+    "admissionKids": "CLOSED",
+    "coachRate": null,
+    "freeSignupCancellationHorizonHours": 24,
+    "picture": null,
+    "tags": [
+      "Open Play",
+      "Advanced Beginner (2.75 - 3.25)"
+    ],
+    "visibility": "LISTED",
+    "access": {
+      "id": "access-a5ddaa30-f78d-4d05-86c8-f9ec138c94bd",
+      "type": "RESTRICTED",
+      "startTime": "2025-11-29T14:45:00.000Z",
+      "endTime": "2025-11-29T17:30:00.000Z"
+    },
+    "reservations": null,
+    "visibilitySchedules": null,
+    "bookingMode": "FREE_OF_CHARGE",
+    "bookedBy": {
+      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
+    },
+    "invitations": {
+      "_total": 6
+    },
+    "payments": null,
+    "completeInvitations": 0,
+    "replays": null,
+    "notes": null,
+    "openInvitations": null,
+    "signups": {
+      "_total": 5
+    },
+    "waitlist": null,
+    "stats": null,
+    "features": [
+      "QUICK_REPLAYS",
+      "CUSTOM_REPLAYS",
+      "ENHANCED_REPLAYS",
+      "WAITLIST",
+      "PUBLIC_ATTENDEE_LIST",
+      "SHOW_SPOTS_LEFT"
+    ],
+    "status": "PUBLISHED",
+    "tournamentDivision": null,
+    "_links": {
+      "self": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd"
+      },
+      "tables": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/tables"
+      },
+      "reservations": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/reservations"
+      },
+      "bookedBy": {
+        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
+      },
+      "invitations": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/invitations"
+      },
+      "payments": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/payments"
+      },
+      "replays": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/replays"
+      },
+      "notes": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/notes"
+      },
+      "purchases": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/purchases"
+      },
+      "openInvitations": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/open-invitations"
+      },
+      "signups": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/signups"
+      },
+      "waitlist": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/waitlist"
+      },
+      "stats": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/stats"
+      },
+      "visibilitySchedules": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/visibility-schedules"
+      },
+      "coaches": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/coaches"
+      },
+      "tournamentDivision": {
+        "href": "/events/a5ddaa30-f78d-4d05-86c8-f9ec138c94bd/tournament-division"
       }
     }
   },
@@ -20006,7 +20102,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 7
+      "_total": 6
     },
     "payments": null,
     "completeInvitations": 0,
@@ -20014,7 +20110,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 6
+      "_total": 5
     },
     "waitlist": null,
     "stats": null,
@@ -21862,7 +21958,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 20
+      "_total": 23
     },
     "payments": null,
     "completeInvitations": 0,
@@ -21870,7 +21966,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 21
+      "_total": 24
     },
     "waitlist": null,
     "stats": null,
@@ -22535,7 +22631,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 2
+      "_total": 4
     },
     "payments": null,
     "completeInvitations": 0,
@@ -22543,7 +22639,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 2
+      "_total": 4
     },
     "waitlist": null,
     "stats": null,
@@ -23231,7 +23327,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 0
+      "_total": 1
     },
     "payments": null,
     "completeInvitations": 0,
@@ -23239,7 +23335,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 0
+      "_total": 1
     },
     "waitlist": null,
     "stats": null,
@@ -23906,7 +24002,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 2
+      "_total": 7
     },
     "payments": null,
     "completeInvitations": 0,
@@ -23914,7 +24010,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 1
+      "_total": 6
     },
     "waitlist": null,
     "stats": null,
@@ -23976,6 +24072,1320 @@
       },
       "tournamentDivision": {
         "href": "/events/adacd9f3-2a61-47e9-ad23-2a180b56f9e6/tournament-division"
+      }
+    }
+  },
+  {
+    "id": "c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e",
+    "type": "EVENT",
+    "subtype": "OPEN_PLAY",
+    "customType": "Open Play",
+    "paymentMethod": null,
+    "name": "Open Play - Intermediate ",
+    "description": "**Intermediate Open Play (3.25 to 3.75 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
+    "startTime": "2025-11-30T17:00:00.000Z",
+    "endTime": "2025-11-30T19:00:00.000Z",
+    "pods": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
+          "slug": "courts",
+          "displayName": "Courts",
+          "displayNameShort": "Courts",
+          "description": "4 Pickleball Courts",
+          "address": {
+            "street": "5-25 46th Ave. ",
+            "floor": " ",
+            "city": "Long Island City",
+            "zip": "11101",
+            "displayName": "5-25 46th Ave. , Long Island City, 11101"
+          },
+          "guests": {
+            "private": {
+              "min": "1-4",
+              "max": "6"
+            },
+            "coach": {
+              "min": "1-4",
+              "max": "6"
+            }
+          },
+          "rates": null,
+          "timezone": "America/New_York",
+          "type": "MULTI_TABLE",
+          "status": "AVAILABLE",
+          "sport": "PICKLEBALL",
+          "area": {
+            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
+          },
+          "tables": null,
+          "openTime": {
+            "hours": "05",
+            "minutes": "00"
+          },
+          "closeTime": {
+            "hours": "01",
+            "minutes": "00"
+          },
+          "closedTimeOverrides": null,
+          "_links": {
+            "self": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "area": {
+              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
+            },
+            "tables": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
+            },
+            "closedTimeOverrides": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
+            },
+            "settings": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
+            },
+            "rates": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/pods"
+        }
+      }
+    },
+    "tables": {
+      "items": [
+        {
+          "id": "c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e-a603b3f5-5232-4746-ac52-915bb34b3d40-1764522000000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "a603b3f5-5232-4746-ac52-915bb34b3d40",
+            "slug": "court-4",
+            "displayName": "Court 4",
+            "displayNameShort": "C4",
+            "description": "Court 4",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40/settings"
+              }
+            }
+          },
+          "startTime": "2025-11-30T17:00:00.000Z",
+          "endTime": "2025-11-30T19:00:00.000Z",
+          "features": [
+            "REPLAYS",
+            "QUICK_REPLAYS",
+            "CUSTOM_REPLAYS",
+            "ENHANCED_REPLAYS",
+            "SCOREBOARD"
+          ],
+          "_links": {
+            "self": {
+              "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/tables/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e-a603b3f5-5232-4746-ac52-915bb34b3d40-1764522000000"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/tables"
+        }
+      }
+    },
+    "guests": {
+      "displayName": "1 person",
+      "displayNameShort": "1",
+      "max": 1
+    },
+    "totalTeams": 6,
+    "teamSize": 1,
+    "admission": "OPEN",
+    "admissionRating": {
+      "type": "DOUBLES"
+    },
+    "admissionRate": {
+      "regular": 40,
+      "member": 32,
+      "membersDefault": 32,
+      "dayPass": null,
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+              }
+            }
+          }
+        ],
+        "_total": 2,
+        "_links": {
+          "self": {
+            "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/admission-rate/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/admission-rate"
+        },
+        "memberships": {
+          "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/admission-rate/memberships"
+        }
+      }
+    },
+    "admissionDate": {
+      "regular": "2025-11-23T17:00:00.000Z",
+      "member": "2025-11-23T17:00:00.000Z",
+      "membersDefault": "2025-11-16T17:00:00.000Z",
+      "memberships": {
+        "items": [],
+        "_total": 0,
+        "_links": {
+          "self": {
+            "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/admission-date/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/admission-date"
+        },
+        "memberships": {
+          "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/admission-date/memberships"
+        }
+      }
+    },
+    "admissionKids": "CLOSED",
+    "coachRate": null,
+    "freeSignupCancellationHorizonHours": 24,
+    "picture": null,
+    "tags": [
+      "Open Play",
+      "Intermediate (3.25 - 3.75)"
+    ],
+    "visibility": "LISTED",
+    "access": {
+      "id": "access-c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e",
+      "type": "RESTRICTED",
+      "startTime": "2025-11-30T16:45:00.000Z",
+      "endTime": "2025-11-30T19:30:00.000Z"
+    },
+    "reservations": null,
+    "visibilitySchedules": null,
+    "bookingMode": "FREE_OF_CHARGE",
+    "bookedBy": {
+      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
+    },
+    "invitations": {
+      "_total": 4
+    },
+    "payments": null,
+    "completeInvitations": 0,
+    "replays": null,
+    "notes": null,
+    "openInvitations": null,
+    "signups": {
+      "_total": 4
+    },
+    "waitlist": null,
+    "stats": null,
+    "features": [
+      "QUICK_REPLAYS",
+      "CUSTOM_REPLAYS",
+      "ENHANCED_REPLAYS",
+      "WAITLIST",
+      "PUBLIC_ATTENDEE_LIST",
+      "SHOW_SPOTS_LEFT"
+    ],
+    "status": "PUBLISHED",
+    "tournamentDivision": null,
+    "_links": {
+      "self": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e"
+      },
+      "tables": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/tables"
+      },
+      "reservations": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/reservations"
+      },
+      "bookedBy": {
+        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
+      },
+      "invitations": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/invitations"
+      },
+      "payments": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/payments"
+      },
+      "replays": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/replays"
+      },
+      "notes": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/notes"
+      },
+      "purchases": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/purchases"
+      },
+      "openInvitations": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/open-invitations"
+      },
+      "signups": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/signups"
+      },
+      "waitlist": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/waitlist"
+      },
+      "stats": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/stats"
+      },
+      "visibilitySchedules": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/visibility-schedules"
+      },
+      "coaches": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/coaches"
+      },
+      "tournamentDivision": {
+        "href": "/events/c1522ce5-96d8-4bfb-beea-f2cf8e8dc64e/tournament-division"
+      }
+    }
+  },
+  {
+    "id": "0593864a-7c24-487e-baaa-d4fa964b4bfd",
+    "type": "EVENT",
+    "subtype": "OPEN_PLAY",
+    "customType": "Open Play",
+    "paymentMethod": null,
+    "name": "Instructional Beginner+ Open Play",
+    "description": "**Instructional Beginner+ Open Play**\n\n\\\nThis isn\u2019t your average open play \u2014 it\u2019s a\u00a0**coach-guided, feedback-rich session**\n\ndesigned to help you grow your game while having fun. \\n \n\n**What to Expect:** \\n \n\n* 2 hours of structured match play\n* Designed specifically for players who have attended a few clinics, but are still new to open play settings\n* Coach-led rotation system to ensure fresh matchups\n* Personalized tips and in-game feedback\n* Time for questions, breakdowns, and strategy advice\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
+    "startTime": "2025-11-30T17:00:00.000Z",
+    "endTime": "2025-11-30T19:00:00.000Z",
+    "pods": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
+          "slug": "courts",
+          "displayName": "Courts",
+          "displayNameShort": "Courts",
+          "description": "4 Pickleball Courts",
+          "address": {
+            "street": "5-25 46th Ave. ",
+            "floor": " ",
+            "city": "Long Island City",
+            "zip": "11101",
+            "displayName": "5-25 46th Ave. , Long Island City, 11101"
+          },
+          "guests": {
+            "private": {
+              "min": "1-4",
+              "max": "6"
+            },
+            "coach": {
+              "min": "1-4",
+              "max": "6"
+            }
+          },
+          "rates": null,
+          "timezone": "America/New_York",
+          "type": "MULTI_TABLE",
+          "status": "AVAILABLE",
+          "sport": "PICKLEBALL",
+          "area": {
+            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
+          },
+          "tables": null,
+          "openTime": {
+            "hours": "05",
+            "minutes": "00"
+          },
+          "closeTime": {
+            "hours": "01",
+            "minutes": "00"
+          },
+          "closedTimeOverrides": null,
+          "_links": {
+            "self": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "area": {
+              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
+            },
+            "tables": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
+            },
+            "closedTimeOverrides": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
+            },
+            "settings": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
+            },
+            "rates": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/pods"
+        }
+      }
+    },
+    "tables": {
+      "items": [
+        {
+          "id": "0593864a-7c24-487e-baaa-d4fa964b4bfd-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764522000000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
+            "slug": "court-3",
+            "displayName": "Court 3",
+            "displayNameShort": "C3",
+            "description": "Court 3",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
+              }
+            }
+          },
+          "startTime": "2025-11-30T17:00:00.000Z",
+          "endTime": "2025-11-30T19:00:00.000Z",
+          "features": [
+            "REPLAYS",
+            "QUICK_REPLAYS",
+            "CUSTOM_REPLAYS",
+            "ENHANCED_REPLAYS",
+            "SCOREBOARD"
+          ],
+          "_links": {
+            "self": {
+              "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/tables/0593864a-7c24-487e-baaa-d4fa964b4bfd-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764522000000"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/tables"
+        }
+      }
+    },
+    "guests": {
+      "displayName": "1 person",
+      "displayNameShort": "1",
+      "max": 1
+    },
+    "totalTeams": 6,
+    "teamSize": 1,
+    "admission": "OPEN",
+    "admissionRating": {
+      "type": "DOUBLES"
+    },
+    "admissionRate": {
+      "regular": 40,
+      "member": 32,
+      "membersDefault": 32,
+      "dayPass": null,
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+              }
+            }
+          }
+        ],
+        "_total": 2,
+        "_links": {
+          "self": {
+            "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/admission-rate/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/admission-rate"
+        },
+        "memberships": {
+          "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/admission-rate/memberships"
+        }
+      }
+    },
+    "admissionDate": {
+      "regular": "2025-11-23T17:00:00.000Z",
+      "member": "2025-11-23T17:00:00.000Z",
+      "membersDefault": "2025-11-16T17:00:00.000Z",
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "2ab9c8c2-9a1e-4312-9a35-f0b66fdec120"
+            },
+            "date": "2025-11-16T17:00:00.000Z",
+            "_links": {
+              "self": {
+                "href": "/memberships/2ab9c8c2-9a1e-4312-9a35-f0b66fdec120"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "8b973862-cb6d-4161-80a7-12a0b29df106"
+            },
+            "date": "2025-11-16T17:00:00.000Z",
+            "_links": {
+              "self": {
+                "href": "/memberships/8b973862-cb6d-4161-80a7-12a0b29df106"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "ab212de0-8029-4719-a443-4aba170b010d"
+            },
+            "date": "2025-11-16T17:00:00.000Z",
+            "_links": {
+              "self": {
+                "href": "/memberships/ab212de0-8029-4719-a443-4aba170b010d"
+              }
+            }
+          }
+        ],
+        "_total": 3,
+        "_links": {
+          "self": {
+            "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/admission-date/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/admission-date"
+        },
+        "memberships": {
+          "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/admission-date/memberships"
+        }
+      }
+    },
+    "admissionKids": "CLOSED",
+    "coachRate": null,
+    "freeSignupCancellationHorizonHours": 24,
+    "picture": null,
+    "tags": [
+      "Open Play",
+      "Beginner"
+    ],
+    "visibility": "LISTED",
+    "access": {
+      "id": "access-0593864a-7c24-487e-baaa-d4fa964b4bfd",
+      "type": "RESTRICTED",
+      "startTime": "2025-11-30T16:45:00.000Z",
+      "endTime": "2025-11-30T19:30:00.000Z"
+    },
+    "reservations": null,
+    "visibilitySchedules": null,
+    "bookingMode": "FREE_OF_CHARGE",
+    "bookedBy": {
+      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
+    },
+    "invitations": {
+      "_total": 3
+    },
+    "payments": null,
+    "completeInvitations": 0,
+    "replays": null,
+    "notes": null,
+    "openInvitations": null,
+    "signups": {
+      "_total": 2
+    },
+    "waitlist": null,
+    "stats": null,
+    "features": [
+      "QUICK_REPLAYS",
+      "CUSTOM_REPLAYS",
+      "ENHANCED_REPLAYS",
+      "WAITLIST",
+      "PUBLIC_ATTENDEE_LIST",
+      "SHOW_SPOTS_LEFT"
+    ],
+    "status": "PUBLISHED",
+    "tournamentDivision": null,
+    "_links": {
+      "self": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd"
+      },
+      "tables": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/tables"
+      },
+      "reservations": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/reservations"
+      },
+      "bookedBy": {
+        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
+      },
+      "invitations": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/invitations"
+      },
+      "payments": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/payments"
+      },
+      "replays": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/replays"
+      },
+      "notes": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/notes"
+      },
+      "purchases": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/purchases"
+      },
+      "openInvitations": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/open-invitations"
+      },
+      "signups": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/signups"
+      },
+      "waitlist": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/waitlist"
+      },
+      "stats": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/stats"
+      },
+      "visibilitySchedules": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/visibility-schedules"
+      },
+      "coaches": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/coaches"
+      },
+      "tournamentDivision": {
+        "href": "/events/0593864a-7c24-487e-baaa-d4fa964b4bfd/tournament-division"
+      }
+    }
+  },
+  {
+    "id": "86773d70-4cf3-4769-ba9d-c6e275a9cff8",
+    "type": "EVENT",
+    "subtype": "OPEN_PLAY",
+    "customType": "Open Play",
+    "paymentMethod": null,
+    "name": "Open Play - 3.5+ Non-rated",
+    "description": "**Open Play 3.5+ Non-rated**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
+    "startTime": "2025-11-30T19:00:00.000Z",
+    "endTime": "2025-11-30T21:00:00.000Z",
+    "pods": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
+          "slug": "courts",
+          "displayName": "Courts",
+          "displayNameShort": "Courts",
+          "description": "4 Pickleball Courts",
+          "address": {
+            "street": "5-25 46th Ave. ",
+            "floor": " ",
+            "city": "Long Island City",
+            "zip": "11101",
+            "displayName": "5-25 46th Ave. , Long Island City, 11101"
+          },
+          "guests": {
+            "private": {
+              "min": "1-4",
+              "max": "6"
+            },
+            "coach": {
+              "min": "1-4",
+              "max": "6"
+            }
+          },
+          "rates": null,
+          "timezone": "America/New_York",
+          "type": "MULTI_TABLE",
+          "status": "AVAILABLE",
+          "sport": "PICKLEBALL",
+          "area": {
+            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
+          },
+          "tables": null,
+          "openTime": {
+            "hours": "05",
+            "minutes": "00"
+          },
+          "closeTime": {
+            "hours": "01",
+            "minutes": "00"
+          },
+          "closedTimeOverrides": null,
+          "_links": {
+            "self": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "area": {
+              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
+            },
+            "tables": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
+            },
+            "closedTimeOverrides": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
+            },
+            "settings": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
+            },
+            "rates": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/pods"
+        }
+      }
+    },
+    "tables": {
+      "items": [
+        {
+          "id": "86773d70-4cf3-4769-ba9d-c6e275a9cff8-a603b3f5-5232-4746-ac52-915bb34b3d40-1764529200000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "a603b3f5-5232-4746-ac52-915bb34b3d40",
+            "slug": "court-4",
+            "displayName": "Court 4",
+            "displayNameShort": "C4",
+            "description": "Court 4",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40/settings"
+              }
+            }
+          },
+          "startTime": "2025-11-30T19:00:00.000Z",
+          "endTime": "2025-11-30T21:00:00.000Z",
+          "features": [
+            "REPLAYS",
+            "QUICK_REPLAYS",
+            "CUSTOM_REPLAYS",
+            "ENHANCED_REPLAYS",
+            "SCOREBOARD"
+          ],
+          "_links": {
+            "self": {
+              "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/tables/86773d70-4cf3-4769-ba9d-c6e275a9cff8-a603b3f5-5232-4746-ac52-915bb34b3d40-1764529200000"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/tables"
+        }
+      }
+    },
+    "guests": {
+      "displayName": "1 person",
+      "displayNameShort": "1",
+      "max": 1
+    },
+    "totalTeams": 6,
+    "teamSize": 1,
+    "admission": "OPEN",
+    "admissionRating": {
+      "minRating": 3.5,
+      "type": "DOUBLES"
+    },
+    "admissionRate": {
+      "regular": 40,
+      "member": 32,
+      "membersDefault": 32,
+      "dayPass": null,
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+              }
+            }
+          }
+        ],
+        "_total": 2,
+        "_links": {
+          "self": {
+            "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/admission-rate/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/admission-rate"
+        },
+        "memberships": {
+          "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/admission-rate/memberships"
+        }
+      }
+    },
+    "admissionDate": {
+      "regular": "2025-11-23T17:00:00.000Z",
+      "member": "2025-11-23T17:00:00.000Z",
+      "membersDefault": "2025-11-16T17:00:00.000Z",
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "2ab9c8c2-9a1e-4312-9a35-f0b66fdec120"
+            },
+            "date": "2025-11-16T17:00:00.000Z",
+            "_links": {
+              "self": {
+                "href": "/memberships/2ab9c8c2-9a1e-4312-9a35-f0b66fdec120"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "8b973862-cb6d-4161-80a7-12a0b29df106"
+            },
+            "date": "2025-11-16T17:00:00.000Z",
+            "_links": {
+              "self": {
+                "href": "/memberships/8b973862-cb6d-4161-80a7-12a0b29df106"
+              }
+            }
+          }
+        ],
+        "_total": 2,
+        "_links": {
+          "self": {
+            "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/admission-date/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/admission-date"
+        },
+        "memberships": {
+          "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/admission-date/memberships"
+        }
+      }
+    },
+    "admissionKids": "CLOSED",
+    "coachRate": null,
+    "freeSignupCancellationHorizonHours": 24,
+    "picture": null,
+    "tags": [
+      "Open Play",
+      "Advanced (3.75 - 4.25)"
+    ],
+    "visibility": "LISTED",
+    "access": {
+      "id": "access-86773d70-4cf3-4769-ba9d-c6e275a9cff8",
+      "type": "RESTRICTED",
+      "startTime": "2025-11-30T18:45:00.000Z",
+      "endTime": "2025-11-30T21:30:00.000Z"
+    },
+    "reservations": null,
+    "visibilitySchedules": null,
+    "bookingMode": "FREE_OF_CHARGE",
+    "bookedBy": {
+      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
+    },
+    "invitations": {
+      "_total": 1
+    },
+    "payments": null,
+    "completeInvitations": 0,
+    "replays": null,
+    "notes": null,
+    "openInvitations": null,
+    "signups": {
+      "_total": 1
+    },
+    "waitlist": null,
+    "stats": null,
+    "features": [
+      "QUICK_REPLAYS",
+      "CUSTOM_REPLAYS",
+      "ENHANCED_REPLAYS",
+      "WAITLIST",
+      "PUBLIC_ATTENDEE_LIST",
+      "SHOW_SPOTS_LEFT"
+    ],
+    "status": "PUBLISHED",
+    "tournamentDivision": null,
+    "_links": {
+      "self": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8"
+      },
+      "tables": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/tables"
+      },
+      "reservations": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/reservations"
+      },
+      "bookedBy": {
+        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
+      },
+      "invitations": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/invitations"
+      },
+      "payments": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/payments"
+      },
+      "replays": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/replays"
+      },
+      "notes": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/notes"
+      },
+      "purchases": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/purchases"
+      },
+      "openInvitations": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/open-invitations"
+      },
+      "signups": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/signups"
+      },
+      "waitlist": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/waitlist"
+      },
+      "stats": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/stats"
+      },
+      "visibilitySchedules": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/visibility-schedules"
+      },
+      "coaches": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/coaches"
+      },
+      "tournamentDivision": {
+        "href": "/events/86773d70-4cf3-4769-ba9d-c6e275a9cff8/tournament-division"
+      }
+    }
+  },
+  {
+    "id": "023cd85d-a6eb-44ef-8ca0-4c286b7f06c8",
+    "type": "EVENT",
+    "subtype": "OPEN_PLAY",
+    "customType": "Open Play",
+    "paymentMethod": null,
+    "name": "Open Play - Intermediate ",
+    "description": "**Intermediate Open Play (3.25 to 3.75 DUPR)**\n\n\\\nOpen Play sessions are designed for you to play with other players at or near your level in a friendly setting.  Come by yourself or with a guest and meet other players for 2 hours of non-stop pickleball action!\n\n\\\n**Max players per court: 6**\n\n\\\n**Cancellation Policy:** Full refund until 24 hours before the session starts. Cancellations within 24 hours will be subject to a full charge.\n\n\\\n**Low Enrollment Cancellation**: We will cancel sessions that do not have a sufficient number of players by 8pm the prior evening.  You will not be charged and will receive a notice of the cancellation via email.",
+    "startTime": "2025-11-30T19:00:00.000Z",
+    "endTime": "2025-11-30T21:00:00.000Z",
+    "pods": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83",
+          "slug": "courts",
+          "displayName": "Courts",
+          "displayNameShort": "Courts",
+          "description": "4 Pickleball Courts",
+          "address": {
+            "street": "5-25 46th Ave. ",
+            "floor": " ",
+            "city": "Long Island City",
+            "zip": "11101",
+            "displayName": "5-25 46th Ave. , Long Island City, 11101"
+          },
+          "guests": {
+            "private": {
+              "min": "1-4",
+              "max": "6"
+            },
+            "coach": {
+              "min": "1-4",
+              "max": "6"
+            }
+          },
+          "rates": null,
+          "timezone": "America/New_York",
+          "type": "MULTI_TABLE",
+          "status": "AVAILABLE",
+          "sport": "PICKLEBALL",
+          "area": {
+            "id": "85e29133-d5b7-4c3e-9327-608f398c7912"
+          },
+          "tables": null,
+          "openTime": {
+            "hours": "05",
+            "minutes": "00"
+          },
+          "closeTime": {
+            "hours": "01",
+            "minutes": "00"
+          },
+          "closedTimeOverrides": null,
+          "_links": {
+            "self": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "area": {
+              "href": "/areas/85e29133-d5b7-4c3e-9327-608f398c7912"
+            },
+            "tables": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables"
+            },
+            "closedTimeOverrides": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/closed-time-overrides"
+            },
+            "settings": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/settings"
+            },
+            "rates": {
+              "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/rates"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/pods"
+        }
+      }
+    },
+    "tables": {
+      "items": [
+        {
+          "id": "023cd85d-a6eb-44ef-8ca0-4c286b7f06c8-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764529200000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
+            "slug": "court-3",
+            "displayName": "Court 3",
+            "displayNameShort": "C3",
+            "description": "Court 3",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
+              }
+            }
+          },
+          "startTime": "2025-11-30T19:00:00.000Z",
+          "endTime": "2025-11-30T21:00:00.000Z",
+          "features": [
+            "REPLAYS",
+            "QUICK_REPLAYS",
+            "CUSTOM_REPLAYS",
+            "ENHANCED_REPLAYS",
+            "SCOREBOARD"
+          ],
+          "_links": {
+            "self": {
+              "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/tables/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8-90c95aaf-31cd-4e95-8042-5d07ca848a4f-1764529200000"
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/tables"
+        }
+      }
+    },
+    "guests": {
+      "displayName": "1 person",
+      "displayNameShort": "1",
+      "max": 1
+    },
+    "totalTeams": 6,
+    "teamSize": 1,
+    "admission": "OPEN",
+    "admissionRating": {
+      "type": "DOUBLES"
+    },
+    "admissionRate": {
+      "regular": 40,
+      "member": 32,
+      "membersDefault": 32,
+      "dayPass": null,
+      "memberships": {
+        "items": [
+          {
+            "membership": {
+              "id": "99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/99c9a7fc-480a-46d4-be7d-d07016ba7df0"
+              }
+            }
+          },
+          {
+            "membership": {
+              "id": "ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+            },
+            "rate": 20,
+            "_links": {
+              "self": {
+                "href": "/memberships/ff563bb7-8954-4f48-8b9d-ee5449ca8c69"
+              }
+            }
+          }
+        ],
+        "_total": 2,
+        "_links": {
+          "self": {
+            "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/admission-rate/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/admission-rate"
+        },
+        "memberships": {
+          "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/admission-rate/memberships"
+        }
+      }
+    },
+    "admissionDate": {
+      "regular": "2025-11-23T17:00:00.000Z",
+      "member": "2025-11-23T17:00:00.000Z",
+      "membersDefault": "2025-11-16T17:00:00.000Z",
+      "memberships": {
+        "items": [],
+        "_total": 0,
+        "_links": {
+          "self": {
+            "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/admission-date/memberships"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/admission-date"
+        },
+        "memberships": {
+          "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/admission-date/memberships"
+        }
+      }
+    },
+    "admissionKids": "CLOSED",
+    "coachRate": null,
+    "freeSignupCancellationHorizonHours": 24,
+    "picture": null,
+    "tags": [
+      "Open Play",
+      "Intermediate (3.25 - 3.75)"
+    ],
+    "visibility": "LISTED",
+    "access": {
+      "id": "access-023cd85d-a6eb-44ef-8ca0-4c286b7f06c8",
+      "type": "RESTRICTED",
+      "startTime": "2025-11-30T18:45:00.000Z",
+      "endTime": "2025-11-30T21:30:00.000Z"
+    },
+    "reservations": null,
+    "visibilitySchedules": null,
+    "bookingMode": "FREE_OF_CHARGE",
+    "bookedBy": {
+      "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
+    },
+    "invitations": {
+      "_total": 4
+    },
+    "payments": null,
+    "completeInvitations": 0,
+    "replays": null,
+    "notes": null,
+    "openInvitations": null,
+    "signups": {
+      "_total": 3
+    },
+    "waitlist": null,
+    "stats": null,
+    "features": [
+      "QUICK_REPLAYS",
+      "CUSTOM_REPLAYS",
+      "ENHANCED_REPLAYS",
+      "WAITLIST",
+      "PUBLIC_ATTENDEE_LIST",
+      "SHOW_SPOTS_LEFT"
+    ],
+    "status": "PUBLISHED",
+    "tournamentDivision": null,
+    "_links": {
+      "self": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8"
+      },
+      "tables": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/tables"
+      },
+      "reservations": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/reservations"
+      },
+      "bookedBy": {
+        "href": "/users/KFHD2KcnGgUIg0jzf2ZxFllbTdu2/profile"
+      },
+      "invitations": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/invitations"
+      },
+      "payments": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/payments"
+      },
+      "replays": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/replays"
+      },
+      "notes": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/notes"
+      },
+      "purchases": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/purchases"
+      },
+      "openInvitations": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/open-invitations"
+      },
+      "signups": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/signups"
+      },
+      "waitlist": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/waitlist"
+      },
+      "stats": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/stats"
+      },
+      "visibilitySchedules": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/visibility-schedules"
+      },
+      "coaches": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/coaches"
+      },
+      "tournamentDivision": {
+        "href": "/events/023cd85d-a6eb-44ef-8ca0-4c286b7f06c8/tournament-division"
       }
     }
   }
