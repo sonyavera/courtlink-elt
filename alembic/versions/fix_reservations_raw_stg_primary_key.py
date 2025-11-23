@@ -93,6 +93,49 @@ def upgrade() -> None:
         else:
             print(f"Unique index already exists on {schema}.reservations_raw_stg")
 
+    # Fix reservations_raw (production) table
+    if _table_exists("reservations_raw", schema):
+        bind = op.get_bind()
+        inspector = inspect(bind)
+
+        # Check for existing primary key
+        pk_constraint = inspector.get_pk_constraint("reservations_raw", schema=schema)
+        has_old_pk = pk_constraint and set(pk_constraint["constrained_columns"]) == {
+            "client_code",
+            "reservation_id",
+        }
+
+        # Check if unique index already exists (it should from initial schema)
+        indexes = inspector.get_indexes("reservations_raw", schema=schema)
+        index_exists = any(
+            idx["name"] == "reservations_raw_client_res_member_idx" for idx in indexes
+        )
+
+        if has_old_pk:
+            # Drop the old primary key constraint
+            op.drop_constraint(
+                "reservations_raw_pkey",
+                "reservations_raw",
+                schema=schema,
+                type_="primary",
+            )
+            print(f"Dropped old primary key on {schema}.reservations_raw")
+
+        # The unique index should already exist from initial schema, but verify
+        if not index_exists:
+            op.execute(
+                f"""
+                CREATE UNIQUE INDEX IF NOT EXISTS reservations_raw_client_res_member_idx
+                ON "{schema}"."reservations_raw" (client_code, reservation_id, member_id)
+                """
+            )
+            print(
+                f"Added unique index on {schema}.reservations_raw "
+                f"for (client_code, reservation_id, member_id)"
+            )
+        else:
+            print(f"Unique index already exists on {schema}.reservations_raw")
+
 
 def downgrade() -> None:
     # Get schema from environment
@@ -120,4 +163,19 @@ def downgrade() -> None:
 
         print(
             f"Reverted {schema}.reservations_raw_stg to original primary key (client_code, reservation_id)"
+        )
+
+    # Revert reservations_raw
+    if _table_exists("reservations_raw", schema):
+        # Restore the original primary key
+        # Note: We don't drop the unique index because it existed in the original schema
+        op.create_primary_key(
+            "reservations_raw_pkey",
+            "reservations_raw",
+            ["client_code", "reservation_id"],
+            schema=schema,
+        )
+
+        print(
+            f"Reverted {schema}.reservations_raw to original primary key (client_code, reservation_id)"
         )
