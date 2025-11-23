@@ -1,0 +1,61 @@
+{
+  "EventListResponse": {
+    "description": "Response from /api/v1/eventcalendar/eventlist endpoint",
+    "structure": {
+      "ErrorMessage": "string",
+      "Data": [
+        {
+          "EventId": 0,
+          "EventName": "string",
+          "EventCategoryId": 0,
+          "EventCategoryName": "string",
+          "StartDateTime": "2025-11-23T16:32:01.438Z",
+          "EndDateTime": "2025-11-23T16:32:01.438Z",
+          "ReservationId": 0,
+          "BackgroundColor": "string",
+          "TextColor": "string",
+          "IsRegistered": true,
+          "SsoUrl": "string",
+          "ImageUrl": "string",
+          "MaxRegistrants": 0,
+          "RegisteredCount": 0,
+          "PriceInfo": [
+            {
+              "MembershipTypeName": "string",
+              "DailyPrice": 0,
+              "EntireEventPrice": 0
+            }
+          ],
+          "RatingRestrictions": [
+            {
+              "CategoryName": "string",
+              "SystemName": "string",
+              "MinSingles": 0,
+              "MaxSingles": 0,
+              "MinDoubles": 0,
+              "MaxDoubles": 0,
+              "AllowedRatingNames": "string"
+            }
+          ],
+          "TagsInfo": [
+            {
+              "Name": "string",
+              "TextColor": "string",
+              "BackgroundColor": "string"
+            }
+          ],
+          "Courts": [
+            {
+              "Id": 0,
+              "Label": "string",
+              "TypeName": "string",
+              "OrderIndex": 0
+            }
+          ]
+        }
+      ],
+      "IsSuccessStatusCode": true
+    }
+  }
+}
+

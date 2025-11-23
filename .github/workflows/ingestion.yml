@@ -2,6 +2,8 @@ name: Data Ingestion
 
 on:
   schedule:
+    # Run every 45 minutes: courtreserve-events, podplay-events, podplay-court-availability
+    - cron: "*/45 * * * *"
     # Run every 30 minutes: courtreserve-reservations, courtreserve-members, podplay-reservations
     - cron: "*/30 * * * *"
     # Run every 6 hours: podplay-members
@@ -13,17 +15,85 @@ on:
         required: true
         type: choice
         options:
+          - "45min"
           - "30min"
           - "6hour"
-          - "both"
-        default: "both"
+          - "all"
+        default: "all"
 
 jobs:
+  ingest-45min:
+    name: Ingest Events & Court Availability (45 min schedule)
+    runs-on: ubuntu-latest
+    environment: prod
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '45min' || github.event.inputs.job_to_run == 'all'))
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -r requirements/all.txt
+
+      - name: Ingest CourtReserve Events
+        run: make ingest-courtreserve-events
+        env:
+          PG_DSN: ${{ secrets.PG_DSN }}
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
+          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
+          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
+
+      - name: Ingest Podplay Events
+        run: make ingest-podplay-events
+        env:
+          PG_DSN: ${{ secrets.PG_DSN }}
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
+          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
+          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
+
+      - name: Ingest Podplay Court Availability
+        run: make ingest-podplay-court-availability
+        env:
+          PG_DSN: ${{ secrets.PG_DSN }}
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+          PKLYN_USERNAME: ${{ secrets.PKLYN_USERNAME }}
+          PKLYN_PASSWORD: ${{ secrets.PKLYN_PASSWORD }}
+          GOTHAM_API_KEY: ${{ secrets.GOTHAM_API_KEY }}
+
+      - name: Install dbt package dependencies
+        run: python3 -m scripts.run_dbt deps
+        env:
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+
+      - name: Run dbt
+        run: python3 -m scripts.run_dbt run --target prod
+        env:
+          PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+
   ingest-30min:
     name: Ingest (30 min schedule)
     runs-on: ubuntu-latest
     environment: prod
-    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '30min' || github.event.inputs.job_to_run == 'both'))
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '30min' || github.event.inputs.job_to_run == 'all'))
 
     steps:
       - name: Checkout code
@@ -92,7 +162,7 @@ jobs:
     environment: prod
     if: |
       (github.event_name == 'schedule') ||
-      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '6hour' || github.event.inputs.job_to_run == 'both'))
+      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '6hour' || github.event.inputs.job_to_run == 'all'))
 
     # Only run if the current hour is divisible by 6 (0, 6, 12, 18)
     # This ensures it only runs on the 6-hour schedule, not every 30 minutes

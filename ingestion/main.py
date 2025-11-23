@@ -20,6 +20,9 @@ from ingestion.podplay.members import normalize_members as normalize_podplay_mem
 from ingestion.podplay.reservations import (
     normalize_event_reservations as normalize_podplay_reservations,
 )
+from ingestion.events.podplay_events import normalize_podplay_events
+from ingestion.events.courtreserve_events import normalize_courtreserve_events
+from ingestion.events.podplay_sessions import normalize_podplay_sessions
 
 load_dotenv()
 
@@ -76,35 +79,30 @@ def _get_courtreserve_client_codes() -> list[str]:
             return codes
 
     # Query database for customer organizations
-    try:
-        import psycopg2
+    if not pg_schema:
+        raise RuntimeError("PG_SCHEMA environment variable must be set")
 
-        schema = os.getenv("COURT_SCRAPER_SCHEMA", "court_availability_scraper")
-        conn = psycopg2.connect(pg_dsn)
-        cur = conn.cursor()
+    import psycopg2
 
-        query = f"""
-        SELECT client_code
-        FROM {schema}.organizations
-        WHERE is_customer = true AND source_system_code = 'courtreserve'
-        ORDER BY client_code
-        """
+    conn = psycopg2.connect(pg_dsn)
+    cur = conn.cursor()
 
-        cur.execute(query)
-        rows = cur.fetchall()
-        cur.close()
-        conn.close()
+    query = f"""
+    SELECT client_code
+    FROM "{pg_schema}".organizations
+    WHERE is_customer = true AND source_system_code = 'courtreserve'
+    ORDER BY client_code
+    """
 
-        codes = [row[0].strip().lower() for row in rows if row[0]]
-        if codes:
-            return codes
-    except Exception as e:
-        print(
-            f"Warning: Could not query database for client codes: {e}", file=sys.stderr
-        )
+    cur.execute(query)
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
 
-    # Fallback to default
-    return ["pklyn"]
+    codes = [row[0].strip().lower() for row in rows if row[0]]
+    if not codes:
+        raise RuntimeError("No CourtReserve client codes found in organizations table")
+    return codes
 
 
 def _get_podplay_client(client_code: str) -> PodplayClient:
@@ -132,35 +130,63 @@ def _get_podplay_client_codes() -> list[str]:
             return codes
 
     # Query database for customer organizations
-    try:
-        import psycopg2
+    if not pg_schema:
+        raise RuntimeError("PG_SCHEMA environment variable must be set")
 
-        schema = os.getenv("COURT_SCRAPER_SCHEMA", "court_availability_scraper")
-        conn = psycopg2.connect(pg_dsn)
-        cur = conn.cursor()
+    import psycopg2
 
-        query = f"""
-        SELECT client_code
-        FROM {schema}.organizations
-        WHERE is_customer = true AND source_system_code = 'podplay'
-        ORDER BY client_code
-        """
+    conn = psycopg2.connect(pg_dsn)
+    cur = conn.cursor()
 
-        cur.execute(query)
-        rows = cur.fetchall()
-        cur.close()
-        conn.close()
+    query = f"""
+    SELECT client_code
+    FROM "{pg_schema}".organizations
+    WHERE is_customer = true AND source_system_code = 'podplay'
+    ORDER BY client_code
+    """
 
-        codes = [row[0].strip().lower() for row in rows if row[0]]
-        if codes:
-            return codes
-    except Exception as e:
-        print(
-            f"Warning: Could not query database for client codes: {e}", file=sys.stderr
-        )
+    cur.execute(query)
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
 
-    # Fallback to default
-    return ["gotham"]
+    codes = [row[0].strip().lower() for row in rows if row[0]]
+    if not codes:
+        raise RuntimeError("No Podplay client codes found in organizations table")
+    return codes
+
+
+def _get_podplay_clients_with_pod_ids() -> list[tuple[str, Optional[str]]]:
+    """Get Podplay client codes and pod IDs from database.
+
+    Returns:
+        List of tuples (client_code, podplay_pod_id)
+    """
+    # Query database for customer organizations
+    if not pg_schema:
+        raise RuntimeError("PG_SCHEMA environment variable must be set")
+
+    import psycopg2
+
+    conn = psycopg2.connect(pg_dsn)
+    cur = conn.cursor()
+
+    query = f"""
+    SELECT client_code, podplay_pod_id
+    FROM "{pg_schema}".organizations
+    WHERE is_customer = true AND source_system_code = 'podplay'
+    ORDER BY client_code
+    """
+
+    cur.execute(query)
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
+
+    result = [
+        (row[0].strip().lower(), row[1] if row[1] else None) for row in rows if row[0]
+    ]
+    return result
 
 
 def _resolve_watermark(
@@ -551,6 +577,306 @@ def refresh_podplay_members():
     print("=" * 80)
 
 
+def refresh_podplay_events():
+    """Refresh Podplay events for all participating facilities."""
+    print("=" * 80)
+    print("[PODPLAY EVENTS] Starting Podplay events ingestion")
+    print("=" * 80)
+
+    clients_with_pod_ids = _get_podplay_clients_with_pod_ids()
+    if not clients_with_pod_ids:
+        print("[PODPLAY EVENTS] No Podplay clients found, skipping")
+        return
+
+    # Calculate date range: now to 7 days from now
+    now = datetime.now(timezone.utc)
+    end_time = now + timedelta(days=7)
+
+    all_events = []
+    all_raw_events = []  # Store raw API responses
+
+    for client_code, pod_id in clients_with_pod_ids:
+        print(f"\n[PODPLAY EVENTS] Processing {client_code} (pod_id: {pod_id})...")
+
+        try:
+            client = _get_podplay_client(client_code)
+
+            # Get events with all types
+            events = client.get_events(
+                start_time=now,
+                end_time=end_time,
+                event_types=["REGULAR", "CLASS", "EVENT"],
+                pod_id=pod_id,
+            )
+
+            print(f"[PODPLAY EVENTS] Retrieved {len(events)} events for {client_code}")
+
+            # Save raw API response for inspection
+            all_raw_events.extend(events)
+
+            # Normalize events
+            normalized = normalize_podplay_events(events, client_code)
+            all_events.extend(normalized)
+
+            print(
+                f"[PODPLAY EVENTS] Normalized {len(normalized)} events for {client_code}"
+            )
+
+        except Exception as e:
+            print(
+                f"[PODPLAY EVENTS] Error processing {client_code}: {e}", file=sys.stderr
+            )
+            continue
+
+    # Save raw API responses to JSON file for inspection
+    import json
+
+    raw_output_file = "podplay_events_raw_api_response.json"
+    with open(raw_output_file, "w") as f:
+        json.dump(all_raw_events, f, indent=2, default=str)
+    print(
+        f"\n[PODPLAY EVENTS] Saved {len(all_raw_events)} raw API events to {raw_output_file}"
+    )
+
+    # Save normalized events to JSON file for inspection
+    output_file = "podplay_events_output.json"
+    with open(output_file, "w") as f:
+        json.dump(all_events, f, indent=2, default=str)
+    print(
+        f"[PODPLAY EVENTS] Saved {len(all_events)} normalized events to {output_file}"
+    )
+
+    # Insert into database
+    if all_events:
+        print(f"\n[PODPLAY EVENTS] Inserting {len(all_events)} events into database...")
+        pg_client.insert_events(all_events)
+        print(f"[PODPLAY EVENTS] ✓ Complete: {len(all_events)} events inserted")
+    else:
+        print("[PODPLAY EVENTS] No events to insert")
+
+    print("[PODPLAY EVENTS] All clients processed")
+    print("=" * 80)
+
+
+def refresh_courtreserve_events():
+    """Refresh CourtReserve events for all participating facilities."""
+    print("=" * 80)
+    print("[COURTRESERVE EVENTS] Starting CourtReserve events ingestion")
+    print("=" * 80)
+
+    client_codes = _get_courtreserve_client_codes()
+    if not client_codes:
+        print("[COURTRESERVE EVENTS] No CourtReserve clients found, skipping")
+        return
+
+    # Calculate date range: now to 7 days from now
+    now = datetime.now(timezone.utc)
+    end_date = now + timedelta(days=7)
+
+    all_events = []
+    all_raw_events = []  # Store raw API responses
+
+    for client_code in client_codes:
+        print(f"\n[COURTRESERVE EVENTS] Processing {client_code}...")
+
+        try:
+            client = _get_courtreserve_client(client_code)
+
+            # Get events
+            events = client.get_events(
+                start_date=now,
+                end_date=end_date,
+            )
+
+            print(
+                f"[COURTRESERVE EVENTS] Retrieved {len(events)} events for {client_code}"
+            )
+
+            # Save raw API response for inspection
+            all_raw_events.extend(events)
+
+            # Normalize events
+            normalized = normalize_courtreserve_events(events, client_code)
+            all_events.extend(normalized)
+
+            print(
+                f"[COURTRESERVE EVENTS] Normalized {len(normalized)} events for {client_code}"
+            )
+
+        except Exception as e:
+            print(
+                f"[COURTRESERVE EVENTS] Error processing {client_code}: {e}",
+                file=sys.stderr,
+            )
+            continue
+
+    # Save raw API responses to JSON file for inspection
+    import json
+
+    raw_output_file = "courtreserve_events_raw_api_response.json"
+    with open(raw_output_file, "w") as f:
+        json.dump(all_raw_events, f, indent=2, default=str)
+    print(
+        f"\n[COURTRESERVE EVENTS] Saved {len(all_raw_events)} raw API events to {raw_output_file}"
+    )
+
+    # Save normalized events to JSON file for inspection
+    output_file = "courtreserve_events_output.json"
+    with open(output_file, "w") as f:
+        json.dump(all_events, f, indent=2, default=str)
+    print(
+        f"[COURTRESERVE EVENTS] Saved {len(all_events)} normalized events to {output_file}"
+    )
+
+    # Check for duplicates in normalized events
+    # Primary key is now (client_code, source_system, event_id, event_start_time)
+    from collections import Counter
+
+    event_keys = [
+        (e["client_code"], e["source_system"], e["event_id"], e.get("event_start_time"))
+        for e in all_events
+        if e.get("event_start_time")  # Only check events with start_time
+    ]
+    duplicate_keys = [key for key, count in Counter(event_keys).items() if count > 1]
+    if duplicate_keys:
+        print(
+            f"\n[COURTRESERVE EVENTS] WARNING: Found {len(duplicate_keys)} duplicate event keys:"
+        )
+        for key in duplicate_keys[:10]:  # Show first 10
+            print(f"  - {key}")
+        if len(duplicate_keys) > 10:
+            print(f"  ... and {len(duplicate_keys) - 10} more")
+
+        # Save duplicate analysis
+        duplicate_analysis = []
+        for key in duplicate_keys:
+            duplicates = [
+                e
+                for e in all_events
+                if (
+                    e["client_code"],
+                    e["source_system"],
+                    e["event_id"],
+                    e.get("event_start_time"),
+                )
+                == key
+            ]
+            duplicate_analysis.append(
+                {"key": key, "count": len(duplicates), "events": duplicates}
+            )
+
+        dup_file = "courtreserve_events_duplicates.json"
+        with open(dup_file, "w") as f:
+            json.dump(duplicate_analysis, f, indent=2, default=str)
+        print(f"[COURTRESERVE EVENTS] Saved duplicate analysis to {dup_file}")
+
+    # Insert into database
+    if all_events:
+        print(
+            f"\n[COURTRESERVE EVENTS] Inserting {len(all_events)} events into database..."
+        )
+        pg_client.insert_events(all_events)
+        print(f"[COURTRESERVE EVENTS] ✓ Complete: {len(all_events)} events inserted")
+    else:
+        print("[COURTRESERVE EVENTS] No events to insert")
+
+    print("[COURTRESERVE EVENTS] All clients processed")
+    print("=" * 80)
+
+
+def refresh_podplay_court_availability():
+    """Refresh Podplay court availability for all participating facilities."""
+    print("=" * 80)
+    print("[PODPLAY COURT AVAILABILITY] Starting Podplay court availability ingestion")
+    print("=" * 80)
+
+    clients_with_pod_ids = _get_podplay_clients_with_pod_ids()
+    if not clients_with_pod_ids:
+        print("[PODPLAY COURT AVAILABILITY] No Podplay clients found, skipping")
+        return
+
+    # Calculate date range: now to 7 days from now
+    now = datetime.now(timezone.utc)
+    end_time = now + timedelta(days=7)
+
+    print(
+        f"[PODPLAY COURT AVAILABILITY] Date range: {now.isoformat()} to {end_time.isoformat()}"
+    )
+
+    all_sessions = []
+    all_raw_sessions = []  # Store raw API responses
+
+    for client_code, pod_id in clients_with_pod_ids:
+        print(
+            f"\n[PODPLAY COURT AVAILABILITY] Processing {client_code} (pod_id: {pod_id})..."
+        )
+
+        try:
+            client = _get_podplay_client(client_code)
+
+            # Get sessions
+            sessions = client.get_sessions(
+                start_time=now,
+                end_time=end_time,
+                pod_id=pod_id,
+            )
+
+            print(
+                f"[PODPLAY COURT AVAILABILITY] Retrieved {len(sessions)} sessions for {client_code}"
+            )
+
+            # Save raw API response for inspection
+            all_raw_sessions.extend(sessions)
+
+            # Normalize sessions (pass end_time for date filtering)
+            normalized = normalize_podplay_sessions(sessions, client_code, end_time)
+            all_sessions.extend(normalized)
+
+            print(
+                f"[PODPLAY COURT AVAILABILITY] Normalized {len(normalized)} sessions for {client_code}"
+            )
+
+        except Exception as e:
+            print(
+                f"[PODPLAY COURT AVAILABILITY] Error processing {client_code}: {e}",
+                file=sys.stderr,
+            )
+            continue
+
+    # Save raw API responses to JSON file for inspection
+    import json
+
+    raw_output_file = "podplay_sessions_raw_api_response.json"
+    with open(raw_output_file, "w") as f:
+        json.dump(all_raw_sessions, f, indent=2, default=str)
+    print(
+        f"\n[PODPLAY COURT AVAILABILITY] Saved {len(all_raw_sessions)} raw API sessions to {raw_output_file}"
+    )
+
+    # Save normalized sessions to JSON file for inspection
+    output_file = "podplay_sessions_output.json"
+    with open(output_file, "w") as f:
+        json.dump(all_sessions, f, indent=2, default=str)
+    print(
+        f"[PODPLAY COURT AVAILABILITY] Saved {len(all_sessions)} normalized sessions to {output_file}"
+    )
+
+    # Replace all court availabilities in database (safe table swap)
+    if all_sessions:
+        print(
+            f"\n[PODPLAY COURT AVAILABILITY] Replacing all court availabilities in database..."
+        )
+        pg_client.replace_court_availabilities(all_sessions)
+        print(
+            f"[PODPLAY COURT AVAILABILITY] ✓ Complete: {len(all_sessions)} sessions inserted"
+        )
+    else:
+        print("[PODPLAY COURT AVAILABILITY] No sessions to insert")
+
+    print("[PODPLAY COURT AVAILABILITY] All clients processed")
+    print("=" * 80)
+
+
 def _run(option: str) -> None:
     if option == "courtreserve_reservations":
         refresh_courtreserve_reservations()
@@ -561,6 +887,12 @@ def _run(option: str) -> None:
         refresh_podplay_members()
     elif option == "podplay_reservations":
         refresh_podplay_reservations()
+    elif option == "podplay_events":
+        refresh_podplay_events()
+    elif option == "courtreserve_events":
+        refresh_courtreserve_events()
+    elif option == "podplay_court_availability":
+        refresh_podplay_court_availability()
     elif option == "all":
         refresh_courtreserve_reservations()
         refresh_courtreserve_reservation_cancellations()

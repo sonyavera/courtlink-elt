@@ -1,4 +1,4 @@
-.PHONY: venv install setup dev activate ingest ingest-courtreserve-reservations ingest-courtreserve-members ingest-podplay-reservations ingest-podplay-members wipe-pklyn-res wipe-pklyn-cancellations wipe-events import-duprs dbt dbt-run dbt-run-staging test-github-env-vars list-required-secrets
+.PHONY: venv install setup dev activate ingest ingest-courtreserve-reservations ingest-courtreserve-members ingest-podplay-reservations ingest-podplay-members ingest-podplay-events ingest-courtreserve-events ingest-podplay-court-availability wipe-pklyn-res wipe-pklyn-cancellations wipe-events import-duprs dbt dbt-run dbt-run-staging test-github-env-vars list-required-secrets migrate migrate-upgrade migrate-downgrade migrate-revision migrate-history
 
 venv:
 	python3 -m venv .venv
@@ -37,6 +37,15 @@ ingest-podplay-reservations:
 ingest-podplay-members:
 	python3 -m ingestion.main podplay_members
 
+ingest-podplay-events:
+	python3 -m ingestion.main podplay_events
+
+ingest-courtreserve-events:
+	python3 -m ingestion.main courtreserve_events
+
+ingest-podplay-court-availability:
+	python3 -m ingestion.main podplay_court_availability
+
 
 wipe-pklyn-res:
 	python3 -m scripts.pklyn.reset_reservations ${args}
@@ -57,6 +66,22 @@ import-duprs:
 
 dbt-run-staging:
 	python -m dotenv -f .env run -- dbt run --select stg_reservations fct_reservations dim_clients
+
+# Alembic migrations
+migrate:
+	alembic ${args}
+
+migrate-upgrade:
+	alembic upgrade head
+
+migrate-downgrade:
+	alembic downgrade -1
+
+migrate-revision:
+	alembic revision --autogenerate -m "${message}"
+
+migrate-history:
+	alembic history
 
 # GitHub Actions workflow testing
 list-required-secrets:
