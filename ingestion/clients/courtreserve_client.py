@@ -193,3 +193,84 @@ class CourtReserveClient:
         resp = requests.get(url, params=params, auth=self.auth)
         resp.raise_for_status()
         return resp.json().get("Data", [])
+
+    def get_events(
+        self,
+        start_date: datetime,
+        end_date: datetime,
+        *,
+        category_id: Optional[int] = None,
+        category_ids: Optional[str] = None,
+        include_registered_players_count: bool = True,
+        include_price_info: bool = True,
+        include_rating_restrictions: bool = True,
+        include_tags: bool = True,
+        event_filter_name: Optional[str] = None,
+        event_filter_id: Optional[int] = None,
+        tag_names: Optional[str] = None,
+        tag_ids: Optional[str] = None,
+    ) -> list[dict]:
+        """
+        Get events from CourtReserve API.
+        
+        Args:
+            start_date: Start date for events
+            end_date: End date for events
+            category_id: Single category ID to filter by
+            category_ids: Comma-separated category IDs
+            include_registered_players_count: Include registered players count
+            include_price_info: Include price information
+            include_rating_restrictions: Include rating restrictions
+            include_tags: Include tags
+            event_filter_name: Filter by event filter name
+            event_filter_id: Filter by event filter ID
+            tag_names: Filter by tag names
+            tag_ids: Filter by tag IDs
+        """
+        url = f"{self.BASE_URL}/api/v1/eventcalendar/eventlist"
+        
+        start_date = self._get_utc_datetime(start_date)
+        end_date = self._get_utc_datetime(end_date)
+        
+        print(
+            f"[API CALL] GET /api/v1/eventcalendar/eventlist | "
+            f"startDate={start_date.date()} | endDate={end_date.date()}"
+        )
+        
+        params = {
+            "startDate": start_date.strftime("%Y-%m-%d"),
+            "endDate": end_date.strftime("%Y-%m-%d"),
+            "includeRegisteredPlayersCount": include_registered_players_count,
+            "includePriceInfo": include_price_info,
+            "includeRatingRestrictions": include_rating_restrictions,
+            "includeTags": include_tags,
+        }
+        
+        if category_id:
+            params["categoryId"] = category_id
+        if category_ids:
+            params["categoryIds"] = category_ids
+        if event_filter_name:
+            params["eventFilterName"] = event_filter_name
+        if event_filter_id:
+            params["eventFilterId"] = event_filter_id
+        if tag_names:
+            params["tagNames"] = tag_names
+        if tag_ids:
+            params["tagIds"] = tag_ids
+        
+        resp = requests.get(url, params=params, auth=self.auth)
+        resp.raise_for_status()
+        
+        error_message = resp.json().get("ErrorMessage")
+        success_status = resp.json().get("IsSuccessStatusCode")
+        if error_message or not success_status:
+            raise Exception(f"CourtReserve API error: {error_message}")
+        
+        events = resp.json().get("Data", [])
+        print(
+            f"[API RESPONSE] GET /api/v1/eventcalendar/eventlist | "
+            f"events_returned={len(events)}"
+        )
+        
+        return events

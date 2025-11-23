@@ -7,6 +7,7 @@ sources:
       - name: members_raw
       - name: reservations_raw
       - name: reservation_cancellations_raw
+      - name: facility_events_raw
 
 models:
   - name: stg_reservations__courtreserve

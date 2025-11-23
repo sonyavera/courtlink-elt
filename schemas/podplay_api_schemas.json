@@ -1,0 +1,468 @@
+{
+  "SessionCollection": {
+    "description": "Response from /apis/v2/sessions endpoint",
+    "structure": {
+      "items": [
+        {
+          "id": "string",
+          "pod": {},
+          "startTime": "2025-11-23T16:00:47.674Z",
+          "endTime": "2025-11-23T16:00:47.674Z",
+          "periodType": "OFF_PEAK",
+          "tablesLeft": 0,
+          "status": "AVAILABLE",
+          "availableGuests": {
+            "items": [
+              {
+                "id": "string",
+                "displayName": "string",
+                "displayNameShort": "string",
+                "max": 0,
+                "rate": 0,
+                "lessonRate": 0
+              }
+            ],
+            "_total": 0,
+            "_links": {
+              "self": {
+                "href": "string"
+              }
+            }
+          },
+          "availableTables": {
+            "items": [
+              {
+                "id": "string",
+                "type": "FIXED_TABLE",
+                "table": {
+                  "id": "string"
+                },
+                "rate": 0,
+                "lessonRate": 0
+              }
+            ],
+            "_total": 0,
+            "_links": {
+              "self": {
+                "href": "string"
+              }
+            }
+          },
+          "availableCoaches": {},
+          "defaultTable": {},
+          "defaultCoach": {},
+          "defaultGuests": {},
+          "_links": {}
+        }
+      ],
+      "_total": 0,
+      "_links": {
+        "self": {
+          "href": "string"
+        }
+      }
+    }
+  },
+  "EventPaginatedCollection": {
+    "description": "Response from /apis/v2/events endpoint",
+    "structure": {
+      "items": [
+        {
+          "id": "string",
+          "type": "REGULAR",
+          "subtype": "OPERATIONS",
+          "customType": "string",
+          "name": "string",
+          "description": "string",
+          "startTime": "2025-11-23T16:00:47.646Z",
+          "endTime": "2025-11-23T16:00:47.646Z",
+          "pods": {
+            "items": [
+              {
+                "id": "string",
+                "slug": "string",
+                "displayName": "string",
+                "displayNameShort": "string",
+                "description": "string",
+                "address": {
+                  "street": "string",
+                  "floor": "string",
+                  "city": "string",
+                  "zip": "string",
+                  "displayName": "string"
+                },
+                "timezone": "string",
+                "type": "PRIVATE",
+                "status": "NOT_AVAILABLE",
+                "sport": "PICKLEBALL",
+                "area": {},
+                "tables": {
+                  "items": [
+                    {
+                      "id": "string",
+                      "slug": "string",
+                      "displayName": "string",
+                      "displayNameShort": "string",
+                      "description": "string",
+                      "type": "STANDARD",
+                      "status": "AVAILABLE",
+                      "features": ["REPLAYS"],
+                      "pod": {},
+                      "settings": {
+                        "items": [
+                          {
+                            "id": "string",
+                            "value": {}
+                          }
+                        ],
+                        "_total": 0,
+                        "_links": {
+                          "self": {
+                            "href": "string"
+                          }
+                        }
+                      },
+                      "errors": [
+                        {
+                          "code": "string",
+                          "message": "string",
+                          "details": {}
+                        }
+                      ],
+                      "_links": {}
+                    }
+                  ],
+                  "_total": 0,
+                  "_links": {
+                    "self": {
+                      "href": "string"
+                    }
+                  }
+                },
+                "openTime": {
+                  "hours": 23,
+                  "minutes": 59
+                },
+                "closeTime": {
+                  "hours": 23,
+                  "minutes": 59
+                },
+                "closedTimeOverrides": {
+                  "items": [
+                    {
+                      "id": "string",
+                      "days": [6],
+                      "from": {
+                        "hours": 23,
+                        "minutes": 59
+                      },
+                      "to": {
+                        "hours": 23,
+                        "minutes": 59
+                      }
+                    }
+                  ],
+                  "_total": 0,
+                  "_links": {
+                    "self": {
+                      "href": "string"
+                    }
+                  }
+                },
+                "guests": {
+                  "private": {
+                    "min": "string",
+                    "max": "string"
+                  }
+                },
+                "rates": {},
+                "settings": {
+                  "items": [
+                    {
+                      "id": "string",
+                      "value": {}
+                    }
+                  ],
+                  "_total": 0,
+                  "_links": {
+                    "self": {
+                      "href": "string"
+                    }
+                  }
+                },
+                "errors": [
+                  {
+                    "code": "string",
+                    "message": "string",
+                    "details": {}
+                  }
+                ],
+                "_links": {}
+              }
+            ],
+            "_total": 0,
+            "_links": {
+              "self": {
+                "href": "string"
+              }
+            }
+          },
+          "tables": {
+            "items": [
+              {
+                "id": "string",
+                "type": "FIXED_TABLE",
+                "table": {
+                  "id": "string"
+                },
+                "startTime": "2025-11-23T16:00:47.646Z",
+                "endTime": "2025-11-23T16:00:47.646Z",
+                "features": ["REPLAYS"],
+                "status": "INVALID",
+                "errors": [
+                  {
+                    "code": "string",
+                    "message": "string",
+                    "details": {}
+                  }
+                ],
+                "_links": {
+                  "self": {
+                    "href": "string"
+                  }
+                }
+              }
+            ],
+            "_total": 0,
+            "_links": {
+              "self": {
+                "href": "string"
+              }
+            }
+          },
+          "access": {
+            "id": "string",
+            "type": "OPEN",
+            "startTime": "2025-11-23T16:00:47.646Z",
+            "endTime": "2025-11-23T16:00:47.646Z"
+          },
+          "guests": {
+            "displayName": "string",
+            "displayNameShort": "string",
+            "max": 0
+          },
+          "reservations": {
+            "items": [
+              {
+                "id": "string",
+                "startTime": "2025-11-23T16:00:47.646Z",
+                "endTime": "2025-11-23T16:00:47.646Z",
+                "tableAssignment": "PENDING",
+                "sessions": {
+                  "items": [
+                    {
+                      "id": "string",
+                      "session": {
+                        "id": "string"
+                      },
+                      "coupon": {
+                        "id": "string"
+                      },
+                      "charge": {
+                        "id": "string"
+                      },
+                      "_links": {}
+                    }
+                  ],
+                  "_total": 0,
+                  "_links": {
+                    "self": {
+                      "href": "string"
+                    }
+                  }
+                },
+                "pod": {
+                  "id": "string"
+                },
+                "table": {
+                  "id": "string"
+                },
+                "coach": {
+                  "id": "string"
+                },
+                "guests": 0,
+                "charges": {
+                  "_total": 0
+                },
+                "quickReplays": {
+                  "_total": 0
+                },
+                "customReplays": {
+                  "_total": 0
+                },
+                "_links": {}
+              }
+            ],
+            "_total": 0,
+            "_links": {
+              "self": {
+                "href": "string"
+              }
+            }
+          },
+          "bookingMode": "USER_BOOKED",
+          "paymentMethod": "CASH",
+          "bookedBy": {
+            "id": "string"
+          },
+          "totalTeams": 0,
+          "teamSize": 0,
+          "admission": "OPEN",
+          "admissionRating": {
+            "minRating": 0,
+            "maxRating": 0,
+            "type": "SINGLES"
+          },
+          "admissionRate": {
+            "regular": 0,
+            "member": 0,
+            "membersDefault": 0,
+            "dayPass": {
+              "id": "string",
+              "displayName": "string",
+              "rate": 0
+            },
+            "memberships": {
+              "items": [
+                {
+                  "membership": {
+                    "id": "string"
+                  },
+                  "rate": 0
+                }
+              ],
+              "_total": 0,
+              "_links": {
+                "self": {
+                  "href": "string"
+                }
+              }
+            },
+            "_links": {}
+          },
+          "admissionDate": {
+            "regular": "2025-11-23T16:00:47.646Z",
+            "member": "2025-11-23T16:00:47.646Z",
+            "membersDefault": "2025-11-23T16:00:47.646Z",
+            "memberships": {
+              "items": [
+                {
+                  "membership": {
+                    "id": "string"
+                  },
+                  "date": "2025-11-23T16:00:47.646Z"
+                }
+              ],
+              "_total": 0,
+              "_links": {
+                "self": {
+                  "href": "string"
+                }
+              }
+            },
+            "_links": {}
+          },
+          "admissionKids": "OPEN",
+          "allowedMemberships": {},
+          "coachRate": 0,
+          "freeSignupCancellationHorizonHours": 0,
+          "tags": ["string"],
+          "picture": {
+            "id": "string"
+          },
+          "visibility": "LISTED",
+          "invitations": {},
+          "payments": {},
+          "completeInvitations": 10,
+          "replays": {},
+          "cancellation": {},
+          "notes": {},
+          "openInvitations": {},
+          "signups": {},
+          "waitlist": {},
+          "features": ["WAITLIST"],
+          "stats": {},
+          "series": {
+            "id": "string"
+          },
+          "suspension": {
+            "id": "string"
+          },
+          "status": "INVALID",
+          "errors": [
+            {
+              "code": "string",
+              "message": "string",
+              "details": {}
+            }
+          ],
+          "tournamentDivision": {
+            "id": "7229d7d5-5581-4d86-975f-5b7efc9b00e9",
+            "tournament": "7229d7d5-5581-4d86-975f-5b7efc9b00e9",
+            "provider": "SWISH",
+            "swish": {
+              "eventFormat": "rotating_partners_round_robin",
+              "gameId": "game123",
+              "editPlayersPath": "rotating-partners-round-robin"
+            },
+            "status": "DRAFT",
+            "createdAt": "2025-07-09T17:32:26.800Z",
+            "event": "7229d7d5-5581-4d86-975f-5b7efc9b00e9",
+            "lastSyncedAt": "2025-07-09T17:32:26.800Z"
+          },
+          "visibilitySchedules": {
+            "items": [
+              {
+                "id": "string",
+                "event": {
+                  "id": "string"
+                },
+                "listDaysBefore": 0,
+                "membersOnly": true,
+                "executed": true,
+                "status": "INVALID",
+                "errors": [
+                  {
+                    "code": "string",
+                    "message": "string",
+                    "details": {}
+                  }
+                ],
+                "_links": {}
+              }
+            ],
+            "_total": 0,
+            "_links": {
+              "self": {
+                "href": "string"
+              }
+            }
+          },
+          "_links": {}
+        }
+      ],
+      "_pagination": {
+        "page": 0,
+        "ipp": 0,
+        "count": 0,
+        "total": 0
+      },
+      "_links": {
+        "self": {
+          "href": "string"
+        }
+      }
+    }
+  }
+}
+

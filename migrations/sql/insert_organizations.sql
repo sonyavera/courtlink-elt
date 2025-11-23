@@ -1,0 +1,126 @@
+-- Insert organizations into court_availability_scraper.organizations
+-- Note: If the table already has data, you may want to use INSERT ... ON CONFLICT DO UPDATE
+-- or DELETE existing rows first
+
+INSERT INTO court_availability_scraper.organizations (
+    source_system_code,
+    client_code,
+    id,
+    login_link,
+    city,
+    is_customer,
+    hourly_rate_non_member,
+    hourly_rate_member,
+    hourly_rate_non_member_off_peak,
+    hourly_rate_member_off_peak,
+    facility_display_name,
+    peak_hours,
+    location_display_name,
+    podplay_pod,
+    podplay_pod_id
+) VALUES
+(
+    'podplay',
+    'citypickle',
+    5,
+    'https://citypickle.podplay.app/login?redirect=%2Fapp-menus&loginMode=password',
+    'long-island',
+    false,
+    99,
+    79,
+    50,
+    40,
+    'CityPickle',
+    '{"weekday_peak": [{"end": "10:00", "start": "07:00"}, {"end": "22:00", "start": "17:00"}], "weekend_peak": null, "weekday_off_peak": null}'::jsonb,
+    'Long Island City',
+    'long-island-open',
+    NULL
+),
+(
+    'podplay',
+    'gotham',
+    4,
+    'https://gotham.podplay.app/login?redirect=%2Fapp-menus&loginMode=password',
+    'long-island-city',
+    true,
+    110,
+    88,
+    80,
+    60,
+    'Gotham',
+    '{"weekday_peak": [{"end": "10:00", "start": "07:00"}, {"end": "22:00", "start": "17:00"}], "weekend_peak": null, "weekday_off_peak": [{"end": "17:00", "start": "10:00"}]}'::jsonb,
+    'Long Island City',
+    NULL,
+    'e6e67f0a-de3f-4e6e-adf5-3db126cd5c83'
+),
+(
+    'courtreserve',
+    'pklyn',
+    1,
+    'https://app.courtreserve.com/Online/Account/LogIn/11868',
+    NULL,
+    true,
+    110,
+    90,
+    90,
+    88,
+    'PKLYN',
+    '{"weekday_peak": null, "weekend_peak": null, "weekday_off_peak": null}'::jsonb,
+    'Carrol Gardens',
+    NULL,
+    NULL
+),
+(
+    'podplay',
+    'redhookpickleball',
+    2,
+    'https://redhookpickleball.podplay.app/login?redirect=%2Fapp-menus&loginMode=password',
+    'brooklyn',
+    false,
+    99,
+    75,
+    79,
+    60,
+    'Red Hook Pickleball Club',
+    '{"weekday_peak": [{"end": "10:00", "start": "07:00"}, {"end": "22:00", "start": "17:00"}], "weekend_peak": null, "weekday_off_peak": [{"end": "17:00", "start": "10:00"}]}'::jsonb,
+    'Red Hook',
+    NULL,
+    NULL
+),
+(
+    'podplay',
+    'goodland',
+    3,
+    'https://goodland.podplay.app/login?redirect=%2Fapp-menus&loginMode=password',
+    'greenpoint-indoor',
+    false,
+    110,
+    66,
+    80,
+    48,
+    'Goodland',
+    '{"weekday_peak": null, "weekend_peak": null, "weekday_off_peak": null}'::jsonb,
+    'Greenpoint',
+    'greenpoint-indoor-1',
+    NULL
+)
+ON CONFLICT (id) DO UPDATE SET
+    source_system_code = EXCLUDED.source_system_code,
+    client_code = EXCLUDED.client_code,
+    login_link = EXCLUDED.login_link,
+    city = EXCLUDED.city,
+    is_customer = EXCLUDED.is_customer,
+    hourly_rate_non_member = EXCLUDED.hourly_rate_non_member,
+    hourly_rate_member = EXCLUDED.hourly_rate_member,
+    hourly_rate_non_member_off_peak = EXCLUDED.hourly_rate_non_member_off_peak,
+    hourly_rate_member_off_peak = EXCLUDED.hourly_rate_member_off_peak,
+    facility_display_name = EXCLUDED.facility_display_name,
+    peak_hours = EXCLUDED.peak_hours,
+    location_display_name = EXCLUDED.location_display_name,
+    podplay_pod = EXCLUDED.podplay_pod,
+    podplay_pod_id = EXCLUDED.podplay_pod_id;
+
+-- Update the sequence to be at least as high as the highest id
+SELECT setval('court_availability_scraper.organizations_id_seq', 
+    (SELECT MAX(id) FROM court_availability_scraper.organizations));
+

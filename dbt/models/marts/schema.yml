@@ -51,3 +51,26 @@ models:
           - relationships:
               to: ref('reservation_systems')
               field: system_code
+
+  - name: fct_events
+    description: "Fact table of events across all facilities with standardized event types."
+    columns:
+      - name: client_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_clients')
+              field: client_code
+      - name: source_system
+        tests:
+          - not_null
+      - name: event_id
+        tests:
+          - not_null
+      - name: event_type_original
+        description: "Original event type from the raw table before mapping"
+      - name: event_type
+        description: "Standardized event type (Class, Open Play, Compete, or original value)"
+      - name: event_start_time
+        tests:
+          - not_null

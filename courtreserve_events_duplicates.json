@@ -1,0 +1,447 @@
+[
+  {
+    "key": [
+      "pklyn",
+      "courtreserve",
+      "1519874"
+    ],
+    "count": 2,
+    "events": [
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1519874",
+        "event_name": "Experienced Beg / Intermediate Open Play | Off-Peak",
+        "event_type": "",
+        "event_start_time": "2025-11-24 09:00:00+00:00",
+        "event_end_time": "2025-11-24 11:00:00+00:00",
+        "num_registrants": 17,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 25.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1519874",
+        "event_name": "Experienced Beg / Intermediate Open Play | Off-Peak",
+        "event_type": "",
+        "event_start_time": "2025-11-26 09:00:00+00:00",
+        "event_end_time": "2025-11-26 11:00:00+00:00",
+        "num_registrants": 12,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 25.0
+      }
+    ]
+  },
+  {
+    "key": [
+      "pklyn",
+      "courtreserve",
+      "1487799"
+    ],
+    "count": 2,
+    "events": [
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1487799",
+        "event_name": "High Intermediate Open Play | Off-Peak ",
+        "event_type": "",
+        "event_start_time": "2025-11-24 11:00:00+00:00",
+        "event_end_time": "2025-11-24 13:00:00+00:00",
+        "num_registrants": 4,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 25.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1487799",
+        "event_name": "High Intermediate Open Play | Off-Peak ",
+        "event_type": "",
+        "event_start_time": "2025-11-26 11:00:00+00:00",
+        "event_end_time": "2025-11-26 13:00:00+00:00",
+        "num_registrants": 0,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 25.0
+      }
+    ]
+  },
+  {
+    "key": [
+      "pklyn",
+      "courtreserve",
+      "1487792"
+    ],
+    "count": 2,
+    "events": [
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1487792",
+        "event_name": "Beginner Open Play | Off-Peak ",
+        "event_type": "",
+        "event_start_time": "2025-11-24 13:00:00+00:00",
+        "event_end_time": "2025-11-24 15:00:00+00:00",
+        "num_registrants": 5,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 25.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1487792",
+        "event_name": "Beginner Open Play | Off-Peak ",
+        "event_type": "",
+        "event_start_time": "2025-11-26 13:00:00+00:00",
+        "event_end_time": "2025-11-26 15:00:00+00:00",
+        "num_registrants": 0,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 25.0
+      }
+    ]
+  },
+  {
+    "key": [
+      "pklyn",
+      "courtreserve",
+      "1487827"
+    ],
+    "count": 2,
+    "events": [
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1487827",
+        "event_name": "Intermediate Open Play | Off-Peak ",
+        "event_type": "",
+        "event_start_time": "2025-11-24 13:00:00+00:00",
+        "event_end_time": "2025-11-24 15:00:00+00:00",
+        "num_registrants": 0,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 25.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1487827",
+        "event_name": "Intermediate Open Play | Off-Peak ",
+        "event_type": "",
+        "event_start_time": "2025-11-26 13:00:00+00:00",
+        "event_end_time": "2025-11-26 15:00:00+00:00",
+        "num_registrants": 2,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 25.0
+      }
+    ]
+  },
+  {
+    "key": [
+      "pklyn",
+      "courtreserve",
+      "1487850"
+    ],
+    "count": 2,
+    "events": [
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1487850",
+        "event_name": "High Intermediate Open Play | Off-Peak ",
+        "event_type": "",
+        "event_start_time": "2025-11-24 15:00:00+00:00",
+        "event_end_time": "2025-11-24 17:00:00+00:00",
+        "num_registrants": 3,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 25.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1487850",
+        "event_name": "High Intermediate Open Play | Off-Peak ",
+        "event_type": "",
+        "event_start_time": "2025-11-26 15:00:00+00:00",
+        "event_end_time": "2025-11-26 17:00:00+00:00",
+        "num_registrants": 4,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 25.0
+      }
+    ]
+  },
+  {
+    "key": [
+      "pklyn",
+      "courtreserve",
+      "1487855"
+    ],
+    "count": 2,
+    "events": [
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1487855",
+        "event_name": "Advanced Open Play | Off-Peak ",
+        "event_type": "",
+        "event_start_time": "2025-11-24 15:00:00+00:00",
+        "event_end_time": "2025-11-24 17:00:00+00:00",
+        "num_registrants": 1,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 25.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1487855",
+        "event_name": "Advanced Open Play | Off-Peak ",
+        "event_type": "",
+        "event_start_time": "2025-11-26 15:00:00+00:00",
+        "event_end_time": "2025-11-26 17:00:00+00:00",
+        "num_registrants": 0,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 25.0
+      }
+    ]
+  },
+  {
+    "key": [
+      "pklyn",
+      "courtreserve",
+      "1486832"
+    ],
+    "count": 3,
+    "events": [
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1486832",
+        "event_name": "Sunrise Social + Challenge",
+        "event_type": "",
+        "event_start_time": "2025-11-25 07:00:00+00:00",
+        "event_end_time": "2025-11-25 09:00:00+00:00",
+        "num_registrants": 0,
+        "max_registrants": 18,
+        "admission_rate_regular": null,
+        "admission_rate_member": 30.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1486832",
+        "event_name": "Sunrise Social + Challenge",
+        "event_type": "",
+        "event_start_time": "2025-11-26 07:00:00+00:00",
+        "event_end_time": "2025-11-26 09:00:00+00:00",
+        "num_registrants": 0,
+        "max_registrants": 18,
+        "admission_rate_regular": null,
+        "admission_rate_member": 30.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1486832",
+        "event_name": "Sunrise Social + Challenge",
+        "event_type": "",
+        "event_start_time": "2025-11-28 07:00:00+00:00",
+        "event_end_time": "2025-11-28 09:00:00+00:00",
+        "num_registrants": 0,
+        "max_registrants": 18,
+        "admission_rate_regular": null,
+        "admission_rate_member": 30.0
+      }
+    ]
+  },
+  {
+    "key": [
+      "pklyn",
+      "courtreserve",
+      "1631813"
+    ],
+    "count": 2,
+    "events": [
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1631813",
+        "event_name": "90 min Beginner Open Play  ",
+        "event_type": "",
+        "event_start_time": "2025-11-25 17:30:00+00:00",
+        "event_end_time": "2025-11-25 19:00:00+00:00",
+        "num_registrants": 2,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 30.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1631813",
+        "event_name": "90 min Beginner Open Play  ",
+        "event_type": "",
+        "event_start_time": "2025-11-26 17:30:00+00:00",
+        "event_end_time": "2025-11-26 19:00:00+00:00",
+        "num_registrants": 0,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 30.0
+      }
+    ]
+  },
+  {
+    "key": [
+      "pklyn",
+      "courtreserve",
+      "1519865"
+    ],
+    "count": 2,
+    "events": [
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1519865",
+        "event_name": "Experienced Beg / Intermediate Open Play ",
+        "event_type": "",
+        "event_start_time": "2025-11-26 17:00:00+00:00",
+        "event_end_time": "2025-11-26 19:00:00+00:00",
+        "num_registrants": 2,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 40.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1519865",
+        "event_name": "Experienced Beg / Intermediate Open Play ",
+        "event_type": "",
+        "event_start_time": "2025-11-29 12:00:00+00:00",
+        "event_end_time": "2025-11-29 14:00:00+00:00",
+        "num_registrants": 5,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 40.0
+      }
+    ]
+  },
+  {
+    "key": [
+      "pklyn",
+      "courtreserve",
+      "1503992"
+    ],
+    "count": 2,
+    "events": [
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1503992",
+        "event_name": "Experienced Beginner Open Play ",
+        "event_type": "",
+        "event_start_time": "2025-11-28 09:00:00+00:00",
+        "event_end_time": "2025-11-28 11:00:00+00:00",
+        "num_registrants": 2,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 40.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1503992",
+        "event_name": "Experienced Beginner Open Play ",
+        "event_type": "",
+        "event_start_time": "2025-11-28 17:00:00+00:00",
+        "event_end_time": "2025-11-28 19:00:00+00:00",
+        "num_registrants": 0,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 40.0
+      }
+    ]
+  },
+  {
+    "key": [
+      "pklyn",
+      "courtreserve",
+      "1503972"
+    ],
+    "count": 2,
+    "events": [
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1503972",
+        "event_name": "Advanced Open Play (4.0)",
+        "event_type": "",
+        "event_start_time": "2025-11-28 11:00:00+00:00",
+        "event_end_time": "2025-11-28 13:00:00+00:00",
+        "num_registrants": 0,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 40.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1503972",
+        "event_name": "Advanced Open Play (4.0)",
+        "event_type": "",
+        "event_start_time": "2025-11-28 15:00:00+00:00",
+        "event_end_time": "2025-11-28 17:00:00+00:00",
+        "num_registrants": 0,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 40.0
+      }
+    ]
+  },
+  {
+    "key": [
+      "pklyn",
+      "courtreserve",
+      "1519881"
+    ],
+    "count": 2,
+    "events": [
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1519881",
+        "event_name": "Intermediate Open Play ",
+        "event_type": "",
+        "event_start_time": "2025-11-28 11:00:00+00:00",
+        "event_end_time": "2025-11-28 13:00:00+00:00",
+        "num_registrants": 0,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 40.0
+      },
+      {
+        "client_code": "pklyn",
+        "source_system": "courtreserve",
+        "event_id": "1519881",
+        "event_name": "Intermediate Open Play ",
+        "event_type": "",
+        "event_start_time": "2025-11-28 15:00:00+00:00",
+        "event_end_time": "2025-11-28 17:00:00+00:00",
+        "num_registrants": 2,
+        "max_registrants": 6,
+        "admission_rate_regular": null,
+        "admission_rate_member": 40.0
+      }
+    ]
+  }
+]
