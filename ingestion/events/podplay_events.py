@@ -1,7 +1,11 @@
 """Normalize Podplay events for database storage."""
 
-from datetime import datetime, timezone
 from typing import Dict, List
+
+from ingestion.utils.datetime import to_utc_datetime
+from ingestion.utils.timezones import resolve_timezone
+
+DEFAULT_PODPLAY_TIMEZONE = "UTC"
 
 
 def normalize_podplay_events(
@@ -32,47 +36,16 @@ def normalize_podplay_events(
         # Extract event type (using subtype from Podplay API)
         event_type = event.get("subtype") or ""
         
-        # Extract start and end times
-        start_time_str = event.get("startTime") or event.get("start_time")
-        end_time_str = event.get("endTime") or event.get("end_time")
-        
-        event_start_time = None
-        event_end_time = None
-        
-        if start_time_str:
-            try:
-                if isinstance(start_time_str, str):
-                    # Handle ISO format strings
-                    if start_time_str.endswith("Z"):
-                        event_start_time = datetime.fromisoformat(
-                            start_time_str.replace("Z", "+00:00")
-                        )
-                    else:
-                        event_start_time = datetime.fromisoformat(start_time_str)
-                elif isinstance(start_time_str, datetime):
-                    event_start_time = start_time_str
-            except (ValueError, AttributeError) as e:
-                print(f"Warning: Could not parse start_time '{start_time_str}': {e}")
-        
-        if end_time_str:
-            try:
-                if isinstance(end_time_str, str):
-                    if end_time_str.endswith("Z"):
-                        event_end_time = datetime.fromisoformat(
-                            end_time_str.replace("Z", "+00:00")
-                        )
-                    else:
-                        event_end_time = datetime.fromisoformat(end_time_str)
-                elif isinstance(end_time_str, datetime):
-                    event_end_time = end_time_str
-            except (ValueError, AttributeError) as e:
-                print(f"Warning: Could not parse end_time '{end_time_str}': {e}")
-        
-        # Ensure timezone-aware datetimes
-        if event_start_time and event_start_time.tzinfo is None:
-            event_start_time = event_start_time.replace(tzinfo=timezone.utc)
-        if event_end_time and event_end_time.tzinfo is None:
-            event_end_time = event_end_time.replace(tzinfo=timezone.utc)
+        _, tzinfo = resolve_timezone(
+            explicit=event.get("timezone"),
+            client_code=client_code,
+            default=DEFAULT_PODPLAY_TIMEZONE,
+        )
+        start_time_raw = event.get("startTime") or event.get("start_time")
+        end_time_raw = event.get("endTime") or event.get("end_time")
+
+        event_start_time = to_utc_datetime(start_time_raw, tzinfo)
+        event_end_time = to_utc_datetime(end_time_raw, tzinfo)
         
         # Extract registrant counts
         # Podplay: signups._total gives number of registrants

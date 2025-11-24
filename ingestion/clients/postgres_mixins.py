@@ -300,7 +300,7 @@ class InsertMixin:
                 m["date_of_birth"],
                 m.get("club_member_key"),
                 m.get("email"),
-                datetime.now(),
+                datetime.now(timezone.utc),
             )
             for m in members
         ]
@@ -384,7 +384,7 @@ class InsertMixin:
                 m["event_category_name"],
                 m["event_category_id"],
                 m["member_id"],
-                datetime.now(),
+                datetime.now(timezone.utc),
             )
             for m in cancellations
         ]
@@ -515,7 +515,7 @@ class InsertMixin:
                 m["reservation_end_at"],
                 m.get("reservation_cancelled_at"),
                 m["member_id"],
-                datetime.now(),
+                datetime.now(timezone.utc),
             )
             for m in reservations
         ]
@@ -645,7 +645,7 @@ class InsertMixin:
                 m.get("max_registrants"),
                 m.get("admission_rate_regular"),
                 m.get("admission_rate_member"),
-                datetime.now(),
+                datetime.now(timezone.utc),
             )
             for m in deduplicated_events
         ]
@@ -723,7 +723,7 @@ class InsertMixin:
                 m["slot_start"],
                 m["slot_end"],
                 m.get("period_type"),
-                datetime.now(),
+                datetime.now(timezone.utc),
             )
             for m in availabilities
         ]

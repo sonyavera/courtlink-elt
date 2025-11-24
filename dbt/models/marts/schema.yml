@@ -12,8 +12,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('reservation_systems')
-              field: system_code
+              arguments:
+                to: ref('reservation_systems')
+                field: system_code
 
   - name: fct_reservations
     description: "Fact table of individual reservations across all facilities."
@@ -26,8 +27,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('dim_clients')
-              field: client_code
+              arguments:
+                to: ref('dim_clients')
+                field: client_code
 
   - name: dim_members
     description: "Dimension table for members across all facilities with all columns from members_raw plus reservation system code."
@@ -40,8 +42,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('dim_clients')
-              field: client_code
+              arguments:
+                to: ref('dim_clients')
+                field: client_code
       - name: external_member_id
         tests:
           - not_null
@@ -49,8 +52,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('reservation_systems')
-              field: system_code
+              arguments:
+                to: ref('reservation_systems')
+                field: system_code
 
   - name: fct_events
     description: "Fact table of events across all facilities with standardized event types."
@@ -59,8 +63,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('dim_clients')
-              field: client_code
+              arguments:
+                to: ref('dim_clients')
+                field: client_code
       - name: source_system
         tests:
           - not_null
