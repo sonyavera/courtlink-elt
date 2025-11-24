@@ -21,6 +21,7 @@ seeds:
         tests:
           - not_null
           - relationships:
-              to: ref('reservation_systems')
-              field: system_code
+              arguments:
+                to: ref('reservation_systems')
+                field: system_code
 

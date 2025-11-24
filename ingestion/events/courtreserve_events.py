@@ -1,7 +1,11 @@
 """Normalize CourtReserve events for database storage."""
 
-from datetime import datetime, timezone
 from typing import Dict, List, Optional
+
+from ingestion.utils.datetime import to_utc_datetime
+from ingestion.utils.timezones import resolve_timezone
+
+DEFAULT_COURTRESERVE_TIMEZONE = "America/New_York"
 
 
 def _load_event_categories(client_code: str, source_system: str = "courtreserve") -> Dict[str, str]:
@@ -82,47 +86,16 @@ def normalize_courtreserve_events(
         if not event_type:
             event_type = event.get("CategoryName") or event.get("EventType") or ""
         
-        # Extract start and end times
+        _, tzinfo = resolve_timezone(
+            explicit=event.get("TimeZone") or event.get("Timezone"),
+            client_code=client_code,
+            default=DEFAULT_COURTRESERVE_TIMEZONE,
+        )
         start_time_str = event.get("StartTime") or event.get("startTime") or event.get("StartDateTime")
         end_time_str = event.get("EndTime") or event.get("endTime") or event.get("EndDateTime")
-        
-        event_start_time = None
-        event_end_time = None
-        
-        if start_time_str:
-            try:
-                if isinstance(start_time_str, str):
-                    # CourtReserve uses ISO format
-                    if start_time_str.endswith("Z"):
-                        event_start_time = datetime.fromisoformat(
-                            start_time_str.replace("Z", "+00:00")
-                        )
-                    else:
-                        event_start_time = datetime.fromisoformat(start_time_str)
-                elif isinstance(start_time_str, datetime):
-                    event_start_time = start_time_str
-            except (ValueError, AttributeError) as e:
-                print(f"Warning: Could not parse start_time '{start_time_str}': {e}")
-        
-        if end_time_str:
-            try:
-                if isinstance(end_time_str, str):
-                    if end_time_str.endswith("Z"):
-                        event_end_time = datetime.fromisoformat(
-                            end_time_str.replace("Z", "+00:00")
-                        )
-                    else:
-                        event_end_time = datetime.fromisoformat(end_time_str)
-                elif isinstance(end_time_str, datetime):
-                    event_end_time = end_time_str
-            except (ValueError, AttributeError) as e:
-                print(f"Warning: Could not parse end_time '{end_time_str}': {e}")
-        
-        # Ensure timezone-aware datetimes
-        if event_start_time and event_start_time.tzinfo is None:
-            event_start_time = event_start_time.replace(tzinfo=timezone.utc)
-        if event_end_time and event_end_time.tzinfo is None:
-            event_end_time = event_end_time.replace(tzinfo=timezone.utc)
+
+        event_start_time = to_utc_datetime(start_time_str, tzinfo)
+        event_end_time = to_utc_datetime(end_time_str, tzinfo)
         
         # Extract registrant counts
         # CourtReserve: RegisteredCount and MaxRegistrants are directly in the event
