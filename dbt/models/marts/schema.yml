@@ -59,6 +59,11 @@ models:
   - name: fct_events
     description: "Fact table of events across all facilities with standardized event types."
     columns:
+      - name: event_pk
+        description: "Hash-based deterministic identifier for deduplicating events"
+        tests:
+          - unique
+          - not_null
       - name: client_code
         tests:
           - not_null

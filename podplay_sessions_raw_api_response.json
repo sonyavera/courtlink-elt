@@ -1,274 +1,5 @@
 [
   {
-    "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1763998200000",
-    "pod": {
-      "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-    },
-    "startTime": "2025-11-24T15:30:00.000Z",
-    "endTime": "2025-11-24T16:00:00.000Z",
-    "periodType": "OFF_PEAK",
-    "tablesLeft": 0,
-    "status": "FULL",
-    "availableGuests": {
-      "items": [
-        {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@4@1763998200000",
-          "displayName": "1-4 players",
-          "displayNameShort": "1-4",
-          "max": 4,
-          "rate": 0,
-          "lessonRate": 0
-        },
-        {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@5@1763998200000",
-          "displayName": "5 players",
-          "displayNameShort": "5",
-          "max": 5,
-          "rate": 0,
-          "lessonRate": 0
-        },
-        {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@6@1763998200000",
-          "displayName": "6 players",
-          "displayNameShort": "6",
-          "max": 6,
-          "rate": 0,
-          "lessonRate": 0
-        }
-      ],
-      "_total": 3,
-      "_links": {
-        "self": {
-          "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1763998200000/available-guests"
-        }
-      }
-    },
-    "availableTables": {
-      "items": [
-        {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@auto@1763998200000",
-          "type": "AUTO",
-          "table": null,
-          "rate": 40,
-          "lessonRate": 40
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1763998200000/available-tables"
-        }
-      }
-    },
-    "availableCoaches": {
-      "items": [
-        {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@b9586413-7284-491b-835f-33e6b4d1615d@1763998200000",
-          "coach": {
-            "id": "b9586413-7284-491b-835f-33e6b4d1615d",
-            "user": {
-              "id": "91qTtsAC5JXVOdDAdW7bOLjyKMK2"
-            },
-            "type": "COACH",
-            "firstName": "Neil",
-            "lastName": "Press",
-            "initials": "NP",
-            "picture": null,
-            "usattRating": null,
-            "memberSince": "2024-10-15T14:19:51.000Z",
-            "gender": null,
-            "birthday": null,
-            "description": "Experience\n\nI\u2019ve been playing pickleball for nearly four years and began coaching in September 2023. Since then, I\u2019ve coached at multiple facilities across New York City, helping players of all ages and backgrounds develop a love for the game. Whether on the Upper East Side where I first picked up a paddle, or on courts throughout the boroughs, I bring passion and energy to every session.\n\n \\n \n\nCoaching Style\n\nMy coaching style is passionate, energetic, and focused on the fundamentals. I believe in helping players build strong foundational skills while ensuring they\u2019re having fun every step of the way. I specialize in working with \u201cNever-Evers,\u201d beginners, and intermediate-level players who want to grow their game in a supportive and upbeat environment.\n\n \\n \n\nCertifications\n\n\u2022 Level 1 Certified Coach \u2013 Pickleball Coaching International (PCI)\n\n\u2022 Level 1 Certified Coach \u2013 Racket Professional Organization (RPO)\n\n \\n \n\nSkill Level\n\nskill level: 4.0+\n\n \\n \n\nAdditional Info\n\nI started playing pickleball in Carl Schurz Park on Manhattan\u2019s Upper East Side, and the journey since then has been incredible. I love being on court\u2014whether I\u2019m playing, teaching, or just talking pickleball. I\u2019ve met amazing people through this sport, and I\u2019m excited to help more players experience the same. Outside of pickleball, I\u2019m a proud dad, husband, and avid snowboarder. If you\u2019re looking to elevate your game and have a great time doing it, I\u2019d love to work with you.\n\n \\n \n\nContact Info:\n\n\ud83d\udce7 Email: NeilDiamondNYC@gmail.com\n\n\ud83d\udcf1 Phone: 917-520-7551\n\n\ud83d\udcf8 Instagram: __[@Pickleball_JEWELA](https://www.instagram.com/Pickleball_JEWELA)__\n\n \\n ",
-            "_links": {
-              "self": {
-                "href": "/users/91qTtsAC5JXVOdDAdW7bOLjyKMK2/profile"
-              },
-              "user": {
-                "href": "/users/91qTtsAC5JXVOdDAdW7bOLjyKMK2"
-              },
-              "ratings": {
-                "href": "/users/91qTtsAC5JXVOdDAdW7bOLjyKMK2/ratings"
-              },
-              "picture": {
-                "href": "/users/91qTtsAC5JXVOdDAdW7bOLjyKMK2/profile/picture"
-              },
-              "students": {
-                "href": "/coaches/b9586413-7284-491b-835f-33e6b4d1615d/students"
-              },
-              "settings": {
-                "href": "/coaches/b9586413-7284-491b-835f-33e6b4d1615d/settings"
-              },
-              "tierSettings": {
-                "href": "/coaches/tiers/8d829cfe-0c99-42f9-b01e-6086bf0b9deb"
-              },
-              "rateSettings": {
-                "href": "/coaches/b9586413-7284-491b-835f-33e6b4d1615d/settings/rate-settings"
-              }
-            },
-            "slug": "neilpress",
-            "settings": null,
-            "tierSettings": {
-              "id": "8d829cfe-0c99-42f9-b01e-6086bf0b9deb",
-              "priority": 4,
-              "name": "Club",
-              "description": null,
-              "hourlyRate": 50,
-              "payout": "CHARGE_AND_TRANSFER",
-              "feeAmountCents": 0,
-              "feePercentage": 0,
-              "coaches": null,
-              "cancellationPolicy": [
-                {
-                  "id": "PLUS_12HS_IN_ADVANCE",
-                  "label": "12+ hours in advance",
-                  "charge": 0,
-                  "timeRange": {
-                    "max": null,
-                    "min": 12
-                  }
-                },
-                {
-                  "id": "BETWEEN_12HS_TO_2HS_IN_ADVANCE",
-                  "label": "12 hours to 2 hours in advance",
-                  "charge": 10,
-                  "timeRange": {
-                    "max": 12,
-                    "min": 2
-                  }
-                },
-                {
-                  "id": "2HS_OR_LESS_IN_ADVANCE",
-                  "label": "2 hours or less",
-                  "charge": 40,
-                  "timeRange": {
-                    "max": 2,
-                    "min": null
-                  }
-                }
-              ],
-              "_links": {
-                "self": {
-                  "href": "/coaches/tiers/8d829cfe-0c99-42f9-b01e-6086bf0b9deb"
-                },
-                "coaches": {
-                  "href": "/coaches?tier=8d829cfe-0c99-42f9-b01e-6086bf0b9deb"
-                }
-              }
-            },
-            "rateSettings": {
-              "id": "b9586413-7284-491b-835f-33e6b4d1615d-rateSettings",
-              "rates": [
-                {
-                  "guests": 1,
-                  "hourlyRate": 100
-                },
-                {
-                  "guests": 2,
-                  "hourlyRate": 120
-                },
-                {
-                  "guests": 3,
-                  "hourlyRate": 140
-                },
-                {
-                  "guests": 4,
-                  "hourlyRate": 160
-                }
-              ]
-            },
-            "tier": "CLUB",
-            "rate": 100,
-            "fullName": "NeilPress",
-            "coachType": "HUMAN",
-            "students": null
-          },
-          "rate": 50,
-          "availableGuests": {
-            "_total": 4,
-            "items": [
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1@1763998200000",
-                "displayName": "1 player",
-                "displayNameShort": "1",
-                "max": 1,
-                "rate": 50,
-                "lessonRate": 50
-              },
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@2@1763998200000",
-                "displayName": "2 players",
-                "displayNameShort": "2",
-                "max": 2,
-                "rate": 60,
-                "lessonRate": 60
-              },
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@3@1763998200000",
-                "displayName": "3 players",
-                "displayNameShort": "3",
-                "max": 3,
-                "rate": 70,
-                "lessonRate": 70
-              },
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@4@1763998200000",
-                "displayName": "4 players",
-                "displayNameShort": "4",
-                "max": 4,
-                "rate": 80,
-                "lessonRate": 80
-              }
-            ],
-            "_links": {
-              "self": {
-                "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@b9586413-7284-491b-835f-33e6b4d1615d@1763998200000/available-guests"
-              }
-            }
-          }
-        }
-      ],
-      "_total": 1,
-      "_links": {
-        "self": {
-          "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1763998200000/available-coaches"
-        }
-      }
-    },
-    "defaultCoach": null,
-    "defaultTable": {
-      "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@auto@1763998200000"
-    },
-    "defaultGuests": {
-      "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@4@1763998200000"
-    },
-    "_links": {
-      "self": {
-        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1763998200000"
-      },
-      "pod": {
-        "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
-      },
-      "availableTables": {
-        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1763998200000/available-tables"
-      },
-      "availableCoaches": {
-        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1763998200000/available-coaches"
-      },
-      "availableGuests": {
-        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1763998200000/available-guests"
-      },
-      "defaultCoach": {
-        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1763998200000/default-coach"
-      },
-      "defaultTable": {
-        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1763998200000/default-table"
-      },
-      "defaultGuests": {
-        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1763998200000/default-guests"
-      }
-    }
-  },
-  {
     "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764000000000",
     "pod": {
       "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
@@ -330,173 +61,8 @@
       }
     },
     "availableCoaches": {
-      "items": [
-        {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@b9586413-7284-491b-835f-33e6b4d1615d@1764000000000",
-          "coach": {
-            "id": "b9586413-7284-491b-835f-33e6b4d1615d",
-            "user": {
-              "id": "91qTtsAC5JXVOdDAdW7bOLjyKMK2"
-            },
-            "type": "COACH",
-            "firstName": "Neil",
-            "lastName": "Press",
-            "initials": "NP",
-            "picture": null,
-            "usattRating": null,
-            "memberSince": "2024-10-15T14:19:51.000Z",
-            "gender": null,
-            "birthday": null,
-            "description": "Experience\n\nI\u2019ve been playing pickleball for nearly four years and began coaching in September 2023. Since then, I\u2019ve coached at multiple facilities across New York City, helping players of all ages and backgrounds develop a love for the game. Whether on the Upper East Side where I first picked up a paddle, or on courts throughout the boroughs, I bring passion and energy to every session.\n\n \\n \n\nCoaching Style\n\nMy coaching style is passionate, energetic, and focused on the fundamentals. I believe in helping players build strong foundational skills while ensuring they\u2019re having fun every step of the way. I specialize in working with \u201cNever-Evers,\u201d beginners, and intermediate-level players who want to grow their game in a supportive and upbeat environment.\n\n \\n \n\nCertifications\n\n\u2022 Level 1 Certified Coach \u2013 Pickleball Coaching International (PCI)\n\n\u2022 Level 1 Certified Coach \u2013 Racket Professional Organization (RPO)\n\n \\n \n\nSkill Level\n\nskill level: 4.0+\n\n \\n \n\nAdditional Info\n\nI started playing pickleball in Carl Schurz Park on Manhattan\u2019s Upper East Side, and the journey since then has been incredible. I love being on court\u2014whether I\u2019m playing, teaching, or just talking pickleball. I\u2019ve met amazing people through this sport, and I\u2019m excited to help more players experience the same. Outside of pickleball, I\u2019m a proud dad, husband, and avid snowboarder. If you\u2019re looking to elevate your game and have a great time doing it, I\u2019d love to work with you.\n\n \\n \n\nContact Info:\n\n\ud83d\udce7 Email: NeilDiamondNYC@gmail.com\n\n\ud83d\udcf1 Phone: 917-520-7551\n\n\ud83d\udcf8 Instagram: __[@Pickleball_JEWELA](https://www.instagram.com/Pickleball_JEWELA)__\n\n \\n ",
-            "_links": {
-              "self": {
-                "href": "/users/91qTtsAC5JXVOdDAdW7bOLjyKMK2/profile"
-              },
-              "user": {
-                "href": "/users/91qTtsAC5JXVOdDAdW7bOLjyKMK2"
-              },
-              "ratings": {
-                "href": "/users/91qTtsAC5JXVOdDAdW7bOLjyKMK2/ratings"
-              },
-              "picture": {
-                "href": "/users/91qTtsAC5JXVOdDAdW7bOLjyKMK2/profile/picture"
-              },
-              "students": {
-                "href": "/coaches/b9586413-7284-491b-835f-33e6b4d1615d/students"
-              },
-              "settings": {
-                "href": "/coaches/b9586413-7284-491b-835f-33e6b4d1615d/settings"
-              },
-              "tierSettings": {
-                "href": "/coaches/tiers/8d829cfe-0c99-42f9-b01e-6086bf0b9deb"
-              },
-              "rateSettings": {
-                "href": "/coaches/b9586413-7284-491b-835f-33e6b4d1615d/settings/rate-settings"
-              }
-            },
-            "slug": "neilpress",
-            "settings": null,
-            "tierSettings": {
-              "id": "8d829cfe-0c99-42f9-b01e-6086bf0b9deb",
-              "priority": 4,
-              "name": "Club",
-              "description": null,
-              "hourlyRate": 50,
-              "payout": "CHARGE_AND_TRANSFER",
-              "feeAmountCents": 0,
-              "feePercentage": 0,
-              "coaches": null,
-              "cancellationPolicy": [
-                {
-                  "id": "PLUS_12HS_IN_ADVANCE",
-                  "label": "12+ hours in advance",
-                  "charge": 0,
-                  "timeRange": {
-                    "max": null,
-                    "min": 12
-                  }
-                },
-                {
-                  "id": "BETWEEN_12HS_TO_2HS_IN_ADVANCE",
-                  "label": "12 hours to 2 hours in advance",
-                  "charge": 10,
-                  "timeRange": {
-                    "max": 12,
-                    "min": 2
-                  }
-                },
-                {
-                  "id": "2HS_OR_LESS_IN_ADVANCE",
-                  "label": "2 hours or less",
-                  "charge": 40,
-                  "timeRange": {
-                    "max": 2,
-                    "min": null
-                  }
-                }
-              ],
-              "_links": {
-                "self": {
-                  "href": "/coaches/tiers/8d829cfe-0c99-42f9-b01e-6086bf0b9deb"
-                },
-                "coaches": {
-                  "href": "/coaches?tier=8d829cfe-0c99-42f9-b01e-6086bf0b9deb"
-                }
-              }
-            },
-            "rateSettings": {
-              "id": "b9586413-7284-491b-835f-33e6b4d1615d-rateSettings",
-              "rates": [
-                {
-                  "guests": 1,
-                  "hourlyRate": 100
-                },
-                {
-                  "guests": 2,
-                  "hourlyRate": 120
-                },
-                {
-                  "guests": 3,
-                  "hourlyRate": 140
-                },
-                {
-                  "guests": 4,
-                  "hourlyRate": 160
-                }
-              ]
-            },
-            "tier": "CLUB",
-            "rate": 100,
-            "fullName": "NeilPress",
-            "coachType": "HUMAN",
-            "students": null
-          },
-          "rate": 50,
-          "availableGuests": {
-            "_total": 4,
-            "items": [
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1@1764000000000",
-                "displayName": "1 player",
-                "displayNameShort": "1",
-                "max": 1,
-                "rate": 50,
-                "lessonRate": 50
-              },
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@2@1764000000000",
-                "displayName": "2 players",
-                "displayNameShort": "2",
-                "max": 2,
-                "rate": 60,
-                "lessonRate": 60
-              },
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@3@1764000000000",
-                "displayName": "3 players",
-                "displayNameShort": "3",
-                "max": 3,
-                "rate": 70,
-                "lessonRate": 70
-              },
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@4@1764000000000",
-                "displayName": "4 players",
-                "displayNameShort": "4",
-                "max": 4,
-                "rate": 80,
-                "lessonRate": 80
-              }
-            ],
-            "_links": {
-              "self": {
-                "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@b9586413-7284-491b-835f-33e6b4d1615d@1764000000000/available-guests"
-              }
-            }
-          }
-        }
-      ],
-      "_total": 1,
+      "items": [],
+      "_total": 0,
       "_links": {
         "self": {
           "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764000000000/available-coaches"
@@ -2772,194 +2338,6 @@
     "availableCoaches": {
       "items": [
         {
-          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@e897e888-51c1-4d79-9bd4-185e36ad7e7a@1764014400000",
-          "coach": {
-            "id": "e897e888-51c1-4d79-9bd4-185e36ad7e7a",
-            "user": {
-              "id": "9m8eAFTqMQRh9R8tG7uphlZIxvv1"
-            },
-            "type": "COACH",
-            "firstName": "DUPR Coach VAN",
-            "lastName": "Soawesome",
-            "initials": "VAN SOAWESOME",
-            "picture": null,
-            "usattRating": null,
-            "memberSince": "2024-11-15T23:49:29.000Z",
-            "gender": "Female",
-            "birthday": null,
-            "description": "Welcome to Gotham Pickleball!\n\n\\\nI am a former collegiate tennis player and pro skateboarder and a surfer. - movement is my medicine. I was introduced to pickleball in 2019 and, given my tennis background, took to it immediately. I was instrumental in helping organize with the Los Angeles Parks & Recreation Department convert spaces to pickleball courts across LA County. I moved to NYC in 2022, and have enjoyed being a part of the growing scene here. I\u2019m a medic on my off days and volunteer with the Central Park Medical Unit.\n\n\\\nMy goal is to help you elevate your game!\n\n\\\nStats: 5.0+ CERTIFIED DUPR COACH\n\n\\\n2024 Certified RPPk & DUPR COACH + Master Instructor\n\n2024 RPO Certified\n\nSponsored Team Player @Gearbox_pickleball\n\n\\\nGold Medalist 2023 APP Women Doubles\n\nBronze Medalist 2023 APP Mixed Doubles\n\nSilver Medalist 2023 1010 Wins Women Doubles\n\nMLP Champion 2023 - Dink Daddies X Brooklyn Aces | NYC Pickleball\n\nSilver Medalist 2022 APP Women Doubles\n\n\\\nLETS HAVE SOME FUN!\n\n\\\nCome [Join My DUPR Coaching Team](https://link.myjourneypickleball.com/UxjI7frimOb)\n\nSimply download the My DUPR Coach app using my unique link and create an account.\n\n\\\nThis opportunity allows me to provide you with exclusive access to high-tech pickleball skills technology and the ability to generate the first-ever Provisional DUPR!\n\n\\\nAs one of my valued players, YOU have the chance to be among the first to utilize these exciting tools for improving your pickleball skills. We\u2019ll have opportunities to work together through film analysis, comprehensive skills assessments, in-person events, and much more!\n\n\\\n \\n \n\n\\\n",
-            "_links": {
-              "self": {
-                "href": "/users/9m8eAFTqMQRh9R8tG7uphlZIxvv1/profile"
-              },
-              "user": {
-                "href": "/users/9m8eAFTqMQRh9R8tG7uphlZIxvv1"
-              },
-              "ratings": {
-                "href": "/users/9m8eAFTqMQRh9R8tG7uphlZIxvv1/ratings"
-              },
-              "picture": {
-                "href": "/users/9m8eAFTqMQRh9R8tG7uphlZIxvv1/profile/picture"
-              },
-              "students": {
-                "href": "/coaches/e897e888-51c1-4d79-9bd4-185e36ad7e7a/students"
-              },
-              "settings": {
-                "href": "/coaches/e897e888-51c1-4d79-9bd4-185e36ad7e7a/settings"
-              },
-              "tierSettings": {
-                "href": "/coaches/tiers/8d829cfe-0c99-42f9-b01e-6086bf0b9deb"
-              },
-              "rateSettings": {
-                "href": "/coaches/e897e888-51c1-4d79-9bd4-185e36ad7e7a/settings/rate-settings"
-              }
-            },
-            "slug": "vansoawesome",
-            "settings": null,
-            "tierSettings": {
-              "id": "8d829cfe-0c99-42f9-b01e-6086bf0b9deb",
-              "priority": 4,
-              "name": "Club",
-              "description": null,
-              "hourlyRate": 50,
-              "payout": "CHARGE_AND_TRANSFER",
-              "feeAmountCents": 0,
-              "feePercentage": 0,
-              "coaches": null,
-              "cancellationPolicy": [
-                {
-                  "id": "PLUS_12HS_IN_ADVANCE",
-                  "label": "12+ hours in advance",
-                  "charge": 0,
-                  "timeRange": {
-                    "max": null,
-                    "min": 12
-                  }
-                },
-                {
-                  "id": "BETWEEN_12HS_TO_2HS_IN_ADVANCE",
-                  "label": "12 hours to 2 hours in advance",
-                  "charge": 10,
-                  "timeRange": {
-                    "max": 12,
-                    "min": 2
-                  }
-                },
-                {
-                  "id": "2HS_OR_LESS_IN_ADVANCE",
-                  "label": "2 hours or less",
-                  "charge": 40,
-                  "timeRange": {
-                    "max": 2,
-                    "min": null
-                  }
-                }
-              ],
-              "_links": {
-                "self": {
-                  "href": "/coaches/tiers/8d829cfe-0c99-42f9-b01e-6086bf0b9deb"
-                },
-                "coaches": {
-                  "href": "/coaches?tier=8d829cfe-0c99-42f9-b01e-6086bf0b9deb"
-                }
-              }
-            },
-            "rateSettings": {
-              "id": "e897e888-51c1-4d79-9bd4-185e36ad7e7a-rateSettings",
-              "rates": [
-                {
-                  "guests": 1,
-                  "hourlyRate": 90
-                },
-                {
-                  "guests": 2,
-                  "hourlyRate": 120
-                },
-                {
-                  "guests": 3,
-                  "hourlyRate": 150
-                },
-                {
-                  "guests": 4,
-                  "hourlyRate": 160
-                },
-                {
-                  "guests": 5,
-                  "hourlyRate": 175
-                },
-                {
-                  "guests": 6,
-                  "hourlyRate": 180
-                }
-              ]
-            },
-            "tier": "CLUB",
-            "rate": 90,
-            "fullName": "VanSoawesome",
-            "coachType": "HUMAN",
-            "students": null
-          },
-          "rate": 45,
-          "availableGuests": {
-            "_total": 6,
-            "items": [
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1@1764014400000",
-                "displayName": "1 player",
-                "displayNameShort": "1",
-                "max": 1,
-                "rate": 45,
-                "lessonRate": 45
-              },
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@2@1764014400000",
-                "displayName": "2 players",
-                "displayNameShort": "2",
-                "max": 2,
-                "rate": 60,
-                "lessonRate": 60
-              },
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@3@1764014400000",
-                "displayName": "3 players",
-                "displayNameShort": "3",
-                "max": 3,
-                "rate": 75,
-                "lessonRate": 75
-              },
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@4@1764014400000",
-                "displayName": "4 players",
-                "displayNameShort": "4",
-                "max": 4,
-                "rate": 80,
-                "lessonRate": 80
-              },
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@5@1764014400000",
-                "displayName": "5 players",
-                "displayNameShort": "5",
-                "max": 5,
-                "rate": 87.5,
-                "lessonRate": 87.5
-              },
-              {
-                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@6@1764014400000",
-                "displayName": "6 players",
-                "displayNameShort": "6",
-                "max": 6,
-                "rate": 90,
-                "lessonRate": 90
-              }
-            ],
-            "_links": {
-              "self": {
-                "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@e897e888-51c1-4d79-9bd4-185e36ad7e7a@1764014400000/available-guests"
-              }
-            }
-          }
-        },
-        {
           "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@b9586413-7284-491b-835f-33e6b4d1615d@1764014400000",
           "coach": {
             "id": "b9586413-7284-491b-835f-33e6b4d1615d",
@@ -3124,7 +2502,7 @@
           }
         }
       ],
-      "_total": 2,
+      "_total": 1,
       "_links": {
         "self": {
           "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764014400000/available-coaches"
@@ -88354,6 +87732,523 @@
       },
       "defaultGuests": {
         "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764601200000/default-guests"
+      }
+    }
+  },
+  {
+    "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764603000000",
+    "pod": {
+      "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+    },
+    "startTime": "2025-12-01T15:30:00.000Z",
+    "endTime": "2025-12-01T16:00:00.000Z",
+    "periodType": "OFF_PEAK",
+    "tablesLeft": 3,
+    "status": "AVAILABLE",
+    "availableGuests": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@4@1764603000000",
+          "displayName": "1-4 players",
+          "displayNameShort": "1-4",
+          "max": 4,
+          "rate": 0,
+          "lessonRate": 0
+        },
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@5@1764603000000",
+          "displayName": "5 players",
+          "displayNameShort": "5",
+          "max": 5,
+          "rate": 0,
+          "lessonRate": 0
+        },
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@6@1764603000000",
+          "displayName": "6 players",
+          "displayNameShort": "6",
+          "max": 6,
+          "rate": 0,
+          "lessonRate": 0
+        }
+      ],
+      "_total": 3,
+      "_links": {
+        "self": {
+          "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764603000000/available-guests"
+        }
+      }
+    },
+    "availableTables": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@auto@1764603000000",
+          "type": "AUTO",
+          "table": null,
+          "rate": 40,
+          "lessonRate": 40
+        },
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@fdae99b4-5424-4f70-ad7c-14873658e7a3@1764603000000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "fdae99b4-5424-4f70-ad7c-14873658e7a3",
+            "slug": "court-1",
+            "displayName": "Court 1",
+            "displayNameShort": "C1",
+            "description": "Court 1",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/fdae99b4-5424-4f70-ad7c-14873658e7a3"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/fdae99b4-5424-4f70-ad7c-14873658e7a3/settings"
+              }
+            }
+          },
+          "rate": 42.5,
+          "lessonRate": 42.5
+        },
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@90c95aaf-31cd-4e95-8042-5d07ca848a4f@1764603000000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
+            "slug": "court-3",
+            "displayName": "Court 3",
+            "displayNameShort": "C3",
+            "description": "Court 3",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/90c95aaf-31cd-4e95-8042-5d07ca848a4f/settings"
+              }
+            }
+          },
+          "rate": 42.5,
+          "lessonRate": 42.5
+        },
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@a603b3f5-5232-4746-ac52-915bb34b3d40@1764603000000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "a603b3f5-5232-4746-ac52-915bb34b3d40",
+            "slug": "court-4",
+            "displayName": "Court 4",
+            "displayNameShort": "C4",
+            "description": "Court 4",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/a603b3f5-5232-4746-ac52-915bb34b3d40/settings"
+              }
+            }
+          },
+          "rate": 42.5,
+          "lessonRate": 42.5
+        }
+      ],
+      "_total": 4,
+      "_links": {
+        "self": {
+          "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764603000000/available-tables"
+        }
+      }
+    },
+    "availableCoaches": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@7d0f9f8a-cef0-43dc-8259-4d52b23f7ec3@1764603000000",
+          "coach": {
+            "id": "7d0f9f8a-cef0-43dc-8259-4d52b23f7ec3",
+            "user": {
+              "id": "aNTjxNbeCGSSqQTUhCXAWMBSx7q1"
+            },
+            "type": "COACH",
+            "firstName": "P Adam",
+            "lastName": "Walsh",
+            "initials": "PAW",
+            "picture": null,
+            "usattRating": null,
+            "memberSince": "2024-11-16T16:41:14.000Z",
+            "gender": "Male",
+            "birthday": "1970-06-18T04:00:00.000Z",
+            "description": "Greetings,\n\nMy love for Pickleball started in Seattle in 1988 when I was first introduced to it by my 77 y.o. uncle, Norris.\n\nMy sweet spot is working with students who want to have fun, learn intro to early intermediate pickleball principles, and share a laugh or two along the way.\n\nI received my coaching certifications through the PPR in 2023 and RPO in 2024.\n\nIf this sounds good to you then I\u2019m your guy. See you out there!\n\n \\n ",
+            "_links": {
+              "self": {
+                "href": "/users/aNTjxNbeCGSSqQTUhCXAWMBSx7q1/profile"
+              },
+              "user": {
+                "href": "/users/aNTjxNbeCGSSqQTUhCXAWMBSx7q1"
+              },
+              "ratings": {
+                "href": "/users/aNTjxNbeCGSSqQTUhCXAWMBSx7q1/ratings"
+              },
+              "picture": {
+                "href": "/users/aNTjxNbeCGSSqQTUhCXAWMBSx7q1/profile/picture"
+              },
+              "students": {
+                "href": "/coaches/7d0f9f8a-cef0-43dc-8259-4d52b23f7ec3/students"
+              },
+              "settings": {
+                "href": "/coaches/7d0f9f8a-cef0-43dc-8259-4d52b23f7ec3/settings"
+              },
+              "tierSettings": {
+                "href": "/coaches/tiers/8d829cfe-0c99-42f9-b01e-6086bf0b9deb"
+              },
+              "rateSettings": {
+                "href": "/coaches/7d0f9f8a-cef0-43dc-8259-4d52b23f7ec3/settings/rate-settings"
+              }
+            },
+            "slug": "p-adamwalsh",
+            "settings": null,
+            "tierSettings": {
+              "id": "8d829cfe-0c99-42f9-b01e-6086bf0b9deb",
+              "priority": 4,
+              "name": "Club",
+              "description": null,
+              "hourlyRate": 50,
+              "payout": "CHARGE_AND_TRANSFER",
+              "feeAmountCents": 0,
+              "feePercentage": 0,
+              "coaches": null,
+              "cancellationPolicy": [
+                {
+                  "id": "PLUS_12HS_IN_ADVANCE",
+                  "label": "12+ hours in advance",
+                  "charge": 0,
+                  "timeRange": {
+                    "max": null,
+                    "min": 12
+                  }
+                },
+                {
+                  "id": "BETWEEN_12HS_TO_2HS_IN_ADVANCE",
+                  "label": "12 hours to 2 hours in advance",
+                  "charge": 10,
+                  "timeRange": {
+                    "max": 12,
+                    "min": 2
+                  }
+                },
+                {
+                  "id": "2HS_OR_LESS_IN_ADVANCE",
+                  "label": "2 hours or less",
+                  "charge": 40,
+                  "timeRange": {
+                    "max": 2,
+                    "min": null
+                  }
+                }
+              ],
+              "_links": {
+                "self": {
+                  "href": "/coaches/tiers/8d829cfe-0c99-42f9-b01e-6086bf0b9deb"
+                },
+                "coaches": {
+                  "href": "/coaches?tier=8d829cfe-0c99-42f9-b01e-6086bf0b9deb"
+                }
+              }
+            },
+            "rateSettings": {
+              "id": "7d0f9f8a-cef0-43dc-8259-4d52b23f7ec3-rateSettings",
+              "rates": [
+                {
+                  "guests": 1,
+                  "hourlyRate": 70
+                },
+                {
+                  "guests": 2,
+                  "hourlyRate": 80
+                },
+                {
+                  "guests": 3,
+                  "hourlyRate": 90
+                },
+                {
+                  "guests": 4,
+                  "hourlyRate": 100
+                }
+              ]
+            },
+            "tier": "CLUB",
+            "rate": 70,
+            "fullName": "P AdamWalsh",
+            "coachType": "HUMAN",
+            "students": null
+          },
+          "rate": 35,
+          "availableGuests": {
+            "_total": 4,
+            "items": [
+              {
+                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1@1764603000000",
+                "displayName": "1 player",
+                "displayNameShort": "1",
+                "max": 1,
+                "rate": 35,
+                "lessonRate": 35
+              },
+              {
+                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@2@1764603000000",
+                "displayName": "2 players",
+                "displayNameShort": "2",
+                "max": 2,
+                "rate": 40,
+                "lessonRate": 40
+              },
+              {
+                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@3@1764603000000",
+                "displayName": "3 players",
+                "displayNameShort": "3",
+                "max": 3,
+                "rate": 45,
+                "lessonRate": 45
+              },
+              {
+                "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@4@1764603000000",
+                "displayName": "4 players",
+                "displayNameShort": "4",
+                "max": 4,
+                "rate": 50,
+                "lessonRate": 50
+              }
+            ],
+            "_links": {
+              "self": {
+                "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@7d0f9f8a-cef0-43dc-8259-4d52b23f7ec3@1764603000000/available-guests"
+              }
+            }
+          }
+        }
+      ],
+      "_total": 1,
+      "_links": {
+        "self": {
+          "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764603000000/available-coaches"
+        }
+      }
+    },
+    "defaultCoach": null,
+    "defaultTable": {
+      "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@auto@1764603000000"
+    },
+    "defaultGuests": {
+      "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@4@1764603000000"
+    },
+    "_links": {
+      "self": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764603000000"
+      },
+      "pod": {
+        "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+      },
+      "availableTables": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764603000000/available-tables"
+      },
+      "availableCoaches": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764603000000/available-coaches"
+      },
+      "availableGuests": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764603000000/available-guests"
+      },
+      "defaultCoach": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764603000000/default-coach"
+      },
+      "defaultTable": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764603000000/default-table"
+      },
+      "defaultGuests": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764603000000/default-guests"
+      }
+    }
+  },
+  {
+    "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764604800000",
+    "pod": {
+      "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+    },
+    "startTime": "2025-12-01T16:00:00.000Z",
+    "endTime": "2025-12-01T16:30:00.000Z",
+    "periodType": "OFF_PEAK",
+    "tablesLeft": 1,
+    "status": "AVAILABLE",
+    "availableGuests": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@4@1764604800000",
+          "displayName": "1-4 players",
+          "displayNameShort": "1-4",
+          "max": 4,
+          "rate": 0,
+          "lessonRate": 0
+        },
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@5@1764604800000",
+          "displayName": "5 players",
+          "displayNameShort": "5",
+          "max": 5,
+          "rate": 0,
+          "lessonRate": 0
+        },
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@6@1764604800000",
+          "displayName": "6 players",
+          "displayNameShort": "6",
+          "max": 6,
+          "rate": 0,
+          "lessonRate": 0
+        }
+      ],
+      "_total": 3,
+      "_links": {
+        "self": {
+          "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764604800000/available-guests"
+        }
+      }
+    },
+    "availableTables": {
+      "items": [
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@auto@1764604800000",
+          "type": "AUTO",
+          "table": null,
+          "rate": 40,
+          "lessonRate": 40
+        },
+        {
+          "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@fdae99b4-5424-4f70-ad7c-14873658e7a3@1764604800000",
+          "type": "FIXED_TABLE",
+          "table": {
+            "id": "fdae99b4-5424-4f70-ad7c-14873658e7a3",
+            "slug": "court-1",
+            "displayName": "Court 1",
+            "displayNameShort": "C1",
+            "description": "Court 1",
+            "type": "STANDARD",
+            "status": "AVAILABLE",
+            "features": [
+              "REPLAYS",
+              "QUICK_REPLAYS",
+              "CUSTOM_REPLAYS",
+              "ENHANCED_REPLAYS",
+              "SCOREBOARD"
+            ],
+            "pod": {
+              "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+            },
+            "_links": {
+              "self": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/fdae99b4-5424-4f70-ad7c-14873658e7a3"
+              },
+              "pod": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+              },
+              "settings": {
+                "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83/tables/fdae99b4-5424-4f70-ad7c-14873658e7a3/settings"
+              }
+            }
+          },
+          "rate": 42.5,
+          "lessonRate": 42.5
+        }
+      ],
+      "_total": 2,
+      "_links": {
+        "self": {
+          "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764604800000/available-tables"
+        }
+      }
+    },
+    "availableCoaches": {
+      "items": [],
+      "_total": 0,
+      "_links": {
+        "self": {
+          "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764604800000/available-coaches"
+        }
+      }
+    },
+    "defaultCoach": null,
+    "defaultTable": {
+      "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@auto@1764604800000"
+    },
+    "defaultGuests": {
+      "id": "e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@4@1764604800000"
+    },
+    "_links": {
+      "self": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764604800000"
+      },
+      "pod": {
+        "href": "/pods/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83"
+      },
+      "availableTables": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764604800000/available-tables"
+      },
+      "availableCoaches": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764604800000/available-coaches"
+      },
+      "availableGuests": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764604800000/available-guests"
+      },
+      "defaultCoach": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764604800000/default-coach"
+      },
+      "defaultTable": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764604800000/default-table"
+      },
+      "defaultGuests": {
+        "href": "/sessions/e6e67f0a-de3f-4e6e-adf5-3db126cd5c83@1764604800000/default-guests"
       }
     }
   }

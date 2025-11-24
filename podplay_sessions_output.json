@@ -4498,5 +4498,41 @@
     "slot_start": "2025-12-01 15:00:00+00:00",
     "slot_end": "2025-12-01 15:30:00+00:00",
     "period_type": "OFF_PEAK"
+  },
+  {
+    "client_code": "gotham",
+    "source_system": "podplay",
+    "court_id": "fdae99b4-5424-4f70-ad7c-14873658e7a3",
+    "court_name": "Court 1",
+    "slot_start": "2025-12-01 15:30:00+00:00",
+    "slot_end": "2025-12-01 16:00:00+00:00",
+    "period_type": "OFF_PEAK"
+  },
+  {
+    "client_code": "gotham",
+    "source_system": "podplay",
+    "court_id": "90c95aaf-31cd-4e95-8042-5d07ca848a4f",
+    "court_name": "Court 3",
+    "slot_start": "2025-12-01 15:30:00+00:00",
+    "slot_end": "2025-12-01 16:00:00+00:00",
+    "period_type": "OFF_PEAK"
+  },
+  {
+    "client_code": "gotham",
+    "source_system": "podplay",
+    "court_id": "a603b3f5-5232-4746-ac52-915bb34b3d40",
+    "court_name": "Court 4",
+    "slot_start": "2025-12-01 15:30:00+00:00",
+    "slot_end": "2025-12-01 16:00:00+00:00",
+    "period_type": "OFF_PEAK"
+  },
+  {
+    "client_code": "gotham",
+    "source_system": "podplay",
+    "court_id": "fdae99b4-5424-4f70-ad7c-14873658e7a3",
+    "court_name": "Court 1",
+    "slot_start": "2025-12-01 16:00:00+00:00",
+    "slot_end": "2025-12-01 16:30:00+00:00",
+    "period_type": "OFF_PEAK"
   }
 ]

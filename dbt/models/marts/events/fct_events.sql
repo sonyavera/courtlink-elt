@@ -39,6 +39,15 @@ mapped as (
 )
 
 select
+    md5(
+        concat_ws(
+            '||',
+            coalesce(client_code, ''),
+            coalesce(event_id, ''),
+            coalesce(source_system, ''),
+            coalesce(cast(event_start_time as text), '')
+        )
+    ) as event_pk,
     client_code,
     source_system,
     event_id,
