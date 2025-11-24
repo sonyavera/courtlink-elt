@@ -600,9 +600,12 @@ class InsertMixin:
     def insert_events(
         self, events: list[dict], table_name: str = "facility_events_raw"
     ) -> None:
-        """Insert events into the facility_events_raw table."""
+        """
+        Replace all events for each client_code + source_system combination.
+        This ensures deleted events are removed from the database.
+        """
         if not events:
-            print("[INSERT EVENTS] No events to insert")
+            print("[REPLACE EVENTS] No events to insert")
             return
 
         # Deduplicate events by (client_code, source_system, event_id, event_start_time)
@@ -612,7 +615,7 @@ class InsertMixin:
             # event_start_time is required for the primary key
             if not event.get("event_start_time"):
                 print(
-                    f"[INSERT EVENTS] WARNING: Skipping event {event.get('event_id')} "
+                    f"[REPLACE EVENTS] WARNING: Skipping event {event.get('event_id')} "
                     f"from {event.get('client_code')} - missing event_start_time"
                 )
                 continue
@@ -628,73 +631,160 @@ class InsertMixin:
 
         if len(deduplicated_events) < len(events):
             print(
-                f"[INSERT EVENTS] Deduplicated {len(events)} events to {len(deduplicated_events)} "
+                f"[REPLACE EVENTS] Deduplicated {len(events)} events to {len(deduplicated_events)} "
                 f"(removed {len(events) - len(deduplicated_events)} duplicates)"
             )
 
-        rows = [
-            (
-                m["client_code"],
-                m["source_system"],
-                m["event_id"],
-                m.get("event_name"),
-                m.get("event_type"),
-                m.get("event_start_time"),
-                m.get("event_end_time"),
-                m.get("num_registrants"),
-                m.get("max_registrants"),
-                m.get("admission_rate_regular"),
-                m.get("admission_rate_member"),
-                datetime.now(timezone.utc),
+        # Group events by (client_code, source_system) to replace each combination separately
+        events_by_client = {}
+        for event in deduplicated_events:
+            key = (event["client_code"], event["source_system"])
+            if key not in events_by_client:
+                events_by_client[key] = []
+            events_by_client[key].append(event)
+
+        for (client_code, source_system), client_events in events_by_client.items():
+            print(
+                f"[REPLACE EVENTS] Replacing events for {client_code}/{source_system}: "
+                f"{len(client_events)} events"
             )
-            for m in deduplicated_events
-        ]
 
-        BATCH_SIZE = 1000
-        total_events = len(deduplicated_events)
-        batch_num = 0
+            rows = [
+                (
+                    m["client_code"],
+                    m["source_system"],
+                    m["event_id"],
+                    m.get("event_name"),
+                    m.get("event_type"),
+                    m.get("event_start_time"),
+                    m.get("event_end_time"),
+                    m.get("num_registrants"),
+                    m.get("max_registrants"),
+                    m.get("admission_rate_regular"),
+                    m.get("admission_rate_member"),
+                    datetime.now(timezone.utc),
+                )
+                for m in client_events
+            ]
 
-        with self._connect() as conn, conn.cursor() as cur:
-            for i in range(0, len(rows), BATCH_SIZE):
-                batch = rows[i : i + BATCH_SIZE]
-                batch_num += 1
-                execute_values(
-                    cur,
+            staging_table = f"{table_name}_stg"
+            prod_table = table_name
+
+            with self._connect() as conn, conn.cursor() as cur:
+                # Step 1: Create staging table if it doesn't exist
+                cur.execute(
                     f"""
-                    INSERT INTO "{self.schema}"."{table_name}" (
-                        client_code,
-                        source_system,
-                        event_id,
-                        event_name,
-                        event_type,
-                        event_start_time,
-                        event_end_time,
-                        num_registrants,
-                        max_registrants,
-                        admission_rate_regular,
-                        admission_rate_member,
-                        created_at
-                    ) VALUES %s
-                    ON CONFLICT (client_code, source_system, event_id, event_start_time) DO UPDATE SET
-                        event_name = EXCLUDED.event_name,
-                        event_type = EXCLUDED.event_type,
-                        event_start_time = EXCLUDED.event_start_time,
-                        event_end_time = EXCLUDED.event_end_time,
-                        num_registrants = EXCLUDED.num_registrants,
-                        max_registrants = EXCLUDED.max_registrants,
-                        admission_rate_regular = EXCLUDED.admission_rate_regular,
-                        admission_rate_member = EXCLUDED.admission_rate_member,
-                        created_at = EXCLUDED.created_at
+                    CREATE TABLE IF NOT EXISTS "{self.schema}"."{staging_table}" (
+                        LIKE "{self.schema}"."{prod_table}" INCLUDING DEFAULTS INCLUDING CONSTRAINTS
+                    )
+                """
+                )
+
+                # Step 2: Truncate staging table
+                cur.execute(f'TRUNCATE TABLE "{self.schema}"."{staging_table}"')
+
+                # Step 3: Insert new data into staging table
+                BATCH_SIZE = 1000
+                for i in range(0, len(rows), BATCH_SIZE):
+                    batch = rows[i : i + BATCH_SIZE]
+                    batch_num = i // BATCH_SIZE + 1
+                    execute_values(
+                        cur,
+                        f"""
+                        INSERT INTO "{self.schema}"."{staging_table}" (
+                            client_code,
+                            source_system,
+                            event_id,
+                            event_name,
+                            event_type,
+                            event_start_time,
+                            event_end_time,
+                            num_registrants,
+                            max_registrants,
+                            admission_rate_regular,
+                            admission_rate_member,
+                            created_at
+                        ) VALUES %s
+                        """,
+                        batch,
+                    )
+
+                # Step 4: Get row counts before swap
+                cur.execute(
+                    f"""
+                    SELECT COUNT(*) FROM "{self.schema}"."{prod_table}"
+                    WHERE client_code = %s AND source_system = %s
                     """,
-                    batch,
+                    (client_code, source_system),
                 )
-                print(
-                    f"[INSERT EVENTS] Batch {batch_num} complete: "
-                    f"{cur.rowcount} rows affected (inserts + updates)"
-                )
+                old_count = cur.fetchone()[0]
+                cur.execute(f'SELECT COUNT(*) FROM "{self.schema}"."{staging_table}"')
+                new_count = cur.fetchone()[0]
+
+                # Step 5: Commit staging inserts
+                conn.commit()
+
+                # Step 6: Replace data atomically in a transaction
+                cur.execute("BEGIN")
+                try:
+                    # Delete existing records for this client_code + source_system
+                    cur.execute(
+                        f"""
+                        DELETE FROM "{self.schema}"."{prod_table}"
+                        WHERE client_code = %s AND source_system = %s
+                        """,
+                        (client_code, source_system),
+                    )
+
+                    # Copy all data from staging to production
+                    cur.execute(
+                        f"""
+                        INSERT INTO "{self.schema}"."{prod_table}" (
+                            client_code,
+                            source_system,
+                            event_id,
+                            event_name,
+                            event_type,
+                            event_start_time,
+                            event_end_time,
+                            num_registrants,
+                            max_registrants,
+                            admission_rate_regular,
+                            admission_rate_member,
+                            created_at
+                        )
+                        SELECT 
+                            client_code,
+                            source_system,
+                            event_id,
+                            event_name,
+                            event_type,
+                            event_start_time,
+                            event_end_time,
+                            num_registrants,
+                            max_registrants,
+                            admission_rate_regular,
+                            admission_rate_member,
+                            created_at
+                        FROM "{self.schema}"."{staging_table}"
+                    """
+                    )
+
+                    cur.execute("COMMIT")
+
+                    print(
+                        f"[REPLACE EVENTS] ✓ Complete for {client_code}/{source_system}: "
+                        f"Replaced {old_count} rows with {new_count} rows"
+                    )
+                except Exception as e:
+                    cur.execute("ROLLBACK")
+                    print(
+                        f"[REPLACE EVENTS] Error during replacement for {client_code}/{source_system}: {e}"
+                    )
+                    raise
 
         print(
-            f"[INSERT EVENTS] Completed insert of {total_events} events into {table_name}"
+            f"[REPLACE EVENTS] Completed replacement for {len(events_by_client)} client/system combinations"
         )
 
     def replace_court_availabilities(
@@ -703,134 +793,153 @@ class InsertMixin:
         table_name: str = "facility_court_availabilities",
     ) -> None:
         """
-        Replace all court availabilities in the table using a safe staging approach.
-        This ensures the table is never empty during replacement.
+        Replace all court availabilities for each client_code + source_system combination.
+        This ensures deleted availabilities are removed from the database.
         """
         if not availabilities:
             print("[REPLACE COURT AVAILABILITIES] No availabilities to insert")
             return
 
-        print(
-            f"[REPLACE COURT AVAILABILITIES] Starting replacement of {len(availabilities)} availabilities"
-        )
-
-        rows = [
-            (
-                m["client_code"],
-                m["source_system"],
-                m["court_id"],
-                m.get("court_name"),
-                m["slot_start"],
-                m["slot_end"],
-                m.get("period_type"),
-                datetime.now(timezone.utc),
-            )
-            for m in availabilities
-        ]
+        # Group availabilities by (client_code, source_system) to replace each combination separately
+        availabilities_by_client = {}
+        for avail in availabilities:
+            key = (avail["client_code"], avail["source_system"])
+            if key not in availabilities_by_client:
+                availabilities_by_client[key] = []
+            availabilities_by_client[key].append(avail)
 
         staging_table = f"{table_name}_stg"
         prod_table = table_name
 
-        with self._connect() as conn, conn.cursor() as cur:
-            # Step 1: Drop and recreate staging table to ensure it matches current structure
-            # This is necessary if columns were added after the staging table was created
-            cur.execute(f'DROP TABLE IF EXISTS "{self.schema}"."{staging_table}"')
-            cur.execute(
-                f"""
-                CREATE TABLE "{self.schema}"."{staging_table}" (
-                    LIKE "{self.schema}"."{prod_table}" INCLUDING DEFAULTS INCLUDING CONSTRAINTS
-                )
-            """
-            )
+        for (client_code, source_system), client_availabilities in availabilities_by_client.items():
             print(
-                f"[REPLACE COURT AVAILABILITIES] Recreated staging table: {staging_table}"
+                f"[REPLACE COURT AVAILABILITIES] Replacing availabilities for {client_code}/{source_system}: "
+                f"{len(client_availabilities)} availabilities"
             )
 
-            # Step 2: Truncate staging table
-            cur.execute(f'TRUNCATE TABLE "{self.schema}"."{staging_table}"')
-            print(f"[REPLACE COURT AVAILABILITIES] Truncated staging table")
-
-            # Step 3: Insert new data into staging table
-            BATCH_SIZE = 1000
-            total_batches = (len(rows) + BATCH_SIZE - 1) // BATCH_SIZE
-            for i in range(0, len(rows), BATCH_SIZE):
-                batch = rows[i : i + BATCH_SIZE]
-                batch_num = i // BATCH_SIZE + 1
-                print(
-                    f"[REPLACE COURT AVAILABILITIES] Inserting batch {batch_num}/{total_batches} "
-                    f"({len(batch)} records) into staging"
+            rows = [
+                (
+                    m["client_code"],
+                    m["source_system"],
+                    m["court_id"],
+                    m.get("court_name"),
+                    m["slot_start"],
+                    m["slot_end"],
+                    m.get("period_type"),
+                    datetime.now(timezone.utc),
                 )
-                execute_values(
-                    cur,
-                    f"""
-                    INSERT INTO "{self.schema}"."{staging_table}" (
-                        client_code,
-                        source_system,
-                        court_id,
-                        court_name,
-                        slot_start,
-                        slot_end,
-                        period_type,
-                        created_at
-                    ) VALUES %s
-                    """,
-                    batch,
-                )
+                for m in client_availabilities
+            ]
 
-            # Step 4: Get row counts before swap
-            cur.execute(f'SELECT COUNT(*) FROM "{self.schema}"."{prod_table}"')
-            old_count = cur.fetchone()[0]
-            cur.execute(f'SELECT COUNT(*) FROM "{self.schema}"."{staging_table}"')
-            new_count = cur.fetchone()[0]
-
-            # Step 5: Commit staging inserts
-            conn.commit()
-
-            # Step 6: Swap data atomically in a transaction (safer than dropping/renaming tables)
-            cur.execute("BEGIN")
-            try:
-                # Truncate production table
-                cur.execute(f'TRUNCATE TABLE "{self.schema}"."{prod_table}"')
-
-                # Copy all data from staging to production
+            with self._connect() as conn, conn.cursor() as cur:
+                # Step 1: Create staging table if it doesn't exist
                 cur.execute(
                     f"""
-                    INSERT INTO "{self.schema}"."{prod_table}" (
-                        client_code,
-                        source_system,
-                        court_id,
-                        court_name,
-                        slot_start,
-                        slot_end,
-                        period_type,
-                        created_at
+                    CREATE TABLE IF NOT EXISTS "{self.schema}"."{staging_table}" (
+                        LIKE "{self.schema}"."{prod_table}" INCLUDING DEFAULTS INCLUDING CONSTRAINTS
                     )
-                    SELECT 
-                        client_code,
-                        source_system,
-                        court_id,
-                        court_name,
-                        slot_start,
-                        slot_end,
-                        period_type,
-                        created_at
-                    FROM "{self.schema}"."{staging_table}"
                 """
                 )
 
-                # Truncate staging table for next run
+                # Step 2: Truncate staging table
                 cur.execute(f'TRUNCATE TABLE "{self.schema}"."{staging_table}"')
 
-                cur.execute("COMMIT")
+                # Step 3: Insert new data into staging table
+                BATCH_SIZE = 1000
+                total_batches = (len(rows) + BATCH_SIZE - 1) // BATCH_SIZE
+                for i in range(0, len(rows), BATCH_SIZE):
+                    batch = rows[i : i + BATCH_SIZE]
+                    batch_num = i // BATCH_SIZE + 1
+                    print(
+                        f"[REPLACE COURT AVAILABILITIES] Inserting batch {batch_num}/{total_batches} "
+                        f"({len(batch)} records) into staging for {client_code}/{source_system}"
+                    )
+                    execute_values(
+                        cur,
+                        f"""
+                        INSERT INTO "{self.schema}"."{staging_table}" (
+                            client_code,
+                            source_system,
+                            court_id,
+                            court_name,
+                            slot_start,
+                            slot_end,
+                            period_type,
+                            created_at
+                        ) VALUES %s
+                        """,
+                        batch,
+                    )
 
-                print(
-                    f"[REPLACE COURT AVAILABILITIES] ✓ Complete: "
-                    f"Replaced {old_count} rows with {new_count} rows"
+                # Step 4: Get row counts before swap
+                cur.execute(
+                    f"""
+                    SELECT COUNT(*) FROM "{self.schema}"."{prod_table}"
+                    WHERE client_code = %s AND source_system = %s
+                    """,
+                    (client_code, source_system),
                 )
-            except Exception as e:
-                cur.execute("ROLLBACK")
-                print(f"[REPLACE COURT AVAILABILITIES] Error during swap: {e}")
-                raise
+                old_count = cur.fetchone()[0]
+                cur.execute(f'SELECT COUNT(*) FROM "{self.schema}"."{staging_table}"')
+                new_count = cur.fetchone()[0]
+
+                # Step 5: Commit staging inserts
+                conn.commit()
+
+                # Step 6: Replace data atomically in a transaction
+                cur.execute("BEGIN")
+                try:
+                    # Delete existing records for this client_code + source_system
+                    cur.execute(
+                        f"""
+                        DELETE FROM "{self.schema}"."{prod_table}"
+                        WHERE client_code = %s AND source_system = %s
+                        """,
+                        (client_code, source_system),
+                    )
+
+                    # Copy all data from staging to production
+                    cur.execute(
+                        f"""
+                        INSERT INTO "{self.schema}"."{prod_table}" (
+                            client_code,
+                            source_system,
+                            court_id,
+                            court_name,
+                            slot_start,
+                            slot_end,
+                            period_type,
+                            created_at
+                        )
+                        SELECT 
+                            client_code,
+                            source_system,
+                            court_id,
+                            court_name,
+                            slot_start,
+                            slot_end,
+                            period_type,
+                            created_at
+                        FROM "{self.schema}"."{staging_table}"
+                    """
+                    )
+
+                    cur.execute("COMMIT")
+
+                    print(
+                        f"[REPLACE COURT AVAILABILITIES] ✓ Complete for {client_code}/{source_system}: "
+                        f"Replaced {old_count} rows with {new_count} rows"
+                    )
+                except Exception as e:
+                    cur.execute("ROLLBACK")
+                    print(
+                        f"[REPLACE COURT AVAILABILITIES] Error during replacement for {client_code}/{source_system}: {e}"
+                    )
+                    raise
+
+        print(
+            f"[REPLACE COURT AVAILABILITIES] Completed replacement for {len(availabilities_by_client)} client/system combinations"
+        )
 
     def insert_transactions(self, transactions: list[dict], table_name: str) -> None:
         rows = [
