@@ -46,7 +46,7 @@
     "event_type": "Drop-in",
     "event_start_time": "2025-11-24 16:00:00+00:00",
     "event_end_time": "2025-11-24 18:00:00+00:00",
-    "num_registrants": 11,
+    "num_registrants": 10,
     "max_registrants": 6,
     "admission_rate_regular": 25.0,
     "admission_rate_member": 20.0
@@ -59,23 +59,10 @@
     "event_type": "Classes",
     "event_start_time": "2025-11-24 18:00:00+00:00",
     "event_end_time": "2025-11-24 19:30:00+00:00",
-    "num_registrants": 1,
+    "num_registrants": 2,
     "max_registrants": 4,
     "admission_rate_regular": 70.0,
     "admission_rate_member": 56.0
-  },
-  {
-    "client_code": "pklyn",
-    "source_system": "courtreserve",
-    "event_id": "1487792",
-    "event_name": "Beginner Open Play | Off-Peak ",
-    "event_type": "Drop-in",
-    "event_start_time": "2025-11-24 18:00:00+00:00",
-    "event_end_time": "2025-11-24 20:00:00+00:00",
-    "num_registrants": 4,
-    "max_registrants": 6,
-    "admission_rate_regular": 25.0,
-    "admission_rate_member": 20.0
   },
   {
     "client_code": "pklyn",
@@ -102,32 +89,6 @@
     "max_registrants": 6,
     "admission_rate_regular": 25.0,
     "admission_rate_member": 20.0
-  },
-  {
-    "client_code": "pklyn",
-    "source_system": "courtreserve",
-    "event_id": "1487855",
-    "event_name": "Advanced Open Play | Off-Peak ",
-    "event_type": "Drop-in",
-    "event_start_time": "2025-11-24 20:00:00+00:00",
-    "event_end_time": "2025-11-24 22:00:00+00:00",
-    "num_registrants": 0,
-    "max_registrants": 6,
-    "admission_rate_regular": 25.0,
-    "admission_rate_member": 20.0
-  },
-  {
-    "client_code": "pklyn",
-    "source_system": "courtreserve",
-    "event_id": "1487452",
-    "event_name": "Pickleball 201 | Experienced Beginner Class",
-    "event_type": "Classes",
-    "event_start_time": "2025-11-24 20:30:00+00:00",
-    "event_end_time": "2025-11-24 22:00:00+00:00",
-    "num_registrants": 0,
-    "max_registrants": 4,
-    "admission_rate_regular": 70.0,
-    "admission_rate_member": 56.0
   },
   {
     "client_code": "pklyn",
@@ -371,20 +332,7 @@
     "event_type": "Drop-in",
     "event_start_time": "2025-11-26 00:00:00+00:00",
     "event_end_time": "2025-11-26 02:00:00+00:00",
-    "num_registrants": 1,
-    "max_registrants": 6,
-    "admission_rate_regular": 40.0,
-    "admission_rate_member": 32.0
-  },
-  {
-    "client_code": "pklyn",
-    "source_system": "courtreserve",
-    "event_id": "1490006",
-    "event_name": "Beginner Open Play ",
-    "event_type": "Drop-in",
-    "event_start_time": "2025-11-26 00:00:00+00:00",
-    "event_end_time": "2025-11-26 02:00:00+00:00",
-    "num_registrants": 0,
+    "num_registrants": 3,
     "max_registrants": 6,
     "admission_rate_regular": 40.0,
     "admission_rate_member": 32.0
@@ -553,7 +501,7 @@
     "event_type": "Compete",
     "event_start_time": "2025-11-26 22:00:00+00:00",
     "event_end_time": "2025-11-27 00:00:00+00:00",
-    "num_registrants": 2,
+    "num_registrants": 3,
     "max_registrants": 5,
     "admission_rate_regular": 50.0,
     "admission_rate_member": 40.0
@@ -722,7 +670,7 @@
     "event_type": "Drop-in",
     "event_start_time": "2025-11-28 20:00:00+00:00",
     "event_end_time": "2025-11-28 22:00:00+00:00",
-    "num_registrants": 2,
+    "num_registrants": 4,
     "max_registrants": 6,
     "admission_rate_regular": 40.0,
     "admission_rate_member": 32.0

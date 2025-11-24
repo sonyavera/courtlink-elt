@@ -256,7 +256,7 @@
     "SsoUrl": "https://app.courtreserve.com/Online/Events/Details/11868/40756431?resId=40756431",
     "ImageUrl": null,
     "MaxRegistrants": 6,
-    "RegisteredCount": 11,
+    "RegisteredCount": 10,
     "PriceInfo": [
       {
         "MembershipTypeName": "Non-Member Account",
@@ -336,7 +336,7 @@
     "SsoUrl": "https://app.courtreserve.com/Online/Events/Details/11868/39904318?resId=39904318",
     "ImageUrl": null,
     "MaxRegistrants": 4,
-    "RegisteredCount": 1,
+    "RegisteredCount": 2,
     "PriceInfo": [
       {
         "MembershipTypeName": "Non-Member Account",
@@ -378,75 +378,6 @@
         "Label": "Court #2",
         "TypeName": "Pickleball",
         "OrderIndex": 2
-      }
-    ]
-  },
-  {
-    "EventId": 1487792,
-    "EventName": "Beginner Open Play | Off-Peak ",
-    "EventCategoryId": 45069,
-    "EventCategoryName": "Drop-in",
-    "StartDateTime": "2025-11-24T13:00:00",
-    "EndDateTime": "2025-11-24T15:00:00",
-    "ReservationId": 39932605,
-    "BackgroundColor": "#f7a1a2",
-    "TextColor": "#010003",
-    "IsRegistered": false,
-    "SsoUrl": "https://app.courtreserve.com/Online/Events/Details/11868/39932605?resId=39932605",
-    "ImageUrl": null,
-    "MaxRegistrants": 6,
-    "RegisteredCount": 4,
-    "PriceInfo": [
-      {
-        "MembershipTypeName": "Non-Member Account",
-        "DailyPrice": 25.0,
-        "EntireEventPrice": null
-      },
-      {
-        "MembershipTypeName": "Public Embed Codes/Widgets",
-        "DailyPrice": 25.0,
-        "EntireEventPrice": null
-      },
-      {
-        "MembershipTypeName": "Premium",
-        "DailyPrice": 20.0,
-        "EntireEventPrice": null
-      },
-      {
-        "MembershipTypeName": "Founder",
-        "DailyPrice": 20.0,
-        "EntireEventPrice": null
-      }
-    ],
-    "RatingRestrictions": [],
-    "TagsInfo": [
-      {
-        "Name": "Social",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#e88924"
-      },
-      {
-        "Name": "Beginner",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#16be00"
-      },
-      {
-        "Name": "Open Play",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#cb4331"
-      },
-      {
-        "Name": "ON SALE",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#f84104"
-      }
-    ],
-    "Courts": [
-      {
-        "Id": 68085529,
-        "Label": "Court #3",
-        "TypeName": "Pickleball",
-        "OrderIndex": 3
       }
     ]
   },
@@ -590,144 +521,12 @@
         "Label": "Court #3",
         "TypeName": "Pickleball",
         "OrderIndex": 3
-      }
-    ]
-  },
-  {
-    "EventId": 1487855,
-    "EventName": "Advanced Open Play | Off-Peak ",
-    "EventCategoryId": 45069,
-    "EventCategoryName": "Drop-in",
-    "StartDateTime": "2025-11-24T15:00:00",
-    "EndDateTime": "2025-11-24T17:00:00",
-    "ReservationId": 39934841,
-    "BackgroundColor": "#f7a1a2",
-    "TextColor": "#010003",
-    "IsRegistered": false,
-    "SsoUrl": "https://app.courtreserve.com/Online/Events/Details/11868/39934841?resId=39934841",
-    "ImageUrl": null,
-    "MaxRegistrants": 6,
-    "RegisteredCount": 0,
-    "PriceInfo": [
-      {
-        "MembershipTypeName": "Non-Member Account",
-        "DailyPrice": 25.0,
-        "EntireEventPrice": null
       },
       {
-        "MembershipTypeName": "Public Embed Codes/Widgets",
-        "DailyPrice": 25.0,
-        "EntireEventPrice": null
-      },
-      {
-        "MembershipTypeName": "Premium",
-        "DailyPrice": 20.0,
-        "EntireEventPrice": null
-      },
-      {
-        "MembershipTypeName": "Founder",
-        "DailyPrice": 20.0,
-        "EntireEventPrice": null
-      }
-    ],
-    "RatingRestrictions": [
-      {
-        "CategoryName": "DUPR",
-        "SystemName": "DUPR",
-        "MinSingles": null,
-        "MaxSingles": null,
-        "MinDoubles": 3.75,
-        "MaxDoubles": null,
-        "AllowedRatingNames": null
-      }
-    ],
-    "TagsInfo": [
-      {
-        "Name": "Advanced",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#31b9cb"
-      },
-      {
-        "Name": "Open Play",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#cb4331"
-      },
-      {
-        "Name": "ON SALE",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#f84104"
-      }
-    ],
-    "Courts": [
-      {
-        "Id": 68090032,
+        "Id": 76952226,
         "Label": "Court #4",
         "TypeName": "Pickleball",
         "OrderIndex": 4
-      }
-    ]
-  },
-  {
-    "EventId": 1487452,
-    "EventName": "Pickleball 201 | Experienced Beginner Class",
-    "EventCategoryId": 45387,
-    "EventCategoryName": "Classes",
-    "StartDateTime": "2025-11-24T15:30:00",
-    "EndDateTime": "2025-11-24T17:00:00",
-    "ReservationId": 39923186,
-    "BackgroundColor": "#2a2045",
-    "TextColor": "#efe8e8",
-    "IsRegistered": false,
-    "SsoUrl": "https://app.courtreserve.com/Online/Events/Details/11868/39923186?resId=39923186",
-    "ImageUrl": null,
-    "MaxRegistrants": 4,
-    "RegisteredCount": 0,
-    "PriceInfo": [
-      {
-        "MembershipTypeName": "Non-Member Account",
-        "DailyPrice": 70.0,
-        "EntireEventPrice": null
-      },
-      {
-        "MembershipTypeName": "Public Embed Codes/Widgets",
-        "DailyPrice": 70.0,
-        "EntireEventPrice": null
-      },
-      {
-        "MembershipTypeName": "Premium",
-        "DailyPrice": 56.0,
-        "EntireEventPrice": null
-      },
-      {
-        "MembershipTypeName": "Founder",
-        "DailyPrice": 56.0,
-        "EntireEventPrice": null
-      }
-    ],
-    "RatingRestrictions": [],
-    "TagsInfo": [
-      {
-        "Name": "Intermediate",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#3a31cb"
-      },
-      {
-        "Name": "Classes",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#a19cf0"
-      },
-      {
-        "Name": "Experienced Beginner",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#07f0bd"
-      }
-    ],
-    "Courts": [
-      {
-        "Id": 69567782,
-        "Label": "Court #2",
-        "TypeName": "Pickleball",
-        "OrderIndex": 2
       }
     ]
   },
@@ -2070,7 +1869,7 @@
     "SsoUrl": "https://app.courtreserve.com/Online/Events/Details/11868/40004269?resId=40004269",
     "ImageUrl": null,
     "MaxRegistrants": 6,
-    "RegisteredCount": 1,
+    "RegisteredCount": 3,
     "PriceInfo": [
       {
         "MembershipTypeName": "Non-Member Account",
@@ -2122,70 +1921,6 @@
         "Label": "Court #4",
         "TypeName": "Pickleball",
         "OrderIndex": 4
-      }
-    ]
-  },
-  {
-    "EventId": 1490006,
-    "EventName": "Beginner Open Play ",
-    "EventCategoryId": 45069,
-    "EventCategoryName": "Drop-in",
-    "StartDateTime": "2025-11-25T19:00:00",
-    "EndDateTime": "2025-11-25T21:00:00",
-    "ReservationId": 40004627,
-    "BackgroundColor": "#f7a1a2",
-    "TextColor": "#010003",
-    "IsRegistered": false,
-    "SsoUrl": "https://app.courtreserve.com/Online/Events/Details/11868/40004627?resId=40004627",
-    "ImageUrl": null,
-    "MaxRegistrants": 6,
-    "RegisteredCount": 0,
-    "PriceInfo": [
-      {
-        "MembershipTypeName": "Non-Member Account",
-        "DailyPrice": 40.0,
-        "EntireEventPrice": null
-      },
-      {
-        "MembershipTypeName": "Public Embed Codes/Widgets",
-        "DailyPrice": 40.0,
-        "EntireEventPrice": null
-      },
-      {
-        "MembershipTypeName": "Premium",
-        "DailyPrice": 32.0,
-        "EntireEventPrice": null
-      },
-      {
-        "MembershipTypeName": "Founder",
-        "DailyPrice": 32.0,
-        "EntireEventPrice": null
-      }
-    ],
-    "RatingRestrictions": [],
-    "TagsInfo": [
-      {
-        "Name": "Social",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#e88924"
-      },
-      {
-        "Name": "Beginner",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#16be00"
-      },
-      {
-        "Name": "Open Play",
-        "TextColor": "#ffffff",
-        "BackgroundColor": "#cb4331"
-      }
-    ],
-    "Courts": [
-      {
-        "Id": 71781919,
-        "Label": "Court #1",
-        "TypeName": "Pickleball",
-        "OrderIndex": 1
       }
     ]
   },
@@ -3076,7 +2811,7 @@
     "SsoUrl": "https://app.courtreserve.com/Online/Events/Details/11868/44279103?resId=44279103",
     "ImageUrl": null,
     "MaxRegistrants": 5,
-    "RegisteredCount": 2,
+    "RegisteredCount": 3,
     "PriceInfo": [
       {
         "MembershipTypeName": "Non-Member Account",
@@ -4065,7 +3800,7 @@
     "SsoUrl": "https://app.courtreserve.com/Online/Events/Details/11868/43981053?resId=43981053",
     "ImageUrl": null,
     "MaxRegistrants": 6,
-    "RegisteredCount": 2,
+    "RegisteredCount": 4,
     "PriceInfo": [
       {
         "MembershipTypeName": "Non-Member Account",
@@ -4275,11 +4010,6 @@
     "RegisteredCount": 2,
     "PriceInfo": [
       {
-        "MembershipTypeName": "Founder",
-        "DailyPrice": 32.0,
-        "EntireEventPrice": null
-      },
-      {
         "MembershipTypeName": "Non-Member Account",
         "DailyPrice": 40.0,
         "EntireEventPrice": null
@@ -4287,6 +4017,11 @@
       {
         "MembershipTypeName": "Public Embed Codes/Widgets",
         "DailyPrice": 40.0,
+        "EntireEventPrice": null
+      },
+      {
+        "MembershipTypeName": "Founder",
+        "DailyPrice": 32.0,
         "EntireEventPrice": null
       },
       {

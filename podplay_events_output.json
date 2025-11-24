@@ -20,7 +20,7 @@
     "event_type": "OPEN_PLAY",
     "event_start_time": "2025-11-24 18:00:00+00:00",
     "event_end_time": "2025-11-24 20:00:00+00:00",
-    "num_registrants": 18,
+    "num_registrants": 17,
     "max_registrants": 18,
     "admission_rate_regular": 20.0,
     "admission_rate_member": 16.0
@@ -150,7 +150,7 @@
     "event_type": "OPEN_PLAY",
     "event_start_time": "2025-11-25 22:00:00+00:00",
     "event_end_time": "2025-11-25 23:00:00+00:00",
-    "num_registrants": 3,
+    "num_registrants": 4,
     "max_registrants": 6,
     "admission_rate_regular": 30.0,
     "admission_rate_member": 24.0
@@ -202,7 +202,7 @@
     "event_type": "OPEN_PLAY",
     "event_start_time": "2025-11-26 01:00:00+00:00",
     "event_end_time": "2025-11-26 03:00:00+00:00",
-    "num_registrants": 2,
+    "num_registrants": 4,
     "max_registrants": 6,
     "admission_rate_regular": 40.0,
     "admission_rate_member": 32.0
@@ -475,7 +475,7 @@
     "event_type": "OPEN_PLAY",
     "event_start_time": "2025-11-29 00:00:00+00:00",
     "event_end_time": "2025-11-29 02:00:00+00:00",
-    "num_registrants": 11,
+    "num_registrants": 13,
     "max_registrants": 24,
     "admission_rate_regular": 40.0,
     "admission_rate_member": 32.0
@@ -592,7 +592,7 @@
     "event_type": "OPEN_PLAY",
     "event_start_time": "2025-11-29 23:00:00+00:00",
     "event_end_time": "2025-11-30 01:00:00+00:00",
-    "num_registrants": 2,
+    "num_registrants": 5,
     "max_registrants": 6,
     "admission_rate_regular": 40.0,
     "admission_rate_member": 32.0
@@ -683,7 +683,7 @@
     "event_type": "OPEN_PLAY",
     "event_start_time": "2025-11-30 15:00:00+00:00",
     "event_end_time": "2025-11-30 17:00:00+00:00",
-    "num_registrants": 1,
+    "num_registrants": 3,
     "max_registrants": 6,
     "admission_rate_regular": 40.0,
     "admission_rate_member": 32.0
@@ -774,7 +774,7 @@
     "event_type": "OPEN_PLAY",
     "event_start_time": "2025-12-01 01:00:00+00:00",
     "event_end_time": "2025-12-01 04:00:00+00:00",
-    "num_registrants": 23,
+    "num_registrants": 24,
     "max_registrants": 24,
     "admission_rate_regular": 40.0,
     "admission_rate_member": 32.0
@@ -813,7 +813,7 @@
     "event_type": "OPEN_PLAY",
     "event_start_time": "2025-12-01 16:00:00+00:00",
     "event_end_time": "2025-12-01 18:00:00+00:00",
-    "num_registrants": 5,
+    "num_registrants": 10,
     "max_registrants": 18,
     "admission_rate_regular": 20.0,
     "admission_rate_member": 16.0

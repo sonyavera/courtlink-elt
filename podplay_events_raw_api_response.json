@@ -421,7 +421,7 @@
       "_total": 25
     },
     "payments": null,
-    "completeInvitations": 16,
+    "completeInvitations": 18,
     "replays": null,
     "notes": null,
     "openInvitations": null,
@@ -862,7 +862,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 18
+      "_total": 17
     },
     "payments": null,
     "completeInvitations": 0,
@@ -870,7 +870,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 18
+      "_total": 17
     },
     "waitlist": null,
     "stats": null,
@@ -3922,7 +3922,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 18
+      "_total": 19
     },
     "payments": null,
     "completeInvitations": 0,
@@ -4633,7 +4633,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 3
+      "_total": 4
     },
     "payments": null,
     "completeInvitations": 0,
@@ -4641,7 +4641,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 3
+      "_total": 4
     },
     "waitlist": null,
     "stats": null,
@@ -6007,7 +6007,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 3
+      "_total": 5
     },
     "payments": null,
     "completeInvitations": 0,
@@ -6015,7 +6015,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 2
+      "_total": 4
     },
     "waitlist": null,
     "stats": null,
@@ -15204,7 +15204,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 12
+      "_total": 13
     },
     "payments": null,
     "completeInvitations": 0,
@@ -15212,7 +15212,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 11
+      "_total": 13
     },
     "waitlist": null,
     "stats": null,
@@ -18330,7 +18330,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 2
+      "_total": 5
     },
     "payments": null,
     "completeInvitations": 0,
@@ -18338,7 +18338,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 2
+      "_total": 5
     },
     "waitlist": null,
     "stats": null,
@@ -20876,7 +20876,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 1
+      "_total": 2
     },
     "payments": null,
     "completeInvitations": 0,
@@ -20884,7 +20884,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 1
+      "_total": 3
     },
     "waitlist": null,
     "stats": null,
@@ -23579,7 +23579,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 24
+      "_total": 25
     },
     "payments": null,
     "completeInvitations": 0,
@@ -23587,7 +23587,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 23
+      "_total": 24
     },
     "waitlist": null,
     "stats": null,
@@ -24826,7 +24826,7 @@
       "id": "KFHD2KcnGgUIg0jzf2ZxFllbTdu2"
     },
     "invitations": {
-      "_total": 6
+      "_total": 11
     },
     "payments": null,
     "completeInvitations": 0,
@@ -24834,7 +24834,7 @@
     "notes": null,
     "openInvitations": null,
     "signups": {
-      "_total": 5
+      "_total": 10
     },
     "waitlist": null,
     "stats": null,
