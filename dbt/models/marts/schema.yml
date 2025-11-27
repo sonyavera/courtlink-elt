@@ -9,12 +9,9 @@ models:
           - unique
           - not_null
       - name: reservation_system_code
+        description: "Source system code: 'courtreserve' or 'podplay'"
         tests:
           - not_null
-          - relationships:
-              arguments:
-                to: ref('reservation_systems')
-                field: system_code
 
   - name: fct_reservations
     description: "Fact table of individual reservations across all facilities."
@@ -49,12 +46,9 @@ models:
         tests:
           - not_null
       - name: reservation_system_code
+        description: "Source system code: 'courtreserve' or 'podplay'"
         tests:
           - not_null
-          - relationships:
-              arguments:
-                to: ref('reservation_systems')
-                field: system_code
 
   - name: fct_events
     description: "Fact table of events across all facilities with standardized event types."
@@ -84,3 +78,39 @@ models:
       - name: event_start_time
         tests:
           - not_null
+
+  - name: fct_court_availability
+    description: "Fact table of available court time slots across all facilities (CourtReserve and Podplay)."
+    columns:
+      - name: availability_pk
+        description: "Surrogate key for availability records"
+        tests:
+          - unique
+          - not_null
+      - name: client_code
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_clients')
+                field: client_code
+      - name: source_system
+        description: "Source system: 'courtreserve' or 'podplay'"
+        tests:
+          - not_null
+      - name: court_id
+        tests:
+          - not_null
+      - name: court_name
+        tests:
+          - not_null
+      - name: slot_start
+        description: "Start time of available slot (UTC)"
+        tests:
+          - not_null
+      - name: slot_end
+        description: "End time of available slot (UTC)"
+        tests:
+          - not_null
+      - name: duration_minutes
+        description: "Duration of slot in minutes"

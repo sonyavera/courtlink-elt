@@ -1,5 +1,0 @@
-system_code,system_name,api_base_url,auth_method,notes
-podplay,Podplay,"https://gotham.podplay.app/apis/v2",bearer_token,"Primary for Gotham facilities"
-courtreserve,CourtReserve,"https://api.courtreserve.com",basic_auth,"Primary for PKLYN facilities"
-playbypoint,PlayByPoint,,token,"Placeholder until first integration"
-

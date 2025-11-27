@@ -1,5 +1,0 @@
-client_code,client_name,reservation_system_code,timezone,is_active,notes
-gotham,Gotham Pickleball,podplay,America/New_York,true,"Podplay facility; API token required"
-pklyn,PKLYN Pickleball Club,courtreserve,America/New_York,true,"CourtReserve facility"
-future_playbypoint,Future PlayByPoint Client,playbypoint,America/New_York,false,"Placeholder for first PlayByPoint integration"
-

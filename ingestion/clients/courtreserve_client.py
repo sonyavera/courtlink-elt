@@ -138,25 +138,27 @@ class CourtReserveClient:
         return members
 
     # Non-Event Reservations
-    def get_reservations(
+    def get_reservations_by_updated_date(
         self,
-        elt_watermarket_reservations_events: date,
+        watermark: date,
         include_user_defined_fields: bool = False,
     ) -> dict:
-        print("Get reservations")
+        """
+        Get reservations from CourtReserve API using incremental loading.
+        Filters by createdOrUpdatedOn for incremental ELT processes.
+
+        Args:
+            watermark: Start date for incremental loads - filters by createdOrUpdatedOn
+            include_user_defined_fields: Include user defined fields
+        """
+        print("Get reservations by updated date")
         url = f"{self.BASE_URL}/api/v1/reservationreport/listactive"
 
         reservations = []
         record_window_days = 7
-        elt_watermarket_reservations_events = (
-            elt_watermarket_reservations_events.replace(
-                hour=0, minute=0, second=0, microsecond=0
-            )
-        )
+        watermark = watermark.replace(hour=0, minute=0, second=0, microsecond=0)
 
-        for start_date in self._generate_date(
-            elt_watermarket_reservations_events, record_window_days
-        ):
+        for start_date in self._generate_date(watermark, record_window_days):
             print(f"Start date {start_date}")
             if start_date > datetime.now(timezone.utc):
                 print("break")
@@ -179,6 +181,51 @@ class CourtReserveClient:
             )
 
         return reservations
+
+    def get_reservations_by_start_date(
+        self,
+        start_date: datetime,
+        end_date: datetime,
+        include_user_defined_fields: bool = False,
+    ) -> list[dict]:
+        """
+        Get reservations filtered by reservation start time (StartTime).
+        Used for court availability calculation.
+
+        Args:
+            start_date: Filter reservations where StartTime >= this date
+            end_date: Filter reservations where StartTime <= this date
+            include_user_defined_fields: Include user defined fields
+
+        Returns:
+            List of reservation dictionaries
+        """
+        url = f"{self.BASE_URL}/api/v1/reservationreport/listactive"
+
+        start_date = self._get_utc_datetime(start_date)
+        end_date = self._get_utc_datetime(end_date)
+
+        params = {
+            "reservationFromDate": start_date.strftime("%Y-%m-%d"),
+            "reservationToDate": end_date.strftime("%Y-%m-%d"),
+            "includeUserDefinedFields": include_user_defined_fields,
+        }
+
+        print(
+            f"[API CALL] GET /api/v1/reservationreport/listactive | "
+            f"reservationFromDate={params['reservationFromDate']} | "
+            f"reservationToDate={params['reservationToDate']}"
+        )
+
+        resp = requests.get(url, params=params, auth=self.auth)
+        resp.raise_for_status()
+        data = resp.json().get("Data") or []
+
+        print(
+            f"[API RESPONSE] Retrieved {len(data)} reservations with start time in range"
+        )
+
+        return data
 
     def get_reservation_cancellations(
         self, elt_watermark_event_cancellations: date

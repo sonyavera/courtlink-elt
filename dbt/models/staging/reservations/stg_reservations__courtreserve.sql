@@ -1,9 +1,9 @@
 with filtered as (
     select r.*
     from {{ source('raw', 'reservations_raw') }} r
-    join {{ ref('clients') }} c
-        on lower(r.client_code) = c.client_code
-    where c.reservation_system_code = 'courtreserve'
+    join {{ ref('stg_organizations') }} o
+        on lower(r.client_code) = o.client_code
+    where o.source_system_code = 'courtreserve'
 )
 
 select

@@ -1,27 +1,5 @@
 version: 2
 
-seeds:
-  - name: reservation_systems
-    columns:
-      - name: system_code
-        tests:
-          - unique
-          - not_null
-      - name: system_name
-        tests:
-          - not_null
-
-  - name: clients
-    columns:
-      - name: client_code
-        tests:
-          - unique
-          - not_null
-      - name: reservation_system_code
-        tests:
-          - not_null
-          - relationships:
-              arguments:
-                to: ref('reservation_systems')
-                field: system_code
+# Note: clients and reservation_systems seeds are no longer used.
+# We now use the organizations table from the database instead.
 

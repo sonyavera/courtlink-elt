@@ -8,7 +8,7 @@ select
     u.reservation_pk,
     u.source_system_code,
     u.client_code,
-    coalesce(c.reservation_system_code, u.source_system_code) as reservation_system_code,
+    coalesce(o.source_system_code, u.source_system_code) as reservation_system_code,
     u.reservation_id,
     u.event_id,
     u.member_id,
@@ -18,6 +18,6 @@ select
     u.reservation_end_at,
     u.ingested_at
 from unified u
-left join {{ ref('clients') }} c
-    on u.client_code = c.client_code
+left join {{ ref('stg_organizations') }} o
+    on u.client_code = o.client_code
 
