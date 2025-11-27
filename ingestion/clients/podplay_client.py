@@ -61,12 +61,28 @@ class PodplayClient:
             page_params = {**base_params, "page": page}
             # Log key params for debugging (don't log full expand array)
             log_params = {k: v for k, v in page_params.items() if k != "expand"}
-            print(
-                f"[API CALL] GET {path} | page={page_params.get('page')} | "
-                f"ipp={page_params.get('ipp')} | startTime={log_params.get('startTime')} | "
-                f"endTime={log_params.get('endTime')} | podId={log_params.get('podId')} | "
-                f"yielded_so_far={yielded}"
-            )
+
+            # Build clearer log message
+            log_parts = [
+                f"[API CALL] GET {path}",
+                f"page={page_params.get('page')}",
+                f"ipp={page_params.get('ipp')}",
+            ]
+
+            # Show date range more clearly
+            start_time = log_params.get("startTime")
+            end_time = log_params.get("endTime")
+            if start_time and end_time:
+                log_parts.append(f"dateWindow=[{start_time} → {end_time}]")
+            elif start_time:
+                log_parts.append(f"startTime={start_time} (API default: +30 days)")
+
+            if log_params.get("podId"):
+                log_parts.append(f"podId={log_params.get('podId')}")
+
+            log_parts.append(f"total_yielded={yielded}")
+
+            print(" | ".join(log_parts))
             payload = self._request("GET", path, params=page_params)
             items = payload.get("items", [])
             items_count = len(items)
@@ -245,28 +261,93 @@ class PodplayClient:
         extra_filters: Optional[Dict] = None,
         event_type: Optional[str] = None,
     ) -> List[Dict]:
-        params: Dict = {"ipp": page_size}
+        """
+        Get reservations from Podplay API.
 
-        if start_time:
-            params["startTime"] = self._to_iso(start_time)
-        if end_time:
-            params["endTime"] = self._to_iso(end_time)
-        if include_canceled:
-            params["includeCanceled"] = True
-        if expand:
-            params["expand"] = expand
-        if event_type:
-            params["type"] = event_type
-        if extra_filters:
-            params.update(extra_filters)
+        IMPORTANT: The Podplay API returns up to 30 days of data when endTime is not set.
+        To avoid missing data, this method chunks the date range into 30-day windows.
+        """
+        from datetime import timedelta, timezone
 
-        return list(
-            self._paginate(
-                "/events",
-                params=params,
-                max_results=max_results,
-            )
+        # If no start_time provided, default to 30 days ago
+        if not start_time:
+            start_time = datetime.now(timezone.utc) - timedelta(days=30)
+
+        # If no end_time provided, default to now
+        if not end_time:
+            end_time = datetime.now(timezone.utc)
+
+        # Ensure times are timezone-aware
+        if start_time.tzinfo is None:
+            start_time = start_time.replace(tzinfo=timezone.utc)
+        if end_time.tzinfo is None:
+            end_time = end_time.replace(tzinfo=timezone.utc)
+
+        print(
+            f"[GET RESERVATIONS] Date range: {start_time.isoformat()} to {end_time.isoformat()}"
         )
+
+        # Calculate total days
+        total_days = (end_time - start_time).days
+        print(f"[GET RESERVATIONS] Total days to fetch: {total_days}")
+
+        # Chunk into 30-day windows to comply with API limits
+        WINDOW_DAYS = 30
+        all_events = []
+        current_start = start_time
+        window_num = 1
+
+        while current_start < end_time:
+            current_end = min(current_start + timedelta(days=WINDOW_DAYS), end_time)
+
+            print(
+                f"[GET RESERVATIONS] Window {window_num}: "
+                f"{current_start.isoformat()} to {current_end.isoformat()} "
+                f"({(current_end - current_start).days} days)"
+            )
+
+            params: Dict = {
+                "ipp": page_size,
+                "startTime": self._to_iso(current_start),
+                "endTime": self._to_iso(current_end),
+            }
+
+            if include_canceled:
+                params["includeCanceled"] = True
+            if expand:
+                params["expand"] = expand
+            if event_type:
+                params["type"] = event_type
+            if extra_filters:
+                params.update(extra_filters)
+
+            # Paginate through all results in this window
+            window_events = list(
+                self._paginate(
+                    "/events",
+                    params=params,
+                    max_results=max_results - len(all_events) if max_results else None,
+                )
+            )
+
+            print(
+                f"[GET RESERVATIONS] Window {window_num} complete: {len(window_events)} events retrieved"
+            )
+            all_events.extend(window_events)
+
+            # If we've hit max_results, stop
+            if max_results and len(all_events) >= max_results:
+                print(f"[GET RESERVATIONS] Reached max_results={max_results}, stopping")
+                break
+
+            # Move to next window
+            current_start = current_end
+            window_num += 1
+
+        print(
+            f"[GET RESERVATIONS] Total events retrieved across all windows: {len(all_events)}"
+        )
+        return all_events
 
     def get_users(
         self,

@@ -13,7 +13,7 @@ dbt:
 	python3 -m scripts.run_dbt ${args}
 
 dbt-run:
-	python3 -m scripts.run_dbt run --target dev --exclude tag:skip
+	python3 -m scripts.run_dbt run --target prod --exclude tag:skip
 
 dev:
 	pip install -r requirements/dev.txt
