@@ -846,6 +846,11 @@ def refresh_podplay_court_availability():
                 f"[PODPLAY COURT AVAILABILITY] Normalized {len(normalized)} sessions for {client_code}"
             )
 
+            # Update watermark for this client
+            watermark_key = f"{client_code}__court_availability"
+            pg_client.update_elt_watermark(watermark_key)
+            print(f"[PODPLAY COURT AVAILABILITY] Updated watermark for {watermark_key}")
+
         except Exception as e:
             print(
                 f"[PODPLAY COURT AVAILABILITY] Error processing {client_code}: {e}",

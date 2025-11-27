@@ -8,6 +8,11 @@ def normalize_reservation_cancellations(
     facility_code = facility_code.lower()
     source_system = "courtreserve"
     rows = []
+    
+    # Handle None case defensively
+    if not reservation_cancellations:
+        return rows
+    
     for cancellation in reservation_cancellations:
         print(cancellation)
         start_dt = parse_event_time(cancellation.get("StartTime"))
