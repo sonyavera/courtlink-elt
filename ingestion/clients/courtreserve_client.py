@@ -172,9 +172,10 @@ class CourtReserveClient:
             }
             resp = requests.get(url, params=params, auth=self.auth)
             resp.raise_for_status()
-            reservations.extend(resp.json()["Data"]) or []
+            data = resp.json().get("Data") or []
+            reservations.extend(data)
             print(
-                f"Start date {start_date} End date {end_date} Appended {len(resp.json()['Data'])} rows"
+                f"Start date {start_date} End date {end_date} Appended {len(data)} rows"
             )
 
         return reservations
@@ -192,7 +193,7 @@ class CourtReserveClient:
         }
         resp = requests.get(url, params=params, auth=self.auth)
         resp.raise_for_status()
-        return resp.json().get("Data", [])
+        return resp.json().get("Data") or []
 
     def get_events(
         self,
@@ -212,7 +213,7 @@ class CourtReserveClient:
     ) -> list[dict]:
         """
         Get events from CourtReserve API.
-        
+
         Args:
             start_date: Start date for events
             end_date: End date for events
@@ -228,15 +229,15 @@ class CourtReserveClient:
             tag_ids: Filter by tag IDs
         """
         url = f"{self.BASE_URL}/api/v1/eventcalendar/eventlist"
-        
+
         start_date = self._get_utc_datetime(start_date)
         end_date = self._get_utc_datetime(end_date)
-        
+
         print(
             f"[API CALL] GET /api/v1/eventcalendar/eventlist | "
             f"startDate={start_date.date()} | endDate={end_date.date()}"
         )
-        
+
         params = {
             "startDate": start_date.strftime("%Y-%m-%d"),
             "endDate": end_date.strftime("%Y-%m-%d"),
@@ -245,7 +246,7 @@ class CourtReserveClient:
             "includeRatingRestrictions": include_rating_restrictions,
             "includeTags": include_tags,
         }
-        
+
         if category_id:
             params["categoryId"] = category_id
         if category_ids:
@@ -258,19 +259,19 @@ class CourtReserveClient:
             params["tagNames"] = tag_names
         if tag_ids:
             params["tagIds"] = tag_ids
-        
+
         resp = requests.get(url, params=params, auth=self.auth)
         resp.raise_for_status()
-        
+
         error_message = resp.json().get("ErrorMessage")
         success_status = resp.json().get("IsSuccessStatusCode")
         if error_message or not success_status:
             raise Exception(f"CourtReserve API error: {error_message}")
-        
+
         events = resp.json().get("Data", [])
         print(
             f"[API RESPONSE] GET /api/v1/eventcalendar/eventlist | "
             f"events_returned={len(events)}"
         )
-        
+
         return events
