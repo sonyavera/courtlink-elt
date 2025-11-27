@@ -36,6 +36,10 @@ if not pg_schema or not pg_dsn:
 
 pg_client = PostgresClient(pg_dsn, pg_schema)
 
+# Create output directory for JSON files
+OUTPUT_DIR = "elt_output_jsons"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
 _courtreserve_clients: Dict[str, CourtReserveClient] = {}
 _podplay_clients: Dict[str, PodplayClient] = {}
 
@@ -636,7 +640,7 @@ def refresh_podplay_events():
     # Save raw API responses to JSON file for inspection
     import json
 
-    raw_output_file = "podplay_events_raw_api_response.json"
+    raw_output_file = os.path.join(OUTPUT_DIR, "podplay_events_raw_api_response.json")
     with open(raw_output_file, "w") as f:
         json.dump(all_raw_events, f, indent=2, default=str)
     print(
@@ -644,7 +648,7 @@ def refresh_podplay_events():
     )
 
     # Save normalized events to JSON file for inspection
-    output_file = "podplay_events_output.json"
+    output_file = os.path.join(OUTPUT_DIR, "podplay_events_output.json")
     with open(output_file, "w") as f:
         json.dump(all_events, f, indent=2, default=str)
     print(
@@ -723,7 +727,9 @@ def refresh_courtreserve_events():
     # Save raw API responses to JSON file for inspection
     import json
 
-    raw_output_file = "courtreserve_events_raw_api_response.json"
+    raw_output_file = os.path.join(
+        OUTPUT_DIR, "courtreserve_events_raw_api_response.json"
+    )
     with open(raw_output_file, "w") as f:
         json.dump(all_raw_events, f, indent=2, default=str)
     print(
@@ -731,7 +737,7 @@ def refresh_courtreserve_events():
     )
 
     # Save normalized events to JSON file for inspection
-    output_file = "courtreserve_events_output.json"
+    output_file = os.path.join(OUTPUT_DIR, "courtreserve_events_output.json")
     with open(output_file, "w") as f:
         json.dump(all_events, f, indent=2, default=str)
     print(
@@ -775,7 +781,7 @@ def refresh_courtreserve_events():
                 {"key": key, "count": len(duplicates), "events": duplicates}
             )
 
-        dup_file = "courtreserve_events_duplicates.json"
+        dup_file = os.path.join(OUTPUT_DIR, "courtreserve_events_duplicates.json")
         with open(dup_file, "w") as f:
             json.dump(duplicate_analysis, f, indent=2, default=str)
         print(f"[COURTRESERVE EVENTS] Saved duplicate analysis to {dup_file}")
@@ -861,7 +867,7 @@ def refresh_podplay_court_availability():
     # Save raw API responses to JSON file for inspection
     import json
 
-    raw_output_file = "podplay_sessions_raw_api_response.json"
+    raw_output_file = os.path.join(OUTPUT_DIR, "podplay_sessions_raw_api_response.json")
     with open(raw_output_file, "w") as f:
         json.dump(all_raw_sessions, f, indent=2, default=str)
     print(
@@ -869,7 +875,7 @@ def refresh_podplay_court_availability():
     )
 
     # Save normalized sessions to JSON file for inspection
-    output_file = "podplay_sessions_output.json"
+    output_file = os.path.join(OUTPUT_DIR, "podplay_sessions_output.json")
     with open(output_file, "w") as f:
         json.dump(all_sessions, f, indent=2, default=str)
     print(
