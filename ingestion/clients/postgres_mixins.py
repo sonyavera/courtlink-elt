@@ -504,6 +504,29 @@ class InsertMixin:
             f"[INSERT RESERVATIONS] Starting insert of {total_reservations} reservations into {table_name}"
         )
 
+        # Deduplicate reservations by (client_code, reservation_id, member_id)
+        # Keep the latest version based on reservation_updated_at or last occurrence
+        seen = {}
+        for m in reservations:
+            key = (m["client_code"], m["reservation_id"], m["member_id"])
+            existing = seen.get(key)
+            if existing is None:
+                seen[key] = m
+            else:
+                # Keep the one with the latest updated_at, or last one if both are None
+                existing_updated = existing.get("reservation_updated_at")
+                current_updated = m.get("reservation_updated_at")
+                if existing_updated is None or (current_updated is not None and current_updated > existing_updated):
+                    seen[key] = m
+        
+        deduplicated_reservations = list(seen.values())
+        if len(deduplicated_reservations) < total_reservations:
+            duplicates_removed = total_reservations - len(deduplicated_reservations)
+            print(
+                f"[INSERT RESERVATIONS] Removed {duplicates_removed} duplicate reservations "
+                f"(keeping most recent by reservation_updated_at)"
+            )
+
         rows = [
             (
                 m["client_code"],
@@ -517,7 +540,7 @@ class InsertMixin:
                 m["member_id"],
                 datetime.now(timezone.utc),
             )
-            for m in reservations
+            for m in deduplicated_reservations
         ]
 
         BATCH_SIZE = 1000
@@ -594,7 +617,7 @@ class InsertMixin:
                 )
 
         print(
-            f"[INSERT RESERVATIONS] Completed insert of {total_reservations} reservations into {table_name}"
+            f"[INSERT RESERVATIONS] Completed insert of {len(deduplicated_reservations)} reservations into {table_name}"
         )
 
     def insert_events(
