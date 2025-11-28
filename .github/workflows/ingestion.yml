@@ -59,6 +59,9 @@ jobs:
       - name: Ingest Podplay Court Availability
         run: make ingest-podplay-court-availability
 
+      - name: Ingest CourtReserve Court Availability
+        run: make ingest-courtreserve-court-availability
+
       - name: Ingest CourtReserve Reservations
         run: make ingest-courtreserve-reservations
 
