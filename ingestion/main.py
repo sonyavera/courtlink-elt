@@ -801,22 +801,6 @@ def refresh_courtreserve_events():
     print("=" * 80)
 
 
-def refresh_courtreserve_court_availability():
-    """Refresh CourtReserve court availability for all participating facilities."""
-    print("=" * 80)
-    print(
-        "[COURTRESERVE COURT AVAILABILITY] Starting CourtReserve court availability ingestion"
-    )
-    print("=" * 80)
-
-    client_codes = _get_courtreserve_client_codes()
-    if not client_codes:
-        print(
-            "[COURTRESERVE COURT AVAILABILITY] No CourtReserve clients found, skipping"
-        )
-        return
-
-
 def refresh_podplay_court_availability():
     """Refresh Podplay court availability for all participating facilities."""
     print("=" * 80)
@@ -964,6 +948,7 @@ def refresh_courtreserve_court_availability():
     print("=" * 80)
 
     import psycopg2
+    import json
 
     client_codes = _get_courtreserve_client_codes()
     if not client_codes:
@@ -979,6 +964,9 @@ def refresh_courtreserve_court_availability():
     print(
         f"[COURTRESERVE COURT AVAILABILITY] Date range: {now.isoformat()} to {end_date.isoformat()}"
     )
+
+    # Store raw API responses
+    all_raw_api_responses = []
 
     for client_code in client_codes:
         print(f"\n[COURTRESERVE COURT AVAILABILITY] Processing {client_code}...")
@@ -1045,17 +1033,59 @@ def refresh_courtreserve_court_availability():
                 f"[COURTRESERVE COURT AVAILABILITY] Found {len(courts)} courts for {client_code}"
             )
 
-            # Fetch events for next 7 days
-            events = client.get_events(start_date=now, end_date=end_date)
+            # Fetch events for next 7 days - capture full raw API response
+            import requests
+
+            events_url = f"{CourtReserveClient.BASE_URL}/api/v1/eventcalendar/eventlist"
+            events_start = client._get_utc_datetime(now)
+            events_end = client._get_utc_datetime(end_date)
+
+            events_params = {
+                "startDate": events_start.strftime("%Y-%m-%d"),
+                "endDate": events_end.strftime("%Y-%m-%d"),
+                "includeRegisteredPlayersCount": True,
+                "includePriceInfo": True,
+                "includeRatingRestrictions": True,
+                "includeTags": True,
+            }
+
+            events_resp = requests.get(
+                events_url, params=events_params, auth=client.auth
+            )
+            events_resp.raise_for_status()
+            events_raw_response = events_resp.json()
+            events = events_raw_response.get("Data") or []
             print(f"[COURTRESERVE COURT AVAILABILITY] Retrieved {len(events)} events")
 
-            # Fetch reservations that START in the next 7 days
-            # Use reservationFromDate/reservationToDate to filter by actual reservation start time
-            reservations = client.get_reservations_by_start_date(
-                start_date=now, end_date=end_date
+            # Fetch reservations that START in the next 7 days - capture full raw API response
+            reservations_url = (
+                f"{CourtReserveClient.BASE_URL}/api/v1/reservationreport/listactive"
             )
+            reservations_start = client._get_utc_datetime(now)
+            reservations_end = client._get_utc_datetime(end_date)
+
+            reservations_params = {
+                "reservationsFromDate": reservations_start.strftime("%Y-%m-%d"),
+                "reservationsToDate": reservations_end.strftime("%Y-%m-%d"),
+                "includeUserDefinedFields": False,
+            }
+
+            reservations_resp = requests.get(
+                reservations_url, params=reservations_params, auth=client.auth
+            )
+            reservations_resp.raise_for_status()
+            reservations_raw_response = reservations_resp.json()
+            reservations = reservations_raw_response.get("Data") or []
             print(
                 f"[COURTRESERVE COURT AVAILABILITY] Retrieved {len(reservations)} reservations starting in next 7 days"
+            )
+
+            # Store raw API responses for this client (full HTTP response, not just Data)
+            all_raw_api_responses.append(
+                {
+                    "client_code": client_code,
+                    "reservations_api_response": reservations_raw_response,
+                }
             )
 
             # Calculate available slots
@@ -1142,6 +1172,16 @@ def refresh_courtreserve_court_availability():
 
             traceback.print_exc()
             continue
+
+    # Save raw API responses to JSON file for inspection
+    raw_output_file = os.path.join(
+        OUTPUT_DIR, "courtreserve_court_availability_raw_api_response.json"
+    )
+    with open(raw_output_file, "w") as f:
+        json.dump(all_raw_api_responses, f, indent=2, default=str)
+    print(
+        f"\n[COURTRESERVE COURT AVAILABILITY] Saved raw reservations API responses to {raw_output_file}"
+    )
 
     print("[COURTRESERVE COURT AVAILABILITY] All clients processed")
     print("=" * 80)

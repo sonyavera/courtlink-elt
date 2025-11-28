@@ -206,15 +206,15 @@ class CourtReserveClient:
         end_date = self._get_utc_datetime(end_date)
 
         params = {
-            "reservationFromDate": start_date.strftime("%Y-%m-%d"),
-            "reservationToDate": end_date.strftime("%Y-%m-%d"),
+            "reservationsFromDate": start_date.strftime("%Y-%m-%d"),
+            "reservationsToDate": end_date.strftime("%Y-%m-%d"),
             "includeUserDefinedFields": include_user_defined_fields,
         }
 
         print(
             f"[API CALL] GET /api/v1/reservationreport/listactive | "
-            f"reservationFromDate={params['reservationFromDate']} | "
-            f"reservationToDate={params['reservationToDate']}"
+            f"reservationsFromDate={params['reservationsFromDate']} | "
+            f"reservationsToDate={params['reservationsToDate']}"
         )
 
         resp = requests.get(url, params=params, auth=self.auth)
