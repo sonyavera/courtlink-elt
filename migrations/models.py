@@ -112,7 +112,7 @@ class ReservationRaw(Base):
 
 class ReservationRawStg(Base):
     """Staging table for reservations.
-    
+
     Note: The model definition includes a primary key for SQLAlchemy compatibility,
     but the migration (fix_reservations_raw_stg_primary_key) removes this primary key
     from the actual database table to allow multiple people with the same reservation_id.
@@ -246,6 +246,7 @@ class Organization(Base):
     location_display_name = Column(Text)
     podplay_pod = Column(Text)
     podplay_pod_id = Column(Text)
+    operating_hours = Column(JSONB)
 
 
 class ReservationCancellationRawStg(Base):
@@ -278,3 +279,18 @@ class ReservationCancellationRawStg(Base):
     source_system = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
+
+class Court(Base):
+    """Courts table."""
+
+    __tablename__ = "courts"
+
+    id = Column(BigInteger, primary_key=True)
+    client_code = Column(Text, nullable=False)
+    label = Column(Text, nullable=False)
+    type_name = Column(Text, nullable=False)
+    order_index = Column(Integer, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )

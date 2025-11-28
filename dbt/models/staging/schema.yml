@@ -8,6 +8,9 @@ sources:
       - name: reservations_raw
       - name: reservation_cancellations_raw
       - name: facility_events_raw
+      - name: facility_court_availabilities
+      - name: courts
+      - name: organizations
 
 models:
   - name: stg_reservations__courtreserve
@@ -44,7 +47,7 @@ models:
           - not_null
           - relationships:
               arguments:
-                to: ref('clients')
+                to: ref('stg_organizations')
                 field: client_code
 
   - name: stg_members
@@ -59,7 +62,7 @@ models:
           - not_null
           - relationships:
               arguments:
-                to: ref('clients')
+                to: ref('stg_organizations')
                 field: client_code
       - name: external_member_id
         tests:

@@ -23,6 +23,7 @@ from ingestion.podplay.reservations import (
 from ingestion.events.podplay_events import normalize_podplay_events
 from ingestion.events.courtreserve_events import normalize_courtreserve_events
 from ingestion.events.podplay_sessions import normalize_podplay_sessions
+from ingestion.events.courtreserve_court_availability import calculate_available_slots
 
 load_dotenv()
 
@@ -303,7 +304,7 @@ def refresh_courtreserve_reservations():
         watermark_key = f"{EltWatermarks.RESERVATIONS}__{client_code}"
         watermark = _resolve_watermark(watermark_key)
 
-        reservations = client.get_reservations(watermark)
+        reservations = client.get_reservations_by_updated_date(watermark)
 
         # Log first 3 API results
         print(f"\n[COURTRESERVE RESERVATIONS] First 3 API results:")
@@ -800,6 +801,22 @@ def refresh_courtreserve_events():
     print("=" * 80)
 
 
+def refresh_courtreserve_court_availability():
+    """Refresh CourtReserve court availability for all participating facilities."""
+    print("=" * 80)
+    print(
+        "[COURTRESERVE COURT AVAILABILITY] Starting CourtReserve court availability ingestion"
+    )
+    print("=" * 80)
+
+    client_codes = _get_courtreserve_client_codes()
+    if not client_codes:
+        print(
+            "[COURTRESERVE COURT AVAILABILITY] No CourtReserve clients found, skipping"
+        )
+        return
+
+
 def refresh_podplay_court_availability():
     """Refresh Podplay court availability for all participating facilities."""
     print("=" * 80)
@@ -846,11 +863,68 @@ def refresh_podplay_court_availability():
 
             # Normalize sessions (pass end_time for date filtering)
             normalized = normalize_podplay_sessions(sessions, client_code, end_time)
-            all_sessions.extend(normalized)
 
             print(
                 f"[PODPLAY COURT AVAILABILITY] Normalized {len(normalized)} sessions for {client_code}"
             )
+
+            # Save raw API response for inspection
+            all_raw_sessions.extend(sessions)
+
+            # Delete existing records for this specific client (per-client full refresh)
+            import psycopg2
+
+            conn = psycopg2.connect(pg_dsn)
+            cur = conn.cursor()
+            cur.execute(
+                f"""
+                DELETE FROM "{pg_schema}".facility_court_availabilities
+                WHERE client_code = %s AND source_system = 'podplay'
+                """,
+                (client_code,),
+            )
+            deleted_count = cur.rowcount
+            print(
+                f"[PODPLAY COURT AVAILABILITY] Deleted {deleted_count} old records for {client_code}"
+            )
+
+            # Insert new records for this client
+            if normalized:
+                insert_query = f"""
+                    INSERT INTO "{pg_schema}".facility_court_availabilities (
+                        client_code, source_system, court_id, court_name,
+                        slot_start, slot_end, period_type
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s)
+                """
+
+                rows = [
+                    (
+                        session["client_code"],
+                        session["source_system"],
+                        session["court_id"],
+                        session["court_name"],
+                        session["slot_start"],
+                        session["slot_end"],
+                        session.get("period_type"),
+                    )
+                    for session in normalized
+                ]
+
+                from psycopg2.extras import execute_batch
+
+                execute_batch(cur, insert_query, rows, page_size=1000)
+
+                conn.commit()
+                print(
+                    f"[PODPLAY COURT AVAILABILITY] ✓ Complete: {len(normalized)} sessions inserted for {client_code}"
+                )
+            else:
+                print(
+                    f"[PODPLAY COURT AVAILABILITY] No sessions to insert for {client_code}"
+                )
+
+            cur.close()
+            conn.close()
 
             # Update watermark for this client
             watermark_key = f"{client_code}__court_availability"
@@ -874,27 +948,202 @@ def refresh_podplay_court_availability():
         f"\n[PODPLAY COURT AVAILABILITY] Saved {len(all_raw_sessions)} raw API sessions to {raw_output_file}"
     )
 
-    # Save normalized sessions to JSON file for inspection
-    output_file = os.path.join(OUTPUT_DIR, "podplay_sessions_output.json")
-    with open(output_file, "w") as f:
-        json.dump(all_sessions, f, indent=2, default=str)
+    print("[PODPLAY COURT AVAILABILITY] All clients processed")
+    print("=" * 80)
+
+
+def refresh_courtreserve_court_availability():
+    """
+    Refresh CourtReserve court availability for all participating facilities.
+    This does a FULL refresh of availability for the next 7 days.
+    """
+    print("=" * 80)
     print(
-        f"[PODPLAY COURT AVAILABILITY] Saved {len(all_sessions)} normalized sessions to {output_file}"
+        "[COURTRESERVE COURT AVAILABILITY] Starting CourtReserve court availability ingestion"
+    )
+    print("=" * 80)
+
+    import psycopg2
+
+    client_codes = _get_courtreserve_client_codes()
+    if not client_codes:
+        print(
+            "[COURTRESERVE COURT AVAILABILITY] No CourtReserve clients found, skipping"
+        )
+        return
+
+    # Calculate date range: now to 7 days from now
+    now = datetime.now(timezone.utc)
+    end_date = now + timedelta(days=7)
+
+    print(
+        f"[COURTRESERVE COURT AVAILABILITY] Date range: {now.isoformat()} to {end_date.isoformat()}"
     )
 
-    # Replace all court availabilities in database (safe table swap)
-    if all_sessions:
-        print(
-            f"\n[PODPLAY COURT AVAILABILITY] Replacing all court availabilities in database..."
-        )
-        pg_client.replace_court_availabilities(all_sessions)
-        print(
-            f"[PODPLAY COURT AVAILABILITY] ✓ Complete: {len(all_sessions)} sessions inserted"
-        )
-    else:
-        print("[PODPLAY COURT AVAILABILITY] No sessions to insert")
+    for client_code in client_codes:
+        print(f"\n[COURTRESERVE COURT AVAILABILITY] Processing {client_code}...")
 
-    print("[PODPLAY COURT AVAILABILITY] All clients processed")
+        try:
+            client = _get_courtreserve_client(client_code)
+
+            # Fetch operating hours and courts from database
+            conn = psycopg2.connect(pg_dsn)
+            cur = conn.cursor()
+
+            # Get operating hours
+            cur.execute(
+                f"""
+                SELECT operating_hours
+                FROM "{pg_schema}".organizations
+                WHERE client_code = %s AND source_system_code = 'courtreserve'
+                """,
+                (client_code,),
+            )
+            result = cur.fetchone()
+            if not result or not result[0]:
+                print(
+                    f"[COURTRESERVE COURT AVAILABILITY] No operating hours found for {client_code}, skipping"
+                )
+                cur.close()
+                conn.close()
+                continue
+
+            operating_hours = result[0]
+
+            # Get courts
+            cur.execute(
+                f"""
+                SELECT id, client_code, label, type_name, order_index
+                FROM "{pg_schema}".courts
+                WHERE client_code = %s
+                ORDER BY order_index
+                """,
+                (client_code,),
+            )
+            courts = []
+            for row in cur.fetchall():
+                courts.append(
+                    {
+                        "id": row[0],
+                        "client_code": row[1],
+                        "label": row[2],
+                        "type_name": row[3],
+                        "order_index": row[4],
+                    }
+                )
+
+            cur.close()
+            conn.close()
+
+            if not courts:
+                print(
+                    f"[COURTRESERVE COURT AVAILABILITY] No courts found for {client_code}, skipping"
+                )
+                continue
+
+            print(
+                f"[COURTRESERVE COURT AVAILABILITY] Found {len(courts)} courts for {client_code}"
+            )
+
+            # Fetch events for next 7 days
+            events = client.get_events(start_date=now, end_date=end_date)
+            print(f"[COURTRESERVE COURT AVAILABILITY] Retrieved {len(events)} events")
+
+            # Fetch reservations that START in the next 7 days
+            # Use reservationFromDate/reservationToDate to filter by actual reservation start time
+            reservations = client.get_reservations_by_start_date(
+                start_date=now, end_date=end_date
+            )
+            print(
+                f"[COURTRESERVE COURT AVAILABILITY] Retrieved {len(reservations)} reservations starting in next 7 days"
+            )
+
+            # Calculate available slots
+            available_slots = calculate_available_slots(
+                client_code=client_code,
+                courts=courts,
+                operating_hours=operating_hours,
+                events=events,
+                reservations=reservations,
+                start_date=now,
+                end_date=end_date,
+            )
+
+            print(
+                f"[COURTRESERVE COURT AVAILABILITY] Calculated {len(available_slots)} available slots for {client_code}"
+            )
+
+            # Delete existing records for this specific client (per-client full refresh)
+            conn = psycopg2.connect(pg_dsn)
+            cur = conn.cursor()
+            cur.execute(
+                f"""
+                DELETE FROM "{pg_schema}".facility_court_availabilities
+                WHERE client_code = %s AND source_system = 'courtreserve'
+                """,
+                (client_code,),
+            )
+            deleted_count = cur.rowcount
+            print(
+                f"[COURTRESERVE COURT AVAILABILITY] Deleted {deleted_count} old records for {client_code}"
+            )
+
+            # Insert new records for this client
+            if available_slots:
+                insert_query = f"""
+                    INSERT INTO "{pg_schema}".facility_court_availabilities (
+                        client_code, source_system, court_id, court_name,
+                        slot_start, slot_end, period_type
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s)
+                """
+
+                rows = [
+                    (
+                        slot["client_code"],
+                        slot["source_system"],
+                        slot["court_id"],
+                        slot["court_name"],
+                        slot["slot_start"],
+                        slot["slot_end"],
+                        slot["period_type"],
+                    )
+                    for slot in available_slots
+                ]
+
+                from psycopg2.extras import execute_batch
+
+                execute_batch(cur, insert_query, rows, page_size=1000)
+
+                conn.commit()
+                print(
+                    f"[COURTRESERVE COURT AVAILABILITY] ✓ Complete: {len(available_slots)} slots inserted for {client_code}"
+                )
+            else:
+                print(
+                    f"[COURTRESERVE COURT AVAILABILITY] No available slots to insert for {client_code}"
+                )
+
+            cur.close()
+            conn.close()
+
+            # Update watermark for this client
+            watermark_key = f"{client_code}__court_availability"
+            pg_client.update_elt_watermark(watermark_key)
+            print(
+                f"[COURTRESERVE COURT AVAILABILITY] Updated watermark for {watermark_key}"
+            )
+
+        except Exception as e:
+            print(
+                f"[COURTRESERVE COURT AVAILABILITY] Error processing {client_code}: {e}",
+                file=sys.stderr,
+            )
+            import traceback
+
+            traceback.print_exc()
+            continue
+
+    print("[COURTRESERVE COURT AVAILABILITY] All clients processed")
     print("=" * 80)
 
 
@@ -914,6 +1163,8 @@ def _run(option: str) -> None:
         refresh_courtreserve_events()
     elif option == "podplay_court_availability":
         refresh_podplay_court_availability()
+    elif option == "courtreserve_court_availability":
+        refresh_courtreserve_court_availability()
     elif option == "all":
         refresh_courtreserve_reservations()
         refresh_courtreserve_reservation_cancellations()

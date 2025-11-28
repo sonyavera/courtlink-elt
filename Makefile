@@ -1,4 +1,4 @@
-.PHONY: venv install setup dev activate ingest ingest-courtreserve-reservations ingest-courtreserve-members ingest-podplay-reservations ingest-podplay-members ingest-podplay-events ingest-courtreserve-events ingest-podplay-court-availability wipe-pklyn-res wipe-pklyn-cancellations wipe-events import-duprs dbt dbt-run dbt-run-staging test-github-env-vars list-required-secrets migrate migrate-upgrade migrate-downgrade migrate-revision migrate-history
+.PHONY: venv install setup dev activate ingest ingest-courtreserve-reservations ingest-courtreserve-members ingest-courtreserve-court-availability ingest-podplay-reservations ingest-podplay-members ingest-podplay-events ingest-courtreserve-events ingest-podplay-court-availability wipe-pklyn-res wipe-pklyn-cancellations wipe-events import-duprs dbt dbt-run dbt-run-staging seed test-github-env-vars list-required-secrets migrate migrate-upgrade migrate-downgrade migrate-revision migrate-history
 
 venv:
 	python3 -m venv .venv
@@ -13,7 +13,7 @@ dbt:
 	python3 -m scripts.run_dbt ${args}
 
 dbt-run:
-	python3 -m scripts.run_dbt run --target prod --exclude tag:skip
+	python3 -m scripts.run_dbt run --target dev --exclude tag:skip
 
 dev:
 	pip install -r requirements/dev.txt
@@ -46,6 +46,9 @@ ingest-courtreserve-events:
 ingest-podplay-court-availability:
 	python3 -m ingestion.main podplay_court_availability
 
+ingest-courtreserve-court-availability:
+	python3 -m ingestion.main courtreserve_court_availability
+
 
 wipe-pklyn-res:
 	python3 -m scripts.pklyn.reset_reservations ${args}
@@ -66,6 +69,12 @@ import-duprs:
 
 dbt-run-staging:
 	python -m dotenv -f .env run -- dbt run --select stg_reservations fct_reservations dim_clients
+
+# Seed data
+seed:
+	@echo "Running seed data (idempotent)..."
+	@python3 -c "import os; from dotenv import load_dotenv; load_dotenv(); schema = os.getenv('PG_SCHEMA'); print(f'Using schema: {schema}')"
+	@python3 -m dotenv -f .env run -- bash -c 'psql $$PG_DSN -v schema=$$PG_SCHEMA -f seeds/seed_data.sql'
 
 # Alembic migrations
 migrate:

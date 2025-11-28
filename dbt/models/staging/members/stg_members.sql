@@ -16,7 +16,7 @@ select
     md5(
         concat_ws(
             '||',
-            coalesce(c.reservation_system_code, b.client_code),
+            coalesce(o.source_system_code, b.client_code),
             b.client_code,
             b.member_id
         )
@@ -30,8 +30,8 @@ select
     {{ normalize_phone('b.phone_number') }} as phone,
     {{ normalize_email('b.email') }} as email,
     b.created_at,
-    coalesce(c.reservation_system_code, b.client_code) as reservation_system_code
+    coalesce(o.source_system_code, b.client_code) as reservation_system_code
 from base b
-left join {{ ref('clients') }} c
-    on lower(b.client_code) = c.client_code
+left join {{ ref('stg_organizations') }} o
+    on lower(b.client_code) = o.client_code
 
