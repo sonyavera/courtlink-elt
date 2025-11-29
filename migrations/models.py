@@ -249,7 +249,6 @@ class Organization(Base):
     podplay_pod_id = Column(Text)
     operating_hours = Column(JSONB)
     google_place_id = Column(Text)
-    google_photo_name = Column(Text)  # Photo name/reference (not a direct URL - requires API key header)
 
 
 class FacilityDetails(Base):
@@ -267,8 +266,6 @@ class FacilityDetails(Base):
     longitude = Column(Numeric)
     full_address = Column(Text)
     number_of_courts = Column(Integer)
-    primary_court_type = Column(Text)
-    court_types = Column(JSONB)
     indoor_outdoor = Column(Text)
     court_surface_type = Column(Text)
     has_showers = Column(Boolean)

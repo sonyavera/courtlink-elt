@@ -1246,21 +1246,6 @@ def sync_google_reviews():
                 f"https://www.google.com/maps/place/?q=place_id:{place_id}"
             )
 
-            # Get photo name/reference (not a direct URL - requires API key header)
-            photo_name = google_client.get_place_photo_name(place_id)
-
-            # Update organization with photo name if available
-            if photo_name:
-                cur.execute(
-                    f"""
-                    UPDATE "{pg_schema}".organizations
-                    SET google_photo_name = %s
-                    WHERE client_code = %s
-                    """,
-                    (photo_name, client_code),
-                )
-                print(f"[GOOGLE REVIEWS] Updated photo name for {client_code}")
-
             # Upsert aggregate review data
             cur.execute(
                 f"""

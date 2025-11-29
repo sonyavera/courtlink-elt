@@ -23,8 +23,7 @@ INSERT INTO :schema.organizations (
     podplay_pod,
     podplay_pod_id,
     operating_hours,
-    google_place_id,
-    google_photo_name
+    google_place_id
 ) VALUES 
     (
         1,
@@ -43,8 +42,7 @@ INSERT INTO :schema.organizations (
         NULL,
         NULL,
         '{"timezone": "America/New_York", "monday": {"open": "07:00", "close": "23:00"}, "tuesday": {"open": "07:00", "close": "23:00"}, "wednesday": {"open": "07:00", "close": "23:00"}, "thursday": {"open": "07:00", "close": "23:00"}, "friday": {"open": "07:00", "close": "23:00"}, "saturday": {"open": "07:00", "close": "23:00"}, "sunday": {"open": "07:00", "close": "23:00"}}'::jsonb,
-        'ChIJ6Vqd9DRbwokRSADznFwsZjE',
-        NULL
+        'ChIJ6Vqd9DRbwokRSADznFwsZjE'
     ),
     (
         2,
@@ -63,8 +61,7 @@ INSERT INTO :schema.organizations (
         NULL,
         NULL,
         NULL,
-        'ChIJu9n_3qdbwokRTSWmmv-IDGA',
-        NULL
+        'ChIJu9n_3qdbwokRTSWmmv-IDGA'
     ),
     (
         3,
@@ -83,8 +80,7 @@ INSERT INTO :schema.organizations (
         'greenpoint-indoor-1',
         NULL,
         NULL,
-        'ChIJ8aFJDkdZwokRTNVl61aDHEk',
-        NULL
+        'ChIJ8aFJDkdZwokRTNVl61aDHEk'
     ),
     (
         4,
@@ -103,8 +99,7 @@ INSERT INTO :schema.organizations (
         NULL,
         'e6e67f0a-de3f-4e6e-adf5-3db126cd5c83',
         '{"timezone": "America/New_York", "monday": {"open": "05:00", "close": "01:00"}, "tuesday": {"open": "05:00", "close": "01:00"}, "wednesday": {"open": "05:00", "close": "01:00"}, "thursday": {"open": "05:00", "close": "01:00"}, "friday": {"open": "05:00", "close": "01:00"}, "saturday": {"open": "05:00", "close": "01:00"}, "sunday": {"open": "05:00", "close": "01:00"}}'::jsonb,
-        'ChIJz5aALZVZwokRh6INsy29MsA',
-        NULL
+        'ChIJz5aALZVZwokRh6INsy29MsA'
     ),
     (
         5,
@@ -123,8 +118,7 @@ INSERT INTO :schema.organizations (
         'long-island-open',
         NULL,
         NULL,
-        'ChIJu4iGZCVZwokRcsvTXbYxYuA',
-        NULL
+        'ChIJu4iGZCVZwokRcsvTXbYxYuA'
     ),
     (
         6,
@@ -143,8 +137,7 @@ INSERT INTO :schema.organizations (
         NULL,
         NULL,
         NULL,
-        'ChIJey0moGBawokRzVfVRnTGb8A',
-        NULL
+        'ChIJey0moGBawokRzVfVRnTGb8A'
     )
 ON CONFLICT (id) DO UPDATE SET
     source_system_code = EXCLUDED.source_system_code,
@@ -162,8 +155,7 @@ ON CONFLICT (id) DO UPDATE SET
     podplay_pod = EXCLUDED.podplay_pod,
     podplay_pod_id = EXCLUDED.podplay_pod_id,
     operating_hours = EXCLUDED.operating_hours,
-    google_place_id = EXCLUDED.google_place_id,
-    google_photo_name = EXCLUDED.google_photo_name;
+    google_place_id = EXCLUDED.google_place_id;
 
 
 -- ============================================================================
@@ -206,8 +198,6 @@ INSERT INTO :schema.facility_details (
     longitude,
     full_address,
     number_of_courts,
-    primary_court_type,
-    court_types,
     indoor_outdoor,
     court_surface_type,
     has_showers,
@@ -241,10 +231,8 @@ INSERT INTO :schema.facility_details (
         -73.993297626984,
         '80 4th St, Brooklyn, NY 11231, USA',
         5,
-        NULL,
-        NULL,
         'indoor',
-        NULL,
+        'professional-grade asphalt',
         true,
         true,
         true,
@@ -276,8 +264,6 @@ INSERT INTO :schema.facility_details (
         -73.9542153194257,
         '5-25 46th Ave, Long Island City, NY 11101, USA',
         4,
-        NULL,
-        NULL,
         'indoor',
         NULL,
         false,
@@ -310,11 +296,9 @@ INSERT INTO :schema.facility_details (
         40.68070423296283,
         -74.0097362175778,
         '262 Van Brunt St, Brooklyn, NY 11231, USA',
+        5,
         NULL,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
+        'cushioned',
         NULL,
         NULL,
         NULL,
@@ -345,6 +329,9 @@ INSERT INTO :schema.facility_details (
         40.728958221910496,
         -73.95995640408287,
         '67 West St Suite 110, Brooklyn, NY 11222, USA',
+        4,
+        NULL,
+        'professional-grade acrylic',
         NULL,
         NULL,
         NULL,
@@ -356,15 +343,10 @@ INSERT INTO :schema.facility_details (
         NULL,
         NULL,
         NULL,
+        true,
         NULL,
         NULL,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
+        12000,
         NULL,
         NULL,
         NULL,
@@ -380,9 +362,7 @@ INSERT INTO :schema.facility_details (
         40.75037973285398,
         -73.95089150000004,
         '9-03 44th Rd, Long Island City, NY 11101, USA',
-        NULL,
-        NULL,
-        NULL,
+        4,
         NULL,
         NULL,
         NULL,
@@ -417,6 +397,7 @@ INSERT INTO :schema.facility_details (
         '160 Van Brunt St, Brooklyn, NY 11231, USA',
         NULL,
         NULL,
+        'cushioned',
         NULL,
         NULL,
         NULL,
@@ -429,13 +410,10 @@ INSERT INTO :schema.facility_details (
         NULL,
         NULL,
         NULL,
+        true,
         NULL,
         NULL,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
+        14000,
         NULL,
         NULL,
         NULL
@@ -450,8 +428,6 @@ ON CONFLICT (client_code) DO UPDATE SET
     longitude = EXCLUDED.longitude,
     full_address = EXCLUDED.full_address,
     number_of_courts = EXCLUDED.number_of_courts,
-    primary_court_type = EXCLUDED.primary_court_type,
-    court_types = EXCLUDED.court_types,
     indoor_outdoor = EXCLUDED.indoor_outdoor,
     court_surface_type = EXCLUDED.court_surface_type,
     has_showers = EXCLUDED.has_showers,
