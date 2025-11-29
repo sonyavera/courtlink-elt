@@ -170,7 +170,7 @@ INSERT INTO :schema.facility_details (
     40.75037973285398, -73.95089150000004, '9-03 44th Rd, Long Island City, NY 11101, USA',
     4, NULL, NULL,
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-    NULL, NULL, NULL, NULL, NULL, NULL,
+    NULL, NULL, 10000, NULL, NULL, NULL,
     'https://cdn.prod.website-files.com/62d5824b47b9d43a652ce731/654a521f63fae58de67b0e79_IC_Cover.jpg',
     'https://cdn.prod.website-files.com/65ef59977863009b87c1966d/65ef59977863009b87c1981c_gc.png'
 )
