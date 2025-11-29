@@ -11,6 +11,7 @@ mapped as (
         source_system,
         event_id,
         event_name,
+        event_description,
         event_type as event_type_original,
         case
             -- Classes: ADULT_CLASS, PKLYN Academy, PKLYN Special Events, Classes
@@ -52,6 +53,7 @@ select
     source_system,
     event_id,
     event_name,
+    event_description,
     event_type_original,
     event_type,
     event_start_time,

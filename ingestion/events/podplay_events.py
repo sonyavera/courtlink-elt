@@ -33,6 +33,14 @@ def normalize_podplay_events(
         # Extract event name
         event_name = event.get("name") or event.get("title") or ""
         
+        # Extract event description - ensure we get the full string including newlines
+        event_description = event.get("description")
+        if event_description is None:
+            event_description = ""
+        else:
+            # Ensure it's a string and preserve all content including newlines
+            event_description = str(event_description)
+        
         # Extract event type (using subtype from Podplay API)
         event_type = event.get("subtype") or ""
         
@@ -93,6 +101,7 @@ def normalize_podplay_events(
             "source_system": "podplay",
             "event_id": event_id,
             "event_name": event_name,
+            "event_description": event_description,
             "event_type": event_type,
             "event_start_time": event_start_time,
             "event_end_time": event_end_time,

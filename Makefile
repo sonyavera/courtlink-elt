@@ -49,6 +49,9 @@ ingest-podplay-court-availability:
 ingest-courtreserve-court-availability:
 	python3 -m ingestion.main courtreserve_court_availability
 
+ingest-google-reviews:
+	python3 -m ingestion.main google_reviews
+
 
 wipe-pklyn-res:
 	python3 -m scripts.pklyn.reset_reservations ${args}
@@ -72,9 +75,15 @@ dbt-run-staging:
 
 # Seed data
 seed:
-	@echo "Running seed data (idempotent)..."
+	@echo "Running all seed files (idempotent)..."
 	@python3 -c "import os; from dotenv import load_dotenv; load_dotenv(); schema = os.getenv('PG_SCHEMA'); print(f'Using schema: {schema}')"
-	@python3 -m dotenv -f .env run -- bash -c 'psql $$PG_DSN -v schema=$$PG_SCHEMA -f seeds/seed_data.sql'
+	@echo "Running seed_organizations.sql..."
+	@python3 -m dotenv -f .env run -- bash -c 'psql $$PG_DSN -v schema=$$PG_SCHEMA -f seeds/seed_organizations.sql'
+	@echo "Running seed_courts.sql..."
+	@python3 -m dotenv -f .env run -- bash -c 'psql $$PG_DSN -v schema=$$PG_SCHEMA -f seeds/seed_courts.sql'
+	@echo "Running seed_facility_details.sql..."
+	@python3 -m dotenv -f .env run -- bash -c 'psql $$PG_DSN -v schema=$$PG_SCHEMA -f seeds/seed_facility_details.sql'
+	@echo "✓ All seed files completed successfully"
 
 # Alembic migrations
 migrate:

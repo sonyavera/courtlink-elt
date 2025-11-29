@@ -201,6 +201,7 @@ class FacilityEventRaw(Base):
     event_id = Column(Text, nullable=False, primary_key=True)
     event_start_time = Column(DateTime(timezone=True), nullable=False, primary_key=True)
     event_name = Column(Text)
+    event_description = Column(Text)
     event_type = Column(Text)
     event_end_time = Column(DateTime(timezone=True))
     num_registrants = Column(Integer)
@@ -247,6 +248,78 @@ class Organization(Base):
     podplay_pod = Column(Text)
     podplay_pod_id = Column(Text)
     operating_hours = Column(JSONB)
+    google_place_id = Column(Text)
+
+
+class FacilityDetails(Base):
+    """Facility details and attributes table."""
+
+    __tablename__ = "facility_details"
+
+    client_code = Column(Text, primary_key=True)
+    street_address = Column(Text)
+    city = Column(Text)
+    state = Column(Text)
+    zip_code = Column(Text)
+    country = Column(Text)
+    latitude = Column(Numeric)
+    longitude = Column(Numeric)
+    full_address = Column(Text)
+    number_of_courts = Column(Integer)
+    indoor_outdoor = Column(Text)
+    court_surface_type = Column(Text)
+    has_showers = Column(Boolean)
+    has_lounge_area = Column(Boolean)
+    has_paddle_rentals = Column(Boolean)
+    has_pro_shop = Column(Boolean)
+    has_food_service = Column(Boolean)
+    has_parking = Column(Boolean)
+    parking_type = Column(Text)
+    has_wifi = Column(Boolean)
+    has_lockers = Column(Boolean)
+    has_water_fountains = Column(Boolean)
+    has_dink_court = Column(Boolean)
+    has_workout_area = Column(Boolean)
+    is_autonomous_facility = Column(Boolean)
+    facility_type = Column(Text)
+    year_opened = Column(Integer)
+    facility_size_sqft = Column(Integer)
+    amenities_list = Column(Text)
+    notes = Column(Text)
+    facility_metadata = Column(JSONB)
+    facility_header_image_url = Column(Text)
+    facility_logo_image_url = Column(Text)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+
+class FacilityReview(Base):
+    """Aggregate review data for facilities from various providers (Google, Yelp, etc.)."""
+
+    __tablename__ = "facility_reviews"
+
+    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    client_code = Column(Text, nullable=False)
+    review_service = Column(Text, nullable=False)  # 'google', 'yelp', etc.
+    num_reviews = Column(Integer)
+    avg_review = Column(Numeric)
+    link_to_reviews = Column(Text)
+    last_updated_at = Column(DateTime(timezone=True))
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+    __table_args__ = (
+        Index(
+            "facility_reviews_client_service_idx",
+            "client_code",
+            "review_service",
+            unique=True,
+        ),
+    )
 
 
 class ReservationCancellationRawStg(Base):

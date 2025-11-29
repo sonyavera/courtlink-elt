@@ -24,6 +24,7 @@ from ingestion.events.podplay_events import normalize_podplay_events
 from ingestion.events.courtreserve_events import normalize_courtreserve_events
 from ingestion.events.podplay_sessions import normalize_podplay_sessions
 from ingestion.events.courtreserve_court_availability import calculate_available_slots
+from ingestion.clients import GooglePlacesClient
 
 load_dotenv()
 
@@ -1187,6 +1188,118 @@ def refresh_courtreserve_court_availability():
     print("=" * 80)
 
 
+def sync_google_reviews():
+    """Sync Google reviews for all facilities with google_place_id."""
+    print("=" * 80)
+    print("[GOOGLE REVIEWS] Starting Google reviews sync")
+    print("=" * 80)
+
+    import psycopg2
+    from datetime import datetime, timezone
+
+    try:
+        google_client = GooglePlacesClient()
+    except RuntimeError as e:
+        print(f"[GOOGLE REVIEWS] Error: {e}")
+        print("[GOOGLE REVIEWS] Skipping Google reviews sync")
+        return
+
+    # Get all organizations with google_place_id
+    conn = psycopg2.connect(pg_dsn)
+    cur = conn.cursor()
+
+    cur.execute(
+        f"""
+        SELECT client_code, google_place_id
+        FROM "{pg_schema}".organizations
+        WHERE google_place_id IS NOT NULL
+        """
+    )
+    facilities = cur.fetchall()
+
+    if not facilities:
+        print("[GOOGLE REVIEWS] No facilities with google_place_id found")
+        cur.close()
+        conn.close()
+        return
+
+    print(f"[GOOGLE REVIEWS] Found {len(facilities)} facilities with Google Place IDs")
+
+    for client_code, place_id in facilities:
+        print(f"\n[GOOGLE REVIEWS] Processing {client_code} (Place ID: {place_id})...")
+
+        try:
+            # Get place details from Google (includes rating and review count)
+            place_details = google_client.get_place_details(place_id)
+
+            if not place_details:
+                print(f"[GOOGLE REVIEWS] No place details found for {client_code}")
+                continue
+
+            # Extract aggregate review data
+            num_reviews = place_details.get("userRatingCount")
+            avg_review = place_details.get("rating")
+
+            # Build link to reviews (Google Maps URL)
+            # Format: https://www.google.com/maps/place/?q=place_id:PLACE_ID
+            link_to_reviews = (
+                f"https://www.google.com/maps/place/?q=place_id:{place_id}"
+            )
+
+            # Upsert aggregate review data
+            cur.execute(
+                f"""
+                INSERT INTO "{pg_schema}".facility_reviews (
+                    client_code,
+                    review_service,
+                    num_reviews,
+                    avg_review,
+                    link_to_reviews,
+                    last_updated_at,
+                    updated_at
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s)
+                ON CONFLICT (client_code, review_service) DO UPDATE SET
+                    num_reviews = EXCLUDED.num_reviews,
+                    avg_review = EXCLUDED.avg_review,
+                    link_to_reviews = EXCLUDED.link_to_reviews,
+                    last_updated_at = EXCLUDED.last_updated_at,
+                    updated_at = EXCLUDED.updated_at
+                """,
+                (
+                    client_code,
+                    "google",
+                    num_reviews,
+                    avg_review,
+                    link_to_reviews,
+                    datetime.now(timezone.utc),
+                    datetime.now(timezone.utc),
+                ),
+            )
+
+            conn.commit()
+            print(
+                f"[GOOGLE REVIEWS] ✓ Synced review data for {client_code}: {num_reviews} reviews, {avg_review} avg rating"
+            )
+
+        except Exception as e:
+            print(
+                f"[GOOGLE REVIEWS] Error processing {client_code}: {e}",
+                file=sys.stderr,
+            )
+            import traceback
+
+            traceback.print_exc()
+            conn.rollback()
+            continue
+
+    cur.close()
+    conn.close()
+
+    print("\n" + "=" * 80)
+    print("[GOOGLE REVIEWS] All facilities processed")
+    print("=" * 80)
+
+
 def _run(option: str) -> None:
     if option == "courtreserve_reservations":
         refresh_courtreserve_reservations()
@@ -1205,6 +1318,8 @@ def _run(option: str) -> None:
         refresh_podplay_court_availability()
     elif option == "courtreserve_court_availability":
         refresh_courtreserve_court_availability()
+    elif option == "google_reviews":
+        sync_google_reviews()
     elif option == "all":
         refresh_courtreserve_reservations()
         refresh_courtreserve_reservation_cancellations()
