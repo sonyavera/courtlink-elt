@@ -49,6 +49,9 @@ ingest-podplay-court-availability:
 ingest-courtreserve-court-availability:
 	python3 -m ingestion.main courtreserve_court_availability
 
+ingest-google-reviews:
+	python3 -m ingestion.main google_reviews
+
 
 wipe-pklyn-res:
 	python3 -m scripts.pklyn.reset_reservations ${args}
