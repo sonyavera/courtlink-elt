@@ -93,7 +93,7 @@ INSERT INTO :schema.organizations (
         88,
         80,
         60,
-        'Gotham Picklball',
+        'Gotham Pickleball',
         '{"timezone": "America/New_York", "weekday_peak": [{"end": "10:00", "start": "07:00"}, {"end": "22:00", "start": "17:00"}], "weekend_peak": null, "weekday_off_peak": [{"end": "17:00", "start": "10:00"}]}'::jsonb,
         'Long Island City',
         NULL,

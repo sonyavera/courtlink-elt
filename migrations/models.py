@@ -287,6 +287,8 @@ class FacilityDetails(Base):
     amenities_list = Column(Text)
     notes = Column(Text)
     facility_metadata = Column(JSONB)
+    facility_header_image_url = Column(Text)
+    facility_logo_image_url = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
