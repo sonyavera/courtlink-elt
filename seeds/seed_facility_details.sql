@@ -95,8 +95,8 @@ INSERT INTO :schema.facility_details (
     'redhookpickleball', '262 Van Brunt St', 'Brooklyn', 'NY', '11231', 'USA',
     40.68070423296283, -74.0097362175778, '262 Van Brunt St, Brooklyn, NY 11231, USA',
     5, NULL, 'cushioned',
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, true, NULL, NULL,
+    NULL, NULL, NULL, 18000, NULL, NULL, NULL,
     'https://images.squarespace-cdn.com/content/v1/67e6d8c918fdc17910ec6c0f/20f13332-dfac-4886-a74b-66db05ac0d93/ZV103171.JPG',
     'https://images.squarespace-cdn.com/content/v1/67e6d8c918fdc17910ec6c0f/d61dfe2e-4a2e-4318-8ea7-19a049b208cc/RHPC_03.png'
 )
