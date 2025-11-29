@@ -59,7 +59,7 @@ INSERT INTO :schema.facility_details (
     40.74761843321619, -73.9542153194257, '5-25 46th Ave, Long Island City, NY 11101, USA',
     4, 'indoor', NULL,
     false, false, true, false, false, false, NULL, true, false, true, false, false,
-    true, 'private', 2024, 7800, 'free_paddles_borrow', NULL, NULL,
+    true, 'private', 2024, 7800, '', NULL, NULL,
     'https://images.squarespace-cdn.com/content/v1/66dfc89620ff3e2b13e1beb6/1eb7e636-a5cf-45af-9b60-6c7b782d7544/GothamPickleball-02.jpg',
     'https://play-lh.googleusercontent.com/b7ltDzguuJDkgKgspUBDHHHvd53E4vX19xnP7RW-H7z6cE_G8Bihsner9hoS66Bzwt0=w240-h480-rw'
 )
