@@ -282,7 +282,7 @@ INSERT INTO :schema.facility_details (
         'private',
         2024,
         7800,
-        'free_paddles_borrow',
+        NULL,
         NULL,
         NULL
     ),
