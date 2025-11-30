@@ -13,7 +13,7 @@ dbt:
 	python3 -m scripts.run_dbt ${args}
 
 dbt-run:
-	python3 -m scripts.run_dbt run --target dev --exclude tag:skip
+	python3 -m scripts.run_dbt run --target prod --exclude tag:skip
 
 add-skill-levels:
 	python3 -m scripts.add_skill_level_to_events
@@ -58,7 +58,7 @@ ingest-courtreserve-court-availability:
 ingest-google-reviews:
 	python3 -m ingestion.main google_reviews
 
-ingest-staging-final:
+ingest-staging:
 	@echo "Running staging ingestion pipeline..."
 	@echo "Note: Ensure PG_SCHEMA_STG is set in your environment"
 	make ingest-courtreserve-events
@@ -69,14 +69,6 @@ ingest-staging-final:
 	make ingest-courtreserve-members
 	make ingest-podplay-reservations
 	make add-skill-levels
-	python3 -m scripts.run_dbt deps
-	python3 -m scripts.run_dbt run --target dev
-	make seed-designer-data
-	@echo "✓ Staging ingestion pipeline completed"
-
-ingest-staging:
-	@echo "Running staging ingestion pipeline..."
-	@echo "Note: Ensure PG_SCHEMA_STG is set in your environment"
 	python3 -m scripts.run_dbt deps
 	python3 -m scripts.run_dbt run --target dev
 	make seed-designer-data

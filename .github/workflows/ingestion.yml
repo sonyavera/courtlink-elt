@@ -249,54 +249,9 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install -r requirements/all.txt
 
-      - name: Ingest CourtReserve Events
+      - name: Run staging ingestion pipeline
         if: steps.check-time.outputs.should_run == 'true'
-        run: make ingest-courtreserve-events
-
-      - name: Ingest Podplay Events
-        if: steps.check-time.outputs.should_run == 'true'
-        run: make ingest-podplay-events
-
-      - name: Ingest Podplay Court Availability
-        if: steps.check-time.outputs.should_run == 'true'
-        run: make ingest-podplay-court-availability
-
-      - name: Ingest CourtReserve Court Availability
-        if: steps.check-time.outputs.should_run == 'true'
-        run: make ingest-courtreserve-court-availability
-
-      - name: Ingest CourtReserve Reservations
-        if: steps.check-time.outputs.should_run == 'true'
-        run: make ingest-courtreserve-reservations
-
-      - name: Ingest CourtReserve Members
-        if: steps.check-time.outputs.should_run == 'true'
-        run: make ingest-courtreserve-members
-
-      - name: Ingest Podplay Reservations
-        if: steps.check-time.outputs.should_run == 'true'
-        run: make ingest-podplay-reservations
-
-      - name: Preprocess events (add skill levels)
-        if: steps.check-time.outputs.should_run == 'true'
-        run: make add-skill-levels
-
-      - name: Install dbt package dependencies
-        if: steps.check-time.outputs.should_run == 'true'
-        run: python3 -m scripts.run_dbt deps
-
-      - name: Run dbt
-        if: steps.check-time.outputs.should_run == 'true'
-        run: python3 -m scripts.run_dbt run --target prod
-
-      - name: Seed designer data
-        if: steps.check-time.outputs.should_run == 'true'
-        run: make seed-designer-data
+        run: make ingest-staging
         env:
           PG_SCHEMA_STG: ${{ secrets.PG_SCHEMA_STG }}
           PG_SCHEMA: ${{ secrets.PG_SCHEMA_STG }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
