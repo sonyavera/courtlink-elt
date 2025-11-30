@@ -1,7 +1,8 @@
 {{ config(materialized='table', tags=['events']) }}
 
 with base as (
-    select *
+    select 
+        *
     from {{ source('raw', 'facility_events_raw') }}
 ),
 
@@ -26,6 +27,9 @@ mapped as (
             -- Keep other types as-is (for now)
             else event_type
         end as event_type,
+        -- Skill level is computed by Python preprocessing script (scripts/add_skill_level_to_events.py)
+        -- and stored in facility_events_raw.skill_level
+        coalesce(skill_level, 'All Levels') as skill_level,
         event_start_time,
         event_end_time,
         num_registrants,
@@ -56,10 +60,18 @@ select
     event_description,
     event_type_original,
     event_type,
+    skill_level,
     event_start_time,
     event_end_time,
     num_registrants,
     max_registrants,
+    case
+        when num_registrants is not null 
+            and max_registrants is not null 
+            and num_registrants >= max_registrants
+        then true
+        else false
+    end as is_full,
     admission_rate_regular,
     admission_rate_member,
     created_at

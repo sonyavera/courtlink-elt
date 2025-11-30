@@ -74,6 +74,9 @@ jobs:
       - name: Ingest Podplay Reservations
         run: make ingest-podplay-reservations
 
+      - name: Preprocess events (add skill levels)
+        run: make add-skill-levels
+
       - name: Install dbt package dependencies
         run: python3 -m scripts.run_dbt deps
 
@@ -182,6 +185,10 @@ jobs:
       - name: Ingest Podplay Members
         if: steps.check-time.outputs.should_run == 'true'
         run: make ingest-podplay-members
+
+      - name: Preprocess events (add skill levels)
+        if: steps.check-time.outputs.should_run == 'true'
+        run: make add-skill-levels
 
       - name: Install dbt package dependencies
         if: steps.check-time.outputs.should_run == 'true'

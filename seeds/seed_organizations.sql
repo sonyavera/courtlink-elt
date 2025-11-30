@@ -43,7 +43,7 @@ INSERT INTO :schema.organizations (
         NULL,
         NULL,
         '{"timezone": "America/New_York", "monday": {"open": "07:00", "close": "23:00"}, "tuesday": {"open": "07:00", "close": "23:00"}, "wednesday": {"open": "07:00", "close": "23:00"}, "thursday": {"open": "07:00", "close": "23:00"}, "friday": {"open": "07:00", "close": "23:00"}, "saturday": {"open": "07:00", "close": "23:00"}, "sunday": {"open": "07:00", "close": "23:00"}}'::jsonb,
-        'Monday - Sunday 7 AM - 11 PM',
+        'Mon - Sun 7 AM - 11 PM',
         'ChIJ6Vqd9DRbwokRSADznFwsZjE'
     ),
     (
@@ -63,7 +63,7 @@ INSERT INTO :schema.organizations (
         NULL,
         NULL,
         '{"timezone": "America/New_York", "monday": {"open": "07:00", "close": "22:00"}, "tuesday": {"open": "07:00", "close": "22:00"}, "wednesday": {"open": "07:00", "close": "22:00"}, "thursday": {"open": "07:00", "close": "22:00"}, "friday": {"open": "07:00", "close": "22:00"}, "saturday": {"open": "07:00", "close": "22:00"}, "sunday": {"open": "07:00", "close": "20:00"}}'::jsonb,
-        'Monday - Saturday 7 AM - 10 PM, Sunday 7 AM - 8 PM',
+        'Mon - Sat 7 AM - 10 PM, Sun 7 AM - 8 PM',
         'ChIJu9n_3qdbwokRTSWmmv-IDGA'
     ),
     (
@@ -83,7 +83,7 @@ INSERT INTO :schema.organizations (
         'greenpoint-indoor-1',
         NULL,
         '{"timezone": "America/New_York", "monday": {"open": "06:00", "close": "22:00"}, "tuesday": {"open": "06:00", "close": "22:00"}, "wednesday": {"open": "06:00", "close": "22:00"}, "thursday": {"open": "06:00", "close": "22:00"}, "friday": {"open": "06:00", "close": "22:00"}, "saturday": {"open": "06:00", "close": "22:00"}, "sunday": {"open": "06:00", "close": "22:00"}}'::jsonb,
-        'Monday - Sunday 6 AM - 10 PM',
+        'Mon - Sun 6 AM - 10 PM',
         'ChIJ8aFJDkdZwokRTNVl61aDHEk'
     ),
     (
@@ -103,7 +103,7 @@ INSERT INTO :schema.organizations (
         NULL,
         'e6e67f0a-de3f-4e6e-adf5-3db126cd5c83',
         '{"timezone": "America/New_York", "monday": {"open": "05:00", "close": "01:00"}, "tuesday": {"open": "05:00", "close": "01:00"}, "wednesday": {"open": "05:00", "close": "01:00"}, "thursday": {"open": "05:00", "close": "01:00"}, "friday": {"open": "05:00", "close": "01:00"}, "saturday": {"open": "05:00", "close": "01:00"}, "sunday": {"open": "05:00", "close": "01:00"}}'::jsonb,
-        'Monday - Sunday 5 AM - 1 AM',
+        'Mon - Sun 5 AM - 1 AM',
         'ChIJz5aALZVZwokRh6INsy29MsA'
     ),
     (
@@ -123,7 +123,7 @@ INSERT INTO :schema.organizations (
         'long-island-open',
         NULL,
         '{"timezone": "America/New_York", "monday": {"open": "07:00", "close": "21:00"}, "tuesday": {"open": "07:00", "close": "21:00"}, "wednesday": {"open": "07:00", "close": "21:00"}, "thursday": {"open": "07:00", "close": "21:00"}, "friday": {"open": "07:00", "close": "22:00"}, "saturday": {"open": "08:00", "close": "22:00"}, "sunday": {"open": "08:00", "close": "21:00"}}'::jsonb,
-        'Monday - Thursday 7 AM - 9 PM, Friday 7 AM - 10 PM, Saturday 8 AM - 10 PM, Sunday 8 AM - 9 PM',
+        'Mon - Thurs 7 AM - 9 PM, Fri 7 AM - 10 PM, Sat 8 AM - 10 PM, Sun 8 AM - 9 PM',
         'ChIJu4iGZCVZwokRcsvTXbYxYuA'
     ),
     (
@@ -143,7 +143,7 @@ INSERT INTO :schema.organizations (
         NULL,
         NULL,
         '{"timezone": "America/New_York", "monday": {"open": "06:00", "close": "00:00"}, "tuesday": {"open": "06:00", "close": "00:00"}, "wednesday": {"open": "06:00", "close": "00:00"}, "thursday": {"open": "06:00", "close": "00:00"}, "friday": {"open": "06:00", "close": "00:00"}, "saturday": {"open": "06:00", "close": "00:00"}, "sunday": {"open": "06:00", "close": "00:00"}}'::jsonb,
-        'Monday - Sunday 6 AM - 12 AM',
+        'Mon - Sun 6 AM - 12 AM',
         'ChIJey0moGBawokRzVfVRnTGb8A'
     ),
     (
@@ -163,7 +163,7 @@ INSERT INTO :schema.organizations (
         NULL,
         NULL,
         '{"timezone": "America/New_York", "monday": {"open": "00:00", "close": "23:59"}, "tuesday": {"open": "00:00", "close": "23:59"}, "wednesday": {"open": "00:00", "close": "23:59"}, "thursday": {"open": "00:00", "close": "23:59"}, "friday": {"open": "00:00", "close": "23:59"}, "saturday": {"open": "00:00", "close": "23:59"}, "sunday": {"open": "00:00", "close": "23:59"}}'::jsonb,
-        'Open 24 hours a day',
+        '24/7',
         'ChIJBR64BUh9wokRRHwpwamMTy0'
     ),
     (
@@ -183,7 +183,7 @@ INSERT INTO :schema.organizations (
         NULL,
         NULL,
         '{"timezone": "America/New_York", "monday": {"open": "08:00", "close": "23:30"}, "tuesday": {"open": "08:00", "close": "23:30"}, "wednesday": {"open": "08:00", "close": "23:30"}, "thursday": {"open": "08:00", "close": "23:30"}, "friday": {"open": "08:00", "close": "23:30"}, "saturday": {"open": "08:00", "close": "23:30"}, "sunday": {"open": "08:00", "close": "23:30"}}'::jsonb,
-        'Monday - Sunday 8 AM - 11:30 PM',
+        'Mon - Sun 8 AM - 11:30 PM',
         'ChIJU2Q-1sR7wokRq-zSjZTS6OA'
     ),
     (
@@ -203,7 +203,7 @@ INSERT INTO :schema.organizations (
         NULL,
         NULL,
         '{"timezone": "America/New_York", "monday": {"open": "06:00", "close": "00:00"}, "tuesday": {"open": "06:00", "close": "00:00"}, "wednesday": {"open": "06:00", "close": "00:00"}, "thursday": {"open": "06:00", "close": "00:00"}, "friday": {"open": "06:00", "close": "00:00"}, "saturday": {"open": "06:00", "close": "00:00"}, "sunday": {"open": "06:00", "close": "00:00"}}'::jsonb,
-        'Monday - Sunday 6 AM - 12 AM',
+        'Mon - Sun 6 AM - 12 AM',
         'ChIJcY1hO49bwokRpcJZ-vs7P8Y'
     ),
     (
@@ -223,8 +223,28 @@ INSERT INTO :schema.organizations (
         NULL,
         NULL,
         '{"timezone": "America/New_York", "monday": {"open": "09:00", "close": "23:00"}, "tuesday": {"open": "09:00", "close": "23:00"}, "wednesday": {"open": "09:00", "close": "23:00"}, "thursday": {"open": "09:00", "close": "23:00"}, "friday": {"open": "09:00", "close": "23:00"}, "saturday": {"open": "09:00", "close": "23:00"}, "sunday": {"open": "09:00", "close": "23:00"}}'::jsonb,
-        'Monday - Sunday 9 AM - 11 PM',
+        'Mon - Sun 9 AM - 11 PM',
         'ChIJhVyrtGeBwokRmfYzysywZqs'
+    ),
+    (
+        11,
+        'podplay',
+        'rbpickleball',
+        'https://rbpickleball.podplay.app/login?redirect=%2Fapp-menus&loginMode=password',
+        'far-rockaway',
+        false,
+        60,
+        NULL,
+        50,
+        NULL,
+        'Rockaway Beach Pickleball',
+        '{"timezone": "America/New_York", "weekday_peak": [{"end": "10:00", "start": "07:00"}, {"end": "23:00", "start": "14:00"}], "weekend_peak": null, "weekday_off_peak": [{"end": "14:00", "start": "10:00"}]}'::jsonb,
+        'Far Rockaway',
+        NULL,
+        NULL,
+        '{"timezone": "America/New_York", "monday": {"open": "07:00", "close": "23:00"}, "tuesday": {"open": "07:00", "close": "23:00"}, "wednesday": {"open": "07:00", "close": "23:00"}, "thursday": {"open": "07:00", "close": "23:00"}, "friday": {"open": "07:00", "close": "23:00"}, "saturday": {"open": "08:00", "close": "23:00"}, "sunday": {"open": "08:00", "close": "23:00"}}'::jsonb,
+        'Mon - Fri 7 AM - 11 PM, Sat - Sun 8 AM - 11 PM',
+        'ChIJT5kDvm5pwokRmlhp-MwJj4k'
     )
 ON CONFLICT (id) DO UPDATE SET
     source_system_code = EXCLUDED.source_system_code,

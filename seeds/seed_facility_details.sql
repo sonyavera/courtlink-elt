@@ -95,7 +95,7 @@ INSERT INTO :schema.facility_details (
     'redhookpickleball', '262 Van Brunt St', 'Brooklyn', 'NY', '11231', 'USA',
     40.68070423296283, -74.0097362175778, '262 Van Brunt St, Brooklyn, NY 11231, USA',
     5, NULL, 'cushioned',
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, true, NULL, NULL,
+    NULL, NULL, true, NULL, NULL, NULL, NULL, NULL, NULL, true, NULL, NULL,
     NULL, NULL, NULL, 18000, NULL, NULL, NULL,
     'https://images.squarespace-cdn.com/content/v1/67e6d8c918fdc17910ec6c0f/20f13332-dfac-4886-a74b-66db05ac0d93/ZV103171.JPG',
     'https://images.squarespace-cdn.com/content/v1/67e6d8c918fdc17910ec6c0f/d61dfe2e-4a2e-4318-8ea7-19a049b208cc/RHPC_03.png'
@@ -358,6 +358,44 @@ INSERT INTO :schema.facility_details (
     NULL, NULL, NULL, NULL, NULL, NULL,
     'https://files.bounceassets.com/images/venues/907a235f2ab9e147be7cc858155534a2e6a70cd6.jpg',
     'https://thepicklecomplex.com/cdn/shop/files/mainlogo.jpg?v=1682944388&width=1946'
+)
+ON CONFLICT (client_code) DO UPDATE SET
+    street_address = EXCLUDED.street_address, city = EXCLUDED.city,
+    state = EXCLUDED.state, zip_code = EXCLUDED.zip_code, country = EXCLUDED.country,
+    latitude = EXCLUDED.latitude, longitude = EXCLUDED.longitude, full_address = EXCLUDED.full_address,
+    number_of_courts = EXCLUDED.number_of_courts, indoor_outdoor = EXCLUDED.indoor_outdoor,
+    court_surface_type = EXCLUDED.court_surface_type, has_showers = EXCLUDED.has_showers,
+    has_lounge_area = EXCLUDED.has_lounge_area, has_paddle_rentals = EXCLUDED.has_paddle_rentals,
+    has_pro_shop = EXCLUDED.has_pro_shop, has_food_service = EXCLUDED.has_food_service,
+    has_parking = EXCLUDED.has_parking, parking_type = EXCLUDED.parking_type,
+    has_wifi = EXCLUDED.has_wifi, has_lockers = EXCLUDED.has_lockers,
+    has_water_fountains = EXCLUDED.has_water_fountains, has_dink_court = EXCLUDED.has_dink_court,
+    has_workout_area = EXCLUDED.has_workout_area, is_autonomous_facility = EXCLUDED.is_autonomous_facility,
+    facility_type = EXCLUDED.facility_type, year_opened = EXCLUDED.year_opened,
+    facility_size_sqft = EXCLUDED.facility_size_sqft, amenities_list = EXCLUDED.amenities_list,
+    notes = EXCLUDED.notes, facility_metadata = EXCLUDED.facility_metadata,
+    facility_header_image_url = EXCLUDED.facility_header_image_url,
+    facility_logo_image_url = EXCLUDED.facility_logo_image_url,
+    updated_at = EXCLUDED.updated_at;
+
+-- Rockaway Beach Pickleball
+INSERT INTO :schema.facility_details (
+    client_code, street_address, city, state, zip_code, country,
+    latitude, longitude, full_address, number_of_courts, indoor_outdoor,
+    court_surface_type, has_showers, has_lounge_area, has_paddle_rentals,
+    has_pro_shop, has_food_service, has_parking, parking_type, has_wifi,
+    has_lockers, has_water_fountains, has_dink_court, has_workout_area,
+    is_autonomous_facility, facility_type, year_opened, facility_size_sqft,
+    amenities_list, notes, facility_metadata, facility_header_image_url, facility_logo_image_url
+) VALUES (
+    'rbpickleball', '97-25 Beach Channel Dr', 'Far Rockaway', 'NY', '11693', 'USA',
+    40.586835557714764, -73.82040293663158, '97-25 Beach Channel Dr, Far Rockaway, NY 11693, USA',
+    5, NULL, 'acrylic',
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+    true, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+    NULL, NULL, NULL, NULL, NULL,
+    'https://rockawaypickleball.com/wp-content/uploads/2025/08/225A8928-Large.jpeg',
+    'https://rockawaypickleball.com/wp-content/uploads/2025/02/IMG_8314.png'
 )
 ON CONFLICT (client_code) DO UPDATE SET
     street_address = EXCLUDED.street_address, city = EXCLUDED.city,

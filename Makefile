@@ -15,6 +15,9 @@ dbt:
 dbt-run:
 	python3 -m scripts.run_dbt run --target dev --exclude tag:skip
 
+add-skill-levels:
+	python3 -m scripts.add_skill_level_to_events
+
 dev:
 	pip install -r requirements/dev.txt
 

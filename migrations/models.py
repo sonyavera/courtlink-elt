@@ -208,6 +208,7 @@ class FacilityEventRaw(Base):
     max_registrants = Column(Integer)
     admission_rate_regular = Column(Numeric)
     admission_rate_member = Column(Numeric)
+    skill_level = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
