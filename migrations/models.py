@@ -248,6 +248,7 @@ class Organization(Base):
     podplay_pod = Column(Text)
     podplay_pod_id = Column(Text)
     operating_hours = Column(JSONB)
+    operating_hours_display = Column(Text)
     google_place_id = Column(Text)
 
 
