@@ -204,11 +204,86 @@ INSERT INTO :schema.facility_details (
     amenities_list, notes, facility_metadata, facility_header_image_url, facility_logo_image_url
 ) VALUES (
     'velto', '160 Van Brunt St', 'Brooklyn', 'NY', '11231', 'USA',
-    40.700023165963024, -74.00285361760457, '160 Van Brunt St, Brooklyn, NY 11231, USA',
+    40.683230782626076, -74.00655490408563, '160 Van Brunt St, Brooklyn, NY 11231, USA',
     5, NULL, 'cushioned',
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, true,
-    NULL, NULL, 14000, NULL, NULL, NULL, NULL,
+    NULL, NULL, 14000, NULL, NULL, NULL,
+    'https://veltopb.com/entrance.jpeg',
     'https://veltopb.com/Velto_03_Logotype_Forest.png'
+)
+ON CONFLICT (client_code) DO UPDATE SET
+    street_address = EXCLUDED.street_address, city = EXCLUDED.city,
+    state = EXCLUDED.state, zip_code = EXCLUDED.zip_code, country = EXCLUDED.country,
+    latitude = EXCLUDED.latitude, longitude = EXCLUDED.longitude, full_address = EXCLUDED.full_address,
+    number_of_courts = EXCLUDED.number_of_courts, indoor_outdoor = EXCLUDED.indoor_outdoor,
+    court_surface_type = EXCLUDED.court_surface_type, has_showers = EXCLUDED.has_showers,
+    has_lounge_area = EXCLUDED.has_lounge_area, has_paddle_rentals = EXCLUDED.has_paddle_rentals,
+    has_pro_shop = EXCLUDED.has_pro_shop, has_food_service = EXCLUDED.has_food_service,
+    has_parking = EXCLUDED.has_parking, parking_type = EXCLUDED.parking_type,
+    has_wifi = EXCLUDED.has_wifi, has_lockers = EXCLUDED.has_lockers,
+    has_water_fountains = EXCLUDED.has_water_fountains, has_dink_court = EXCLUDED.has_dink_court,
+    has_workout_area = EXCLUDED.has_workout_area, is_autonomous_facility = EXCLUDED.is_autonomous_facility,
+    facility_type = EXCLUDED.facility_type, year_opened = EXCLUDED.year_opened,
+    facility_size_sqft = EXCLUDED.facility_size_sqft, amenities_list = EXCLUDED.amenities_list,
+    notes = EXCLUDED.notes, facility_metadata = EXCLUDED.facility_metadata,
+    facility_header_image_url = EXCLUDED.facility_header_image_url,
+    facility_logo_image_url = EXCLUDED.facility_logo_image_url,
+    updated_at = EXCLUDED.updated_at;
+
+-- Pickleball Plus
+INSERT INTO :schema.facility_details (
+    client_code, street_address, city, state, zip_code, country,
+    latitude, longitude, full_address, number_of_courts, indoor_outdoor,
+    court_surface_type, has_showers, has_lounge_area, has_paddle_rentals,
+    has_pro_shop, has_food_service, has_parking, parking_type, has_wifi,
+    has_lockers, has_water_fountains, has_dink_court, has_workout_area,
+    is_autonomous_facility, facility_type, year_opened, facility_size_sqft,
+    amenities_list, notes, facility_metadata, facility_header_image_url, facility_logo_image_url
+) VALUES (
+    'pickleballplus', '525 Eagle Ave', 'West Hempstead', 'NY', '11552', 'USA',
+    40.686463044849866, -73.65118071942946, '525 Eagle Ave, West Hempstead, NY 11552, USA',
+    12, 'indoor', NULL,
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+    'https://libn.com/files/2022/05/Pickleball-Plus-aerial-1200-e1652881824937.jpg',
+    'https://thepickleballindex.com/wp-content/uploads/jet-form-builder/e861c64b38641f6d82b6ec90970433ca/2023/09/PBP-Logo.webp'
+)
+ON CONFLICT (client_code) DO UPDATE SET
+    street_address = EXCLUDED.street_address, city = EXCLUDED.city,
+    state = EXCLUDED.state, zip_code = EXCLUDED.zip_code, country = EXCLUDED.country,
+    latitude = EXCLUDED.latitude, longitude = EXCLUDED.longitude, full_address = EXCLUDED.full_address,
+    number_of_courts = EXCLUDED.number_of_courts, indoor_outdoor = EXCLUDED.indoor_outdoor,
+    court_surface_type = EXCLUDED.court_surface_type, has_showers = EXCLUDED.has_showers,
+    has_lounge_area = EXCLUDED.has_lounge_area, has_paddle_rentals = EXCLUDED.has_paddle_rentals,
+    has_pro_shop = EXCLUDED.has_pro_shop, has_food_service = EXCLUDED.has_food_service,
+    has_parking = EXCLUDED.has_parking, parking_type = EXCLUDED.parking_type,
+    has_wifi = EXCLUDED.has_wifi, has_lockers = EXCLUDED.has_lockers,
+    has_water_fountains = EXCLUDED.has_water_fountains, has_dink_court = EXCLUDED.has_dink_court,
+    has_workout_area = EXCLUDED.has_workout_area, is_autonomous_facility = EXCLUDED.is_autonomous_facility,
+    facility_type = EXCLUDED.facility_type, year_opened = EXCLUDED.year_opened,
+    facility_size_sqft = EXCLUDED.facility_size_sqft, amenities_list = EXCLUDED.amenities_list,
+    notes = EXCLUDED.notes, facility_metadata = EXCLUDED.facility_metadata,
+    facility_header_image_url = EXCLUDED.facility_header_image_url,
+    facility_logo_image_url = EXCLUDED.facility_logo_image_url,
+    updated_at = EXCLUDED.updated_at;
+
+-- PICKLEBALLXPO
+INSERT INTO :schema.facility_details (
+    client_code, street_address, city, state, zip_code, country,
+    latitude, longitude, full_address, number_of_courts, indoor_outdoor,
+    court_surface_type, has_showers, has_lounge_area, has_paddle_rentals,
+    has_pro_shop, has_food_service, has_parking, parking_type, has_wifi,
+    has_lockers, has_water_fountains, has_dink_court, has_workout_area,
+    is_autonomous_facility, facility_type, year_opened, facility_size_sqft,
+    amenities_list, notes, facility_metadata, facility_header_image_url, facility_logo_image_url
+) VALUES (
+    'pickleballxpo', '3573 Maple Ct', 'Oceanside', 'NY', '11572', 'USA',
+    40.62374130857492, -73.65337389059731, '3573 Maple Ct, Oceanside, NY 11572, USA',
+    9, 'indoor', 'cushioned',
+    NULL, NULL, NULL, true, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+    'https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyF7Fo3n0som2d1CV8UYRQ1ueBFWwl-tYvvmuLHpGhnKG2wQ-HYHhRanVt4xuZ4t9uMIxZEMIwFASMDe5vR4srxdjFx1NRsG_XPKAhkvDpWtfr8B540_G0-9nx8yCUO5mByz8UeFA=s1360-w1360-h1020-rw',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXdzrT1SD948NdKZyUs-uNntIL7z0FG5uVeQ&s'
 )
 ON CONFLICT (client_code) DO UPDATE SET
     street_address = EXCLUDED.street_address, city = EXCLUDED.city,
