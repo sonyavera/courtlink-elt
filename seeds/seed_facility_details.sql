@@ -204,7 +204,7 @@ INSERT INTO :schema.facility_details (
     amenities_list, notes, facility_metadata, facility_header_image_url, facility_logo_image_url
 ) VALUES (
     'velto', '160 Van Brunt St', 'Brooklyn', 'NY', '11231', 'USA',
-    40.700023165963024, -74.00285361760457, '160 Van Brunt St, Brooklyn, NY 11231, USA',
+    40.683230782626076, -74.00655490408563, '160 Van Brunt St, Brooklyn, NY 11231, USA',
     5, NULL, 'cushioned',
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, true,
     NULL, NULL, 14000, NULL, NULL, NULL,

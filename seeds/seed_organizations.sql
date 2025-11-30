@@ -34,8 +34,8 @@ INSERT INTO :schema.organizations (
         true,
         110,
         90,
-        90,
-        88,
+        null,
+        null,
         'PKLYN',
         '{"weekday_peak": null, "weekend_peak": null, "weekday_off_peak": null}'::jsonb,
         'Gowanus',
@@ -156,7 +156,7 @@ INSERT INTO :schema.organizations (
         NULL,
         NULL,
         '{"timezone": "America/New_York", "monday": {"open": "00:00", "close": "23:59"}, "tuesday": {"open": "00:00", "close": "23:59"}, "wednesday": {"open": "00:00", "close": "23:59"}, "thursday": {"open": "00:00", "close": "23:59"}, "friday": {"open": "00:00", "close": "23:59"}, "saturday": {"open": "00:00", "close": "23:59"}, "sunday": {"open": "00:00", "close": "23:59"}}'::jsonb,
-        NULL
+        'ChIJBR64BUh9wokRRHwpwamMTy0'
     ),
     (
         8,
@@ -175,7 +175,7 @@ INSERT INTO :schema.organizations (
         NULL,
         NULL,
         '{"timezone": "America/New_York", "monday": {"open": "08:00", "close": "23:30"}, "tuesday": {"open": "08:00", "close": "23:30"}, "wednesday": {"open": "08:00", "close": "23:30"}, "thursday": {"open": "08:00", "close": "23:30"}, "friday": {"open": "08:00", "close": "23:30"}, "saturday": {"open": "08:00", "close": "23:30"}, "sunday": {"open": "08:00", "close": "23:30"}}'::jsonb,
-        NULL
+        'ChIJU2Q-1sR7wokRq-zSjZTS6OA'
     )
 ON CONFLICT (id) DO UPDATE SET
     source_system_code = EXCLUDED.source_system_code,
