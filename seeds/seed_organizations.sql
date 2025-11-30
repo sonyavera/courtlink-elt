@@ -177,7 +177,7 @@ INSERT INTO :schema.organizations (
         50,
         63,
         50,
-        'PICKLEBALLXPO',
+        'PICKLEBALL XPO',
         '{"weekday_peak": null, "weekend_peak": null, "weekday_off_peak": null}'::jsonb,
         'Oceanside',
         NULL,

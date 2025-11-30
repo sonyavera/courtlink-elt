@@ -391,9 +391,8 @@ INSERT INTO :schema.facility_details (
     'rbpickleball', '97-25 Beach Channel Dr', 'Far Rockaway', 'NY', '11693', 'USA',
     40.586835557714764, -73.82040293663158, '97-25 Beach Channel Dr, Far Rockaway, NY 11693, USA',
     5, NULL, 'acrylic',
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-    true, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-    NULL, NULL, NULL, NULL, NULL,
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, true, NULL, NULL, NULL, NULL,
+    NULL, 2025, NULL, NULL, NULL, NULL,
     'https://rockawaypickleball.com/wp-content/uploads/2025/08/225A8928-Large.jpeg',
     'https://rockawaypickleball.com/wp-content/uploads/2025/02/IMG_8314.png'
 )

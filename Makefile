@@ -1,4 +1,4 @@
-.PHONY: venv install setup dev activate ingest ingest-courtreserve-reservations ingest-courtreserve-members ingest-courtreserve-court-availability ingest-podplay-reservations ingest-podplay-members ingest-podplay-events ingest-courtreserve-events ingest-podplay-court-availability wipe-pklyn-res wipe-pklyn-cancellations wipe-events import-duprs dbt dbt-run dbt-run-staging seed test-github-env-vars list-required-secrets migrate migrate-upgrade migrate-downgrade migrate-revision migrate-history
+.PHONY: venv install setup dev activate ingest ingest-courtreserve-reservations ingest-courtreserve-members ingest-courtreserve-court-availability ingest-podplay-reservations ingest-podplay-members ingest-podplay-events ingest-courtreserve-events ingest-podplay-court-availability ingest-google-reviews ingest-staging wipe-pklyn-res wipe-pklyn-cancellations wipe-events import-duprs dbt dbt-run dbt-run-staging seed seed-designer-data test-github-env-vars list-required-secrets migrate migrate-upgrade migrate-downgrade migrate-revision migrate-history
 
 venv:
 	python3 -m venv .venv
@@ -17,6 +17,9 @@ dbt-run:
 
 add-skill-levels:
 	python3 -m scripts.add_skill_level_to_events
+
+seed-designer-data:
+	python3 -m scripts.seed_designer_data
 
 dev:
 	pip install -r requirements/dev.txt
@@ -54,6 +57,30 @@ ingest-courtreserve-court-availability:
 
 ingest-google-reviews:
 	python3 -m ingestion.main google_reviews
+
+ingest-staging-final:
+	@echo "Running staging ingestion pipeline..."
+	@echo "Note: Ensure PG_SCHEMA_STG is set in your environment"
+	make ingest-courtreserve-events
+	make ingest-podplay-events
+	make ingest-podplay-court-availability
+	make ingest-courtreserve-court-availability
+	make ingest-courtreserve-reservations
+	make ingest-courtreserve-members
+	make ingest-podplay-reservations
+	make add-skill-levels
+	python3 -m scripts.run_dbt deps
+	python3 -m scripts.run_dbt run --target dev
+	make seed-designer-data
+	@echo "✓ Staging ingestion pipeline completed"
+
+ingest-staging:
+	@echo "Running staging ingestion pipeline..."
+	@echo "Note: Ensure PG_SCHEMA_STG is set in your environment"
+	python3 -m scripts.run_dbt deps
+	python3 -m scripts.run_dbt run --target dev
+	make seed-designer-data
+	@echo "✓ Staging ingestion pipeline completed"
 
 
 wipe-pklyn-res:
