@@ -4,7 +4,10 @@
 -- Transforms 30-minute slots into:
 -- 1. 1-hour slots starting at the top of the hour (e.g., 5:00-6:00, 6:00-7:00)
 --    - Only created if BOTH 30-min halves are available (e.g., 5:00-5:30 AND 5:30-6:00)
--- 2. 30-minute "orphan" slots that don't form a complete hour
+-- 2. 2-hour slots starting at the top of the hour (e.g., 5:00-7:00, 6:00-8:00)
+--    - Only created if BOTH consecutive 1-hour slots are available
+--    - Court count is the minimum of the two 1-hour slots (you need a court for each hour)
+-- 3. 30-minute "orphan" slots that don't form a complete hour
 --    - If only 5:00-5:30 exists (no 5:30-6:00), show 5:00-5:30 as orphan
 --    - If only 5:30-6:00 exists (no 5:00-5:30), show 5:30-6:00 as orphan
 -- Includes readable duration strings and court counts
@@ -90,6 +93,82 @@ hour_availability as (
     group by fhc.client_code, fhc.source_system, fhc.hour_start, fhc.period_type
 ),
 
+-- Create 2-hour blocks by finding consecutive 1-hour slots
+-- Court count is the minimum of the two 1-hour slots (you need a court for each hour)
+-- Court names show all courts that could be used (union of both hours)
+two_hour_courts as (
+    -- Courts from first hour
+    select
+        h1.client_code,
+        h1.source_system,
+        h1.slot_start,
+        h1.slot_end + interval '1 hour' as slot_end,
+        h1.period_type,
+        coalesce(s1.court_name, 'Court ' || fhc1.court_id) as court_name
+    from hour_availability h1
+    inner join hour_availability h2
+        on h1.client_code = h2.client_code
+        and h1.source_system = h2.source_system
+        and h1.period_type = h2.period_type
+        and h1.slot_end = h2.slot_start  -- Consecutive hours
+    inner join full_hour_courts fhc1
+        on h1.client_code = fhc1.client_code
+        and fhc1.hour_start = h1.slot_start
+        and fhc1.period_type = h1.period_type
+    left join slots_by_half s1
+        on fhc1.client_code = s1.client_code
+        and fhc1.court_id = s1.court_id
+        and fhc1.hour_start = s1.hour_start
+        and s1.half_position = 'first_half'
+    
+    union
+    
+    -- Courts from second hour
+    select
+        h1.client_code,
+        h1.source_system,
+        h1.slot_start,
+        h1.slot_end + interval '1 hour' as slot_end,
+        h1.period_type,
+        coalesce(s2.court_name, 'Court ' || fhc2.court_id) as court_name
+    from hour_availability h1
+    inner join hour_availability h2
+        on h1.client_code = h2.client_code
+        and h1.source_system = h2.source_system
+        and h1.period_type = h2.period_type
+        and h1.slot_end = h2.slot_start  -- Consecutive hours
+    inner join full_hour_courts fhc2
+        on h2.client_code = fhc2.client_code
+        and fhc2.hour_start = h2.slot_start
+        and fhc2.period_type = h2.period_type
+    left join slots_by_half s2
+        on fhc2.client_code = s2.client_code
+        and fhc2.court_id = s2.court_id
+        and fhc2.hour_start = s2.hour_start
+        and s2.half_position = 'first_half'
+),
+
+two_hour_availability as (
+    select
+        t.client_code,
+        t.source_system,
+        t.slot_start,
+        t.slot_end,
+        least(h1.available_courts_count, h2.available_courts_count) as available_courts_count,
+        string_agg(distinct t.court_name, ', ' order by t.court_name) as available_courts,
+        t.period_type
+    from two_hour_courts t
+    inner join hour_availability h1
+        on t.client_code = h1.client_code
+        and t.slot_start = h1.slot_start
+        and t.period_type = h1.period_type
+    inner join hour_availability h2
+        on t.client_code = h2.client_code
+        and t.slot_start + interval '1 hour' = h2.slot_start
+        and t.period_type = h2.period_type
+    group by t.client_code, t.source_system, t.slot_start, t.slot_end, t.period_type, h1.available_courts_count, h2.available_courts_count
+),
+
 -- Find orphan slots - 30-minute slots that exist independently
 -- For "double counting": include ALL courts that have a 30-min slot, even if they also form a full hour
 -- First half orphans: ALL courts with 5:00-5:30 (regardless of whether they have 5:30-6:00)
@@ -146,8 +225,21 @@ orphan_slots as (
     group by combined_orphans.client_code, combined_orphans.source_system, combined_orphans.slot_start, combined_orphans.slot_end, combined_orphans.period_type
 ),
 
--- Combine hour slots and orphan slots
+-- Combine 2-hour slots, 1-hour slots, and orphan slots
 all_slots as (
+    select
+        client_code,
+        source_system,
+        slot_start,
+        slot_end,
+        available_courts_count,
+        available_courts,
+        period_type,
+        'two_hour' as slot_type
+    from two_hour_availability
+    
+    union all
+    
     select
         client_code,
         source_system,
