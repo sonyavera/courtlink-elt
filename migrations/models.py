@@ -282,6 +282,7 @@ class FacilityDetails(Base):
     has_water_fountains = Column(Boolean)
     has_dink_court = Column(Boolean)
     has_workout_area = Column(Boolean)
+    has_bar = Column(Boolean)
     is_autonomous_facility = Column(Boolean)
     facility_type = Column(Text)
     year_opened = Column(Integer)
@@ -291,6 +292,7 @@ class FacilityDetails(Base):
     facility_metadata = Column(JSONB)
     facility_header_image_url = Column(Text)
     facility_logo_image_url = Column(Text)
+    facility_phone_number = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()

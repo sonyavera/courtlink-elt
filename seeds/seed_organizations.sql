@@ -245,6 +245,26 @@ INSERT INTO :schema.organizations (
         '{"timezone": "America/New_York", "monday": {"open": "07:00", "close": "23:00"}, "tuesday": {"open": "07:00", "close": "23:00"}, "wednesday": {"open": "07:00", "close": "23:00"}, "thursday": {"open": "07:00", "close": "23:00"}, "friday": {"open": "07:00", "close": "23:00"}, "saturday": {"open": "08:00", "close": "23:00"}, "sunday": {"open": "08:00", "close": "23:00"}}'::jsonb,
         'Mon - Fri 7 AM - 11 PM, Sat - Sun 8 AM - 11 PM',
         'ChIJT5kDvm5pwokRmlhp-MwJj4k'
+    ),
+    (
+        12,
+        'none',
+        'pickleballheaven',
+        NULL,
+        'medford',
+        false,
+        60,
+        NULL,
+        40,
+        NULL,
+        'Pickleball Heaven',
+        '{"timezone": "America/New_York", "weekday_peak": [{"end": "00:00", "start": "17:00"}], "weekend_peak": [{"end": "00:00", "start": "17:00"}], "weekday_off_peak": [{"end": "17:00", "start": "06:00"}, {"end": "02:00", "start": "00:00"}], "weekend_off_peak": [{"end": "17:00", "start": "06:00"}, {"end": "02:00", "start": "00:00"}]}'::jsonb,
+        'Medford',
+        NULL,
+        NULL,
+        '{"timezone": "America/New_York", "monday": {"open": "06:00", "close": "02:00"}, "tuesday": {"open": "06:00", "close": "02:00"}, "wednesday": {"open": "06:00", "close": "02:00"}, "thursday": {"open": "06:00", "close": "02:00"}, "friday": {"open": "06:00", "close": "02:00"}, "saturday": {"open": "06:00", "close": "02:00"}, "sunday": {"open": "06:00", "close": "02:00"}}'::jsonb,
+        'Mon - Sun 6 AM - 2 AM',
+        'ChIJV2PqNZZF6IkR8K2DH2it_v4'
     )
 ON CONFLICT (id) DO UPDATE SET
     source_system_code = EXCLUDED.source_system_code,

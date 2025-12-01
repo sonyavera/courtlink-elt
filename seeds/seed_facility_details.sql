@@ -45,6 +45,94 @@ ON CONFLICT (client_code) DO UPDATE SET
     facility_logo_image_url = EXCLUDED.facility_logo_image_url,
     updated_at = EXCLUDED.updated_at;
 
+-- Pickleball Heaven
+INSERT INTO :schema.facility_details (
+    client_code, street_address, city, state, zip_code, country,
+    latitude, longitude, full_address, number_of_courts, indoor_outdoor,
+    court_surface_type, has_showers, has_lounge_area, has_paddle_rentals,
+    has_pro_shop, has_food_service, has_parking, parking_type, has_wifi,
+    has_lockers, has_water_fountains, has_dink_court, has_workout_area,
+    is_autonomous_facility, facility_type, year_opened, facility_size_sqft,
+    amenities_list, notes, facility_metadata, facility_header_image_url, facility_logo_image_url
+) VALUES (
+    'pickleballheaven', '645 National Blvd', 'Medford', 'NY', '11763', 'USA',
+    40.80863913217, -72.95752903068798, '645 National Blvd, Medford, NY 11763, USA',
+    16, 'indoor', 'cushioned',
+    NULL,        -- has_showers
+    true,        -- has_lounge_area
+    NULL,        -- has_paddle_rentals
+    NULL,        -- has_pro_shop
+    NULL,        -- has_food_service
+    NULL,        -- has_parking
+    NULL,        -- parking_type
+    NULL,        -- has_wifi
+    NULL,        -- has_lockers
+    NULL,        -- has_water_fountains
+    NULL,        -- has_dink_court
+    NULL,        -- has_workout_area
+    NULL,        -- is_autonomous_facility
+    NULL,        -- facility_type
+    2025,        -- year_opened
+    60000,       -- facility_size_sqft
+    NULL,        -- amenities_list
+    NULL,        -- notes
+    NULL,        -- facility_metadata
+    'https://lh3.googleusercontent.com/p/AF1QipNVYItTHrhsu3D770uv9gpxzKdaS9SLFA-OOIll=s1360-w1360-h1020-rw', -- facility_header_image_url
+    'https://lh3.googleusercontent.com/p/AF1QipPrrgX2Nw_TvgjBiZNxGTOaYyLbHwXd36WBBjfJ=s1360-w1360-h1020-rw' -- facility_logo_image_url
+)
+ON CONFLICT (client_code) DO UPDATE SET
+    street_address = EXCLUDED.street_address, city = EXCLUDED.city,
+    state = EXCLUDED.state, zip_code = EXCLUDED.zip_code, country = EXCLUDED.country,
+    latitude = EXCLUDED.latitude, longitude = EXCLUDED.longitude, full_address = EXCLUDED.full_address,
+    number_of_courts = EXCLUDED.number_of_courts, indoor_outdoor = EXCLUDED.indoor_outdoor,
+    court_surface_type = EXCLUDED.court_surface_type, has_showers = EXCLUDED.has_showers,
+    has_lounge_area = EXCLUDED.has_lounge_area, has_paddle_rentals = EXCLUDED.has_paddle_rentals,
+    has_pro_shop = EXCLUDED.has_pro_shop, has_food_service = EXCLUDED.has_food_service,
+    has_parking = EXCLUDED.has_parking, parking_type = EXCLUDED.parking_type,
+    has_wifi = EXCLUDED.has_wifi, has_lockers = EXCLUDED.has_lockers,
+    has_water_fountains = EXCLUDED.has_water_fountains, has_dink_court = EXCLUDED.has_dink_court,
+    has_workout_area = EXCLUDED.has_workout_area, is_autonomous_facility = EXCLUDED.is_autonomous_facility,
+    facility_type = EXCLUDED.facility_type, year_opened = EXCLUDED.year_opened,
+    facility_size_sqft = EXCLUDED.facility_size_sqft, amenities_list = EXCLUDED.amenities_list,
+    notes = EXCLUDED.notes, facility_metadata = EXCLUDED.facility_metadata,
+    facility_header_image_url = EXCLUDED.facility_header_image_url,
+    facility_logo_image_url = EXCLUDED.facility_logo_image_url,
+    updated_at = EXCLUDED.updated_at;
+
+-- Set has_bar and facility_phone_number where applicable
+UPDATE :schema.facility_details
+SET has_bar = true
+WHERE client_code IN ('pklyn', 'pickleballheaven');
+
+UPDATE :schema.facility_details
+SET facility_phone_number = '+1 (347) 835-5596'
+WHERE client_code = 'pklyn';
+
+UPDATE :schema.facility_details
+SET facility_phone_number = '+1 (631) 371-2660'
+WHERE client_code = 'pickleballheaven';
+
+UPDATE :schema.facility_details
+SET facility_phone_number = '+1 (516) 550-5700'
+WHERE client_code = 'pickleballplus';
+
+UPDATE :schema.facility_details
+SET facility_phone_number = '+1 (516) 208-7393'
+WHERE client_code = 'pickleballxpo';
+
+UPDATE :schema.facility_details
+SET facility_phone_number = '+1 (646) 352-0212'
+WHERE client_code = 'redhookpickleball';
+
+UPDATE :schema.facility_details
+SET facility_phone_number = '+1 (718) 474-2222'
+WHERE client_code = 'rbpickleball';
+
+UPDATE :schema.facility_details
+SET facility_phone_number = '+1 (929) 244-8981'
+WHERE client_code = 'goodland';
+
+
 -- Gotham
 INSERT INTO :schema.facility_details (
     client_code, street_address, city, state, zip_code, country,
@@ -169,7 +257,7 @@ INSERT INTO :schema.facility_details (
     'citypickle', '9-03 44th Rd', 'Long Island City', 'NY', '11101', 'USA',
     40.75037973285398, -73.95089150000004, '9-03 44th Rd, Long Island City, NY 11101, USA',
     4, NULL, NULL,
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+    NULL, NULL, NULL, NULL, true, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
     NULL, NULL, 10000, NULL, NULL, NULL,
     'https://cdn.prod.website-files.com/62d5824b47b9d43a652ce731/654a521f63fae58de67b0e79_IC_Cover.jpg',
     'https://cdn.prod.website-files.com/65ef59977863009b87c1966d/65ef59977863009b87c1981c_gc.png'
