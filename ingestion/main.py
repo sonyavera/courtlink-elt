@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 import sys
 from datetime import datetime, timedelta, timezone
-from typing import Dict, Optional
+from typing import Dict, Optional, Iterator
 
 from dotenv import load_dotenv
 
@@ -46,6 +46,54 @@ _courtreserve_clients: Dict[str, CourtReserveClient] = {}
 _podplay_clients: Dict[str, PodplayClient] = {}
 
 DEFAULT_LOOKBACK_DAYS = int(os.getenv("DEFAULT_LOOKBACK_DAYS", "30"))
+
+
+def _is_running_locally() -> bool:
+    """Check if we're running locally (not in CI/CD environment)."""
+    return os.getenv("CI") != "true"
+
+
+def _is_dev_mode() -> bool:
+    """Check if dev mode is enabled (only pull first page)."""
+    podplay_dev = os.getenv("PODPLAY_MEMBERS_DEV_MODE", "").lower() in ("true", "1", "yes")
+    cr_dev = os.getenv("COURTRESERVE_MEMBERS_DEV_MODE", "").lower() in ("true", "1", "yes")
+    return podplay_dev or cr_dev
+
+
+def _should_write_to_db() -> bool:
+    """Check if we should write to database."""
+    write_to_db = os.getenv("WRITE_TO_DB", "true").lower()
+    return write_to_db in ("true", "1", "yes")
+
+
+def _should_save_to_json() -> bool:
+    """Check if we should save raw API responses to JSON files."""
+    # Default to saving only when running locally (not in CI)
+    default_value = "true" if _is_running_locally() else "false"
+    save_to_json = os.getenv("SAVE_TO_JSON", default_value).lower()
+    return save_to_json in ("true", "1", "yes")
+
+
+def _is_incremental_mode() -> bool:
+    """Check if incremental mode is enabled (only pull recent members)."""
+    return os.getenv("PODPLAY_MEMBERS_INCREMENTAL", "").lower() in ("true", "1", "yes")
+
+
+def _get_recent_members_minutes() -> int:
+    """Get number of minutes to look back for recent members in incremental mode."""
+    raw = os.getenv("PODPLAY_MEMBERS_RECENT_MINUTES", "90")
+    try:
+        return int(raw)
+    except ValueError:
+        return 90
+
+
+def _generate_date_windows(start_date: datetime, window_days: int) -> Iterator[datetime]:
+    """Generate date windows for incremental processing, similar to CourtReserve."""
+    current = start_date
+    while True:
+        yield current
+        current += timedelta(days=window_days)
 
 
 def _get_sample_size() -> Optional[int]:
@@ -219,28 +267,67 @@ def refresh_courtreserve_members():
     print("[COURTRESERVE MEMBERS] Starting CourtReserve members ingestion")
     print("=" * 80)
 
+    # Determine mode and flags
+    dev_mode = _is_dev_mode()
+    write_to_db = _should_write_to_db()
+    save_to_json = _should_save_to_json()
+    
+    if dev_mode:
+        mode_str = "DEV MODE (limited records)"
+    else:
+        mode_str = "FULL REFRESH MODE"
+    
+    print(f"[COURTRESERVE MEMBERS] Mode: {mode_str}")
+    print(f"[COURTRESERVE MEMBERS] Write to DB: {write_to_db}")
+    print(f"[COURTRESERVE MEMBERS] Save to JSON: {save_to_json}")
+    print("=" * 80)
+
+    all_raw_members = []  # Store raw API responses
+
     for client_code in _get_courtreserve_client_codes():
         print(f"\n[COURTRESERVE MEMBERS] Processing client: {client_code}")
         print("-" * 80)
 
         client = _get_courtreserve_client(client_code)
         sample_size = _get_sample_size()
-        max_results = sample_size
+        
+        # In dev mode, limit to 2000 records
+        if dev_mode:
+            max_results = 2000  # 2000 records for dev mode
+            record_window_days = 7  # Shorter window for dev
+            print(
+                f"[COURTRESERVE MEMBERS] DEV MODE: Pulling up to {max_results} members (last 7 days)"
+            )
+        else:
+            max_results = sample_size
+            record_window_days = 21 if not sample_size else 7
+        
         watermark_key = f"{EltWatermarks.MEMBERS}__{client_code}"
-        start = _resolve_watermark(watermark_key)
-        print(f"[COURTRESERVE MEMBERS] Watermark for {client_code}: {start}")
+        watermark = _resolve_watermark(watermark_key)
+        print(f"[COURTRESERVE MEMBERS] Watermark for {client_code}: {watermark}")
+        
+        # Add 90-minute buffer before watermark to avoid missing members between runs
+        # Similar to Podplay incremental mode
+        if watermark:
+            buffer_minutes = 90
+            start = watermark - timedelta(minutes=buffer_minutes)
+            print(
+                f"[COURTRESERVE MEMBERS] Adjusted start: {start.isoformat()} "
+                f"(watermark - {buffer_minutes} minutes buffer)"
+            )
+        else:
+            start = watermark
 
-        if sample_size:
+        if sample_size or dev_mode:
             recent_start = datetime.now(timezone.utc) - timedelta(days=7)
             start = max(start, recent_start)
             print(
-                f"[COURTRESERVE MEMBERS] Sample mode: adjusted start to {start} "
-                f"(last 7 days)"
+                f"[COURTRESERVE MEMBERS] Further adjusted start to {start} "
+                f"(last 7 days limit for dev/sample mode)"
             )
 
         page_size = max_results or 1000
         page_size = max(1, min(page_size, 1000))
-        record_window_days = 21 if not sample_size else 7
 
         print(
             f"[COURTRESERVE MEMBERS] Configuration: page_size={page_size}, "
@@ -258,6 +345,9 @@ def refresh_courtreserve_members():
         print(
             f"\n[COURTRESERVE MEMBERS] API calls complete: {len(raw_members)} total members retrieved"
         )
+        
+        # Store raw API responses
+        all_raw_members.extend(raw_members)
 
         print(f"\n[COURTRESERVE MEMBERS] Normalizing members...")
         normalized_members = [
@@ -283,16 +373,35 @@ def refresh_courtreserve_members():
             )
             continue
 
-        print(f"\n[COURTRESERVE MEMBERS] Replacing members in database...")
-        pg_client.replace_members_for_client(client_code, normalized_members)
+        # Handle database operations based on flags
+        if not write_to_db:
+            print(
+                f"\n[COURTRESERVE MEMBERS] WRITE_TO_DB=false: Skipping database operations"
+            )
+        else:
+            print(f"\n[COURTRESERVE MEMBERS] Replacing members in database...")
+            pg_client.replace_members_for_client(client_code, normalized_members)
 
-        print(f"\n[COURTRESERVE MEMBERS] Updating watermark...")
-        pg_client.update_elt_watermark(watermark_key)
+            print(f"\n[COURTRESERVE MEMBERS] Updating watermark...")
+            pg_client.update_elt_watermark(watermark_key)
 
         print(
             f"\n[COURTRESERVE MEMBERS] ✓ Complete for {client_code}: {len(normalized_members)} members processed"
         )
         print("-" * 80)
+
+    # Save raw API responses to JSON file for inspection (if enabled)
+    if save_to_json and all_raw_members:
+        import json
+        from pathlib import Path
+
+        Path(OUTPUT_DIR).mkdir(exist_ok=True)
+        output_file = Path(OUTPUT_DIR) / "courtreserve_members_raw_api_response.json"
+        
+        print(f"\n[COURTRESERVE MEMBERS] Saving raw API response to {output_file}...")
+        with open(output_file, "w") as f:
+            json.dump(all_raw_members, f, indent=2, default=str)
+        print(f"[COURTRESERVE MEMBERS] Saved {len(all_raw_members)} raw members to {output_file}")
 
     print("\n" + "=" * 80)
     print("[COURTRESERVE MEMBERS] All clients processed")
@@ -510,6 +619,26 @@ def refresh_podplay_members():
     print("[PODPLAY MEMBERS] Starting Podplay members ingestion")
     print("=" * 80)
 
+    # Determine mode upfront for header
+    dev_mode = _is_dev_mode()
+    incremental_mode = _is_incremental_mode()
+    write_to_db = _should_write_to_db()
+    save_to_json = _should_save_to_json()
+    
+    if dev_mode:
+        mode_str = "DEV MODE (first page only)"
+    elif incremental_mode:
+        mode_str = "INCREMENTAL MODE (recent members only)"
+    else:
+        mode_str = "FULL REFRESH MODE (all members)"
+    
+    print(f"[PODPLAY MEMBERS] Mode: {mode_str}")
+    print(f"[PODPLAY MEMBERS] Write to DB: {write_to_db}")
+    print(f"[PODPLAY MEMBERS] Save to JSON: {save_to_json}")
+    print("=" * 80)
+
+    all_raw_users = []  # Store raw API responses
+
     for client_code in _get_podplay_client_codes():
         print(f"\n[PODPLAY MEMBERS] Processing client: {client_code}")
         print("-" * 80)
@@ -520,37 +649,166 @@ def refresh_podplay_members():
         print(f"[PODPLAY MEMBERS] Watermark for {client_code}: {watermark}")
 
         sample_size = _get_sample_size()
-        max_results = sample_size
-        # Use larger page size for full pulls to reduce API calls (14k members = ~28 calls at 500/page)
-        page_size = max_results or 500
-        page_size = max(1, min(page_size, 500))  # Cap at 500 to be safe
+        
+        # In dev mode, limit to 2000 records
+        if dev_mode:
+            page_size = 500  # Default page size
+            max_results = 2000  # 2000 records for dev mode
+            print(
+                f"[PODPLAY MEMBERS] DEV MODE: Pulling up to {max_results} members"
+            )
+        else:
+            max_results = sample_size
+            # Use larger page size for full pulls to reduce API calls (14k members = ~28 calls at 500/page)
+            page_size = max_results or 500
+            page_size = max(1, min(page_size, 500))  # Cap at 500 to be safe
+
         print(
             f"[PODPLAY MEMBERS] Configuration: page_size={page_size}, "
             f"max_results={max_results}, sample_size={sample_size}"
         )
-        if not max_results:
-            estimated_calls = 14000 // page_size + 1
+        
+        # Set up incremental mode processing
+        if incremental_mode and not dev_mode:
+            recent_minutes = _get_recent_members_minutes()
+            now = datetime.now(timezone.utc)
+            
+            # Use watermark as reference point, look back 90 minutes before it for the start
+            watermark_ref = watermark if watermark else now
+            window_start = watermark_ref - timedelta(minutes=recent_minutes)
+            
+            # Process in 30-day windows to avoid huge date ranges
+            window_days = 30
+            all_users = []
+            window_num = 0
+            
+            print(f"\n[PODPLAY MEMBERS] INCREMENTAL MODE Configuration:")
+            print(f"  - Using tenureMin/tenureMax (membership tenure) for incremental filtering")
+            print(f"  - This filters by when their current membership started (catches membership changes/updates)")
+            print(f"  - Processing in {window_days}-day windows to handle large time gaps")
+            if watermark:
+                print(
+                    f"  - Watermark: {watermark.isoformat()}"
+                )
+                print(
+                    f"  - Start: {window_start.isoformat()} (watermark - {recent_minutes} min)"
+                )
+            else:
+                print(
+                    f"  - Watermark: None (first run)"
+                )
+                print(
+                    f"  - Start: {window_start.isoformat()} (now - {recent_minutes} min)"
+                )
             print(
-                f"[PODPLAY MEMBERS] Estimated ~{estimated_calls} API calls for ~14k members "
-                f"(at {page_size} per page)"
+                f"  - End: {now.isoformat()} (now)"
             )
+            print(
+                f"  - Pagination: page_size={page_size}, max_results={max_results if max_results else 'unlimited'}"
+            )
+            
+            # Process date windows
+            for window_start_date in _generate_date_windows(window_start, window_days):
+                if window_start_date > now:
+                    break
+                    
+                window_num += 1
+                window_end_date = min(now, window_start_date + timedelta(days=window_days))
+                
+                print(
+                    f"\n[PODPLAY MEMBERS] Processing window {window_num}: "
+                    f"{window_start_date.isoformat()} to {window_end_date.isoformat()} "
+                    f"(so far {len(all_users)} total users)"
+                )
+                
+                # Get users for this window
+                window_users = client.get_users(
+                    page_size=page_size,
+                    max_results=max_results,  # This will limit per window, but we'll collect all
+                    expand=["items._links.phoneNumber", "items._links.profile"],
+                    tenure_min=window_start_date,
+                    tenure_max=window_end_date,
+                )
+                
+                all_users.extend(window_users)
+                print(
+                    f"[PODPLAY MEMBERS] Window {window_num}: added {len(window_users)} users | "
+                    f"total so far: {len(all_users)}"
+                )
+                
+                # If we hit max_results across all windows, stop
+                if max_results and len(all_users) >= max_results:
+                    all_users = all_users[:max_results]
+                    print(
+                        f"[PODPLAY MEMBERS] Reached max_results limit ({max_results}), stopping window processing"
+                    )
+                    break
+            
+            users = all_users
+            
+            print(
+                f"\n[PODPLAY MEMBERS] INCREMENTAL MODE API Summary:"
+            )
+            print(
+                f"  - Processed {window_num} date window(s)"
+            )
+            print(
+                f"  - Total users retrieved: {len(users)}"
+            )
+            print(
+                f"  - These users will be upserted (existing members preserved)"
+            )
+        else:
+            # For full refresh or dev mode, process normally
+            if not dev_mode:
+                print(f"\n[PODPLAY MEMBERS] FULL REFRESH MODE Configuration:")
+                print(f"  - Filtering: None (pulling ALL members)")
+                if not max_results:
+                    estimated_calls = 14000 // page_size + 1
+                    print(
+                        f"  - Estimated API calls: ~{estimated_calls} (for ~14k members at {page_size} per page)"
+                    )
+                print(
+                    f"  - Pagination: page_size={page_size}, max_results={max_results if max_results else 'unlimited'}"
+                )
+            
+            print(f"\n[PODPLAY MEMBERS] Starting API calls to get users...")
+            users = client.get_users(
+                page_size=page_size,
+                max_results=max_results,
+                expand=["items._links.phoneNumber", "items._links.profile"],
+            )
+            
+            if not dev_mode:
+                print(
+                    f"\n[PODPLAY MEMBERS] API calls complete: {len(users)} total users retrieved"
+                )
 
-        print(f"\n[PODPLAY MEMBERS] Starting API calls to get users...")
-        print(
-            f"[PODPLAY MEMBERS] NOTE: Pulling ALL members (not filtering by member_since)"
-        )
-        users = client.get_users(
-            page_size=page_size,
-            max_results=max_results,
-            expand=["items._links.phoneNumber", "items._links.profile"],
-            # Removed member_since_min/max to get ALL members, not just recent ones
-        )
-        print(
-            f"\n[PODPLAY MEMBERS] API calls complete: {len(users)} total users retrieved"
-        )
+
+        # Save raw API response for inspection (only when running locally)
+        all_raw_users.extend(users)
 
         print(f"\n[PODPLAY MEMBERS] Normalizing users...")
         normalized_members = normalize_podplay_members(users, facility_code=client_code)
+        
+        # Deduplicate members by (client_code, member_id) to avoid ON CONFLICT errors
+        # This can happen when processing multiple date windows - same member can appear in multiple windows
+        original_count = len(normalized_members)
+        seen = {}
+        deduplicated_members = []
+        for member in normalized_members:
+            key = (member["client_code"], member["member_id"])
+            if key not in seen:
+                seen[key] = True
+                deduplicated_members.append(member)
+            # If duplicate, keep the last one (or we could keep the first - doesn't matter much)
+        
+        if len(deduplicated_members) < original_count:
+            print(
+                f"[PODPLAY MEMBERS] Deduplicated: {original_count} → {len(deduplicated_members)} members "
+                f"({original_count - len(deduplicated_members)} duplicates removed)"
+            )
+        normalized_members = deduplicated_members
 
         if max_results:
             original_count = len(normalized_members)
@@ -561,22 +819,52 @@ def refresh_podplay_members():
                     f"due to max_results"
                 )
 
-        if not normalized_members:
+        # Handle database operations based on flags
+        if not write_to_db:
             print(
-                f"[PODPLAY MEMBERS] No normalized members for {client_code}, skipping"
+                f"\n[PODPLAY MEMBERS] WRITE_TO_DB=false: Skipping database operations"
             )
-            continue
+        else:
+            if not normalized_members:
+                print(
+                    f"[PODPLAY MEMBERS] No normalized members for {client_code}, skipping database insert"
+                )
+            else:
+                if incremental_mode:
+                    # For incremental mode, use STG → PROD pattern with upsert (ON CONFLICT) 
+                    # to update/add members without deleting others
+                    print(f"\n[PODPLAY MEMBERS] Upserting members in database (incremental mode, via STG)...")
+                    # Use replace_members_for_client which follows STG → PROD pattern
+                    # It clears STG for client, inserts batch into STG, then upserts into PROD
+                    pg_client.replace_members_for_client(client_code, normalized_members)
+                    print(f"[PODPLAY MEMBERS] Upserted {len(normalized_members)} members via STG (existing members preserved)")
+                else:
+                    # For full refresh, replace all members for this client (also via STG → PROD)
+                    print(f"\n[PODPLAY MEMBERS] Replacing members in database (full refresh, via STG)...")
+                    pg_client.replace_members_for_client(client_code, normalized_members)
 
-        print(f"\n[PODPLAY MEMBERS] Replacing members in database...")
-        pg_client.replace_members_for_client(client_code, normalized_members)
-
-        print(f"\n[PODPLAY MEMBERS] Updating watermark...")
-        pg_client.update_elt_watermark(watermark_key)
+            # Always update watermark if writing to DB, even if no new members - tracks that we ran successfully
+            if write_to_db:
+                print(f"\n[PODPLAY MEMBERS] Updating watermark...")
+                pg_client.update_elt_watermark(watermark_key)
 
         print(
             f"\n[PODPLAY MEMBERS] ✓ Complete for {client_code}: {len(normalized_members)} members processed"
         )
         print("-" * 80)
+
+    # Save raw API responses to JSON file for inspection (if enabled)
+    if save_to_json and all_raw_users:
+        import json
+
+        raw_output_file = os.path.join(
+            OUTPUT_DIR, "podplay_members_raw_api_response.json"
+        )
+        with open(raw_output_file, "w") as f:
+            json.dump(all_raw_users, f, indent=2, default=str)
+        print(
+            f"\n[PODPLAY MEMBERS] Saved {len(all_raw_users)} raw API users to {raw_output_file}"
+        )
 
     print("\n" + "=" * 80)
     print("[PODPLAY MEMBERS] All clients processed")
@@ -639,23 +927,26 @@ def refresh_podplay_events():
             )
             continue
 
-    # Save raw API responses to JSON file for inspection
-    import json
+    # Save raw API responses to JSON file for inspection (only when running locally)
+    if _is_running_locally():
+        import json
 
-    raw_output_file = os.path.join(OUTPUT_DIR, "podplay_events_raw_api_response.json")
-    with open(raw_output_file, "w") as f:
-        json.dump(all_raw_events, f, indent=2, default=str)
-    print(
-        f"\n[PODPLAY EVENTS] Saved {len(all_raw_events)} raw API events to {raw_output_file}"
-    )
+        raw_output_file = os.path.join(
+            OUTPUT_DIR, "podplay_events_raw_api_response.json"
+        )
+        with open(raw_output_file, "w") as f:
+            json.dump(all_raw_events, f, indent=2, default=str)
+        print(
+            f"\n[PODPLAY EVENTS] Saved {len(all_raw_events)} raw API events to {raw_output_file}"
+        )
 
-    # Save normalized events to JSON file for inspection
-    output_file = os.path.join(OUTPUT_DIR, "podplay_events_output.json")
-    with open(output_file, "w") as f:
-        json.dump(all_events, f, indent=2, default=str)
-    print(
-        f"[PODPLAY EVENTS] Saved {len(all_events)} normalized events to {output_file}"
-    )
+        # Save normalized events to JSON file for inspection
+        output_file = os.path.join(OUTPUT_DIR, "podplay_events_output.json")
+        with open(output_file, "w") as f:
+            json.dump(all_events, f, indent=2, default=str)
+        print(
+            f"[PODPLAY EVENTS] Saved {len(all_events)} normalized events to {output_file}"
+        )
 
     # Insert into database
     if all_events:
@@ -726,25 +1017,26 @@ def refresh_courtreserve_events():
             )
             continue
 
-    # Save raw API responses to JSON file for inspection
-    import json
+    # Save raw API responses to JSON file for inspection (only when running locally)
+    if _is_running_locally():
+        import json
 
-    raw_output_file = os.path.join(
-        OUTPUT_DIR, "courtreserve_events_raw_api_response.json"
-    )
-    with open(raw_output_file, "w") as f:
-        json.dump(all_raw_events, f, indent=2, default=str)
-    print(
-        f"\n[COURTRESERVE EVENTS] Saved {len(all_raw_events)} raw API events to {raw_output_file}"
-    )
+        raw_output_file = os.path.join(
+            OUTPUT_DIR, "courtreserve_events_raw_api_response.json"
+        )
+        with open(raw_output_file, "w") as f:
+            json.dump(all_raw_events, f, indent=2, default=str)
+        print(
+            f"\n[COURTRESERVE EVENTS] Saved {len(all_raw_events)} raw API events to {raw_output_file}"
+        )
 
-    # Save normalized events to JSON file for inspection
-    output_file = os.path.join(OUTPUT_DIR, "courtreserve_events_output.json")
-    with open(output_file, "w") as f:
-        json.dump(all_events, f, indent=2, default=str)
-    print(
-        f"[COURTRESERVE EVENTS] Saved {len(all_events)} normalized events to {output_file}"
-    )
+        # Save normalized events to JSON file for inspection
+        output_file = os.path.join(OUTPUT_DIR, "courtreserve_events_output.json")
+        with open(output_file, "w") as f:
+            json.dump(all_events, f, indent=2, default=str)
+        print(
+            f"[COURTRESERVE EVENTS] Saved {len(all_events)} normalized events to {output_file}"
+        )
 
     # Check for duplicates in normalized events
     # Primary key is now (client_code, source_system, event_id, event_start_time)
@@ -765,28 +1057,31 @@ def refresh_courtreserve_events():
         if len(duplicate_keys) > 10:
             print(f"  ... and {len(duplicate_keys) - 10} more")
 
-        # Save duplicate analysis
-        duplicate_analysis = []
-        for key in duplicate_keys:
-            duplicates = [
-                e
-                for e in all_events
-                if (
-                    e["client_code"],
-                    e["source_system"],
-                    e["event_id"],
-                    e.get("event_start_time"),
-                )
-                == key
-            ]
-            duplicate_analysis.append(
-                {"key": key, "count": len(duplicates), "events": duplicates}
-            )
+        # Save duplicate analysis (only when running locally)
+        if _is_running_locally():
+            import json
 
-        dup_file = os.path.join(OUTPUT_DIR, "courtreserve_events_duplicates.json")
-        with open(dup_file, "w") as f:
-            json.dump(duplicate_analysis, f, indent=2, default=str)
-        print(f"[COURTRESERVE EVENTS] Saved duplicate analysis to {dup_file}")
+            duplicate_analysis = []
+            for key in duplicate_keys:
+                duplicates = [
+                    e
+                    for e in all_events
+                    if (
+                        e["client_code"],
+                        e["source_system"],
+                        e["event_id"],
+                        e.get("event_start_time"),
+                    )
+                    == key
+                ]
+                duplicate_analysis.append(
+                    {"key": key, "count": len(duplicates), "events": duplicates}
+                )
+
+            dup_file = os.path.join(OUTPUT_DIR, "courtreserve_events_duplicates.json")
+            with open(dup_file, "w") as f:
+                json.dump(duplicate_analysis, f, indent=2, default=str)
+            print(f"[COURTRESERVE EVENTS] Saved duplicate analysis to {dup_file}")
 
     # Insert into database
     if all_events:
@@ -923,15 +1218,18 @@ def refresh_podplay_court_availability():
             )
             continue
 
-    # Save raw API responses to JSON file for inspection
-    import json
+    # Save raw API responses to JSON file for inspection (only when running locally)
+    if _is_running_locally():
+        import json
 
-    raw_output_file = os.path.join(OUTPUT_DIR, "podplay_sessions_raw_api_response.json")
-    with open(raw_output_file, "w") as f:
-        json.dump(all_raw_sessions, f, indent=2, default=str)
-    print(
-        f"\n[PODPLAY COURT AVAILABILITY] Saved {len(all_raw_sessions)} raw API sessions to {raw_output_file}"
-    )
+        raw_output_file = os.path.join(
+            OUTPUT_DIR, "podplay_sessions_raw_api_response.json"
+        )
+        with open(raw_output_file, "w") as f:
+            json.dump(all_raw_sessions, f, indent=2, default=str)
+        print(
+            f"\n[PODPLAY COURT AVAILABILITY] Saved {len(all_raw_sessions)} raw API sessions to {raw_output_file}"
+        )
 
     print("[PODPLAY COURT AVAILABILITY] All clients processed")
     print("=" * 80)
@@ -1174,15 +1472,18 @@ def refresh_courtreserve_court_availability():
             traceback.print_exc()
             continue
 
-    # Save raw API responses to JSON file for inspection
-    raw_output_file = os.path.join(
-        OUTPUT_DIR, "courtreserve_court_availability_raw_api_response.json"
-    )
-    with open(raw_output_file, "w") as f:
-        json.dump(all_raw_api_responses, f, indent=2, default=str)
-    print(
-        f"\n[COURTRESERVE COURT AVAILABILITY] Saved raw reservations API responses to {raw_output_file}"
-    )
+    # Save raw API responses to JSON file for inspection (only when running locally)
+    if _is_running_locally():
+        import json
+
+        raw_output_file = os.path.join(
+            OUTPUT_DIR, "courtreserve_court_availability_raw_api_response.json"
+        )
+        with open(raw_output_file, "w") as f:
+            json.dump(all_raw_api_responses, f, indent=2, default=str)
+        print(
+            f"\n[COURTRESERVE COURT AVAILABILITY] Saved raw reservations API responses to {raw_output_file}"
+        )
 
     print("[COURTRESERVE COURT AVAILABILITY] All clients processed")
     print("=" * 80)

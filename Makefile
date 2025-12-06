@@ -1,4 +1,4 @@
-.PHONY: venv install setup dev activate ingest ingest-courtreserve-reservations ingest-courtreserve-members ingest-courtreserve-court-availability ingest-podplay-reservations ingest-podplay-members ingest-podplay-events ingest-courtreserve-events ingest-podplay-court-availability ingest-google-reviews ingest-staging wipe-pklyn-res wipe-pklyn-cancellations wipe-events import-duprs dbt dbt-run dbt-run-staging seed seed-designer-data test-github-env-vars list-required-secrets migrate migrate-upgrade migrate-downgrade migrate-revision migrate-history
+.PHONY: venv install setup dev activate ingest ingest-courtreserve-reservations ingest-courtreserve-members ingest-courtreserve-members-dev ingest-courtreserve-court-availability ingest-podplay-reservations ingest-podplay-members ingest-podplay-members-full ingest-podplay-members-dev ingest-podplay-events ingest-courtreserve-events ingest-podplay-court-availability ingest-google-reviews ingest-staging wipe-pklyn-res wipe-pklyn-cancellations wipe-events import-duprs dbt dbt-run dbt-run-staging seed seed-designer-data test-github-env-vars list-required-secrets migrate migrate-upgrade migrate-downgrade migrate-revision migrate-history
 
 venv:
 	python3 -m venv .venv
@@ -42,7 +42,16 @@ ingest-podplay-reservations:
 	python3 -m ingestion.main podplay_reservations
 
 ingest-podplay-members:
+	PODPLAY_MEMBERS_INCREMENTAL=true PODPLAY_MEMBERS_RECENT_MINUTES=90 python3 -m ingestion.main podplay_members
+
+ingest-podplay-members-full:
 	python3 -m ingestion.main podplay_members
+
+ingest-podplay-members-dev:
+	PODPLAY_MEMBERS_DEV_MODE=true WRITE_TO_DB=true SAVE_TO_JSON=true python3 -m ingestion.main podplay_members
+
+ingest-courtreserve-members-dev:
+	COURTRESERVE_MEMBERS_DEV_MODE=true WRITE_TO_DB=true SAVE_TO_JSON=true python3 -m ingestion.main courtreserve_members
 
 ingest-podplay-events:
 	python3 -m ingestion.main podplay_events

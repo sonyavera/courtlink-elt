@@ -2,12 +2,13 @@ name: Data Ingestion
 
 on:
   schedule:
-    # Run every 45 minutes: all jobs except podplay-members
-    - cron: "*/45 * * * *"
-    # Run every 6 hours: podplay-members
-    - cron: "0 */6 * * *"
-    # Run every 8 hours: staging ingestion
-    - cron: "0 */8 * * *"
+    # Run every 2 hours between 9am EST (14:00 UTC) and 12am EST (05:00 UTC): all jobs including podplay-members (incremental)
+    # Runs at: 14,16,18,20,22,0,2,4 UTC (9am,11am,1pm,3pm,5pm,7pm,9pm,11pm EST)
+    - cron: "0 14,16,18,20,22,0,2,4 * * *"
+    # Run daily at 2am UTC: podplay-members full refresh
+    - cron: "0 2 * * *"
+    # Run daily at 8am EST (13:00 UTC): staging ingestion
+    - cron: "0 13 * * *"
     # Run weekly on Monday at 2am UTC: Google reviews
     - cron: "0 2 * * 1"
   workflow_dispatch: # Allow manual triggering
@@ -17,19 +18,19 @@ on:
         required: true
         type: choice
         options:
-          - "45min"
-          - "6hour"
-          - "5hour_staging"
+          - "2hour"
+          - "daily_full"
+          - "daily_staging"
           - "google_reviews"
           - "all"
         default: "all"
 
 jobs:
-  ingest-45min:
-    name: Ingest All (45 min schedule - excludes podplay-members)
+  ingest-2hour:
+    name: Ingest All (Every 2 hours, 9am-12am EST)
     runs-on: ubuntu-latest
     environment: prod
-    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '45min' || github.event.inputs.job_to_run == 'all'))
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '2hour' || github.event.inputs.job_to_run == 'all'))
     env:
       PG_DSN: ${{ secrets.PG_DSN }}
       PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
@@ -51,39 +52,73 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Check if should run (every 2 hours between 9am EST and 12am EST)
+        id: check-time
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+          else
+            HOUR=$(date -u +%H)
+            # Run at 14,16,18,20,22,0,2,4 UTC (9am,11am,1pm,3pm,5pm,7pm,9pm,11pm EST)
+            # Stop at 12am EST (05:00 UTC), resume at 9am EST (14:00 UTC)
+            if [[ "$HOUR" =~ ^(14|16|18|20|22|0|2|4)$ ]]; then
+              echo "should_run=true" >> $GITHUB_OUTPUT
+            else
+              echo "should_run=false" >> $GITHUB_OUTPUT
+            fi
+          fi
+
       - name: Install dependencies
+        if: steps.check-time.outputs.should_run == 'true'
         run: |
           python3 -m pip install --upgrade pip
           pip install -r requirements/all.txt
 
       - name: Ingest CourtReserve Events
+        if: steps.check-time.outputs.should_run == 'true'
         run: make ingest-courtreserve-events
 
       - name: Ingest Podplay Events
+        if: steps.check-time.outputs.should_run == 'true'
         run: make ingest-podplay-events
 
       - name: Ingest Podplay Court Availability
+        if: steps.check-time.outputs.should_run == 'true'
         run: make ingest-podplay-court-availability
 
       - name: Ingest CourtReserve Court Availability
+        if: steps.check-time.outputs.should_run == 'true'
         run: make ingest-courtreserve-court-availability
 
       - name: Ingest CourtReserve Reservations
+        if: steps.check-time.outputs.should_run == 'true'
         run: make ingest-courtreserve-reservations
 
       - name: Ingest CourtReserve Members
+        if: steps.check-time.outputs.should_run == 'true'
         run: make ingest-courtreserve-members
 
       - name: Ingest Podplay Reservations
+        if: steps.check-time.outputs.should_run == 'true'
         run: make ingest-podplay-reservations
 
+      - name: Ingest Podplay Members (Incremental)
+        if: steps.check-time.outputs.should_run == 'true'
+        run: make ingest-podplay-members
+        env:
+          PODPLAY_MEMBERS_INCREMENTAL: "true"
+          PODPLAY_MEMBERS_RECENT_MINUTES: "90"
+
       - name: Preprocess events (add skill levels)
+        if: steps.check-time.outputs.should_run == 'true'
         run: make add-skill-levels
 
       - name: Install dbt package dependencies
+        if: steps.check-time.outputs.should_run == 'true'
         run: python3 -m scripts.run_dbt deps
 
       - name: Run dbt
+        if: steps.check-time.outputs.should_run == 'true'
         run: python3 -m scripts.run_dbt run --target prod
 
   ingest-google-reviews:
@@ -137,13 +172,13 @@ jobs:
         if: steps.check-time.outputs.should_run == 'true'
         run: make ingest-google-reviews
 
-  ingest-podplay-members:
-    name: Ingest Podplay Members (6 hour schedule)
+  ingest-podplay-members-full:
+    name: Ingest Podplay Members (Daily Full Refresh)
     runs-on: ubuntu-latest
     environment: prod
     if: |
       (github.event_name == 'schedule') ||
-      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '6hour' || github.event.inputs.job_to_run == 'all'))
+      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == 'daily_full' || github.event.inputs.job_to_run == 'all'))
     env:
       PG_DSN: ${{ secrets.PG_DSN }}
       PG_SCHEMA: ${{ secrets.PG_SCHEMA }}
@@ -154,8 +189,6 @@ jobs:
       DB_PORT: ${{ secrets.DB_PORT }}
       DB_NAME: ${{ secrets.DB_NAME }}
 
-    # Only run if the current hour is divisible by 6 (0, 6, 12, 18)
-    # This ensures it only runs on the 6-hour schedule, not every 30 minutes
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -165,14 +198,14 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Check if should run (6 hour boundary)
+      - name: Check if should run (once daily at 2am UTC)
         id: check-time
         run: |
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "should_run=true" >> $GITHUB_OUTPUT
           else
             HOUR=$(date -u +%H)
-            if [ $((HOUR % 6)) -eq 0 ]; then
+            if [ "$HOUR" == "02" ]; then
               echo "should_run=true" >> $GITHUB_OUTPUT
             else
               echo "should_run=false" >> $GITHUB_OUTPUT
@@ -185,9 +218,9 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install -r requirements/all.txt
 
-      - name: Ingest Podplay Members
+      - name: Ingest Podplay Members (Full Refresh)
         if: steps.check-time.outputs.should_run == 'true'
-        run: make ingest-podplay-members
+        run: make ingest-podplay-members-full
 
       - name: Preprocess events (add skill levels)
         if: steps.check-time.outputs.should_run == 'true'
@@ -202,12 +235,12 @@ jobs:
         run: python3 -m scripts.run_dbt run --target prod
 
   ingest-staging:
-    name: Ingest All to Staging (5 hour schedule)
+    name: Ingest All to Staging (Daily at 8am EST)
     runs-on: ubuntu-latest
     environment: prod
     if: |
       (github.event_name == 'schedule') ||
-      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == '5hour_staging' || github.event.inputs.job_to_run == 'all'))
+      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_to_run == 'daily_staging' || github.event.inputs.job_to_run == 'all'))
     env:
       PG_DSN: ${{ secrets.PG_DSN }}
       PG_SCHEMA: ${{ secrets.PG_SCHEMA_STG }}
@@ -229,14 +262,14 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Check if should run (5 hour boundary)
+      - name: Check if should run (daily at 8am EST / 13:00 UTC)
         id: check-time
         run: |
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "should_run=true" >> $GITHUB_OUTPUT
           else
             HOUR=$(date -u +%H)
-            if [ $((HOUR % 5)) -eq 0 ]; then
+            if [ "$HOUR" == "13" ]; then
               echo "should_run=true" >> $GITHUB_OUTPUT
             else
               echo "should_run=false" >> $GITHUB_OUTPUT

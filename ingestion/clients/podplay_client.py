@@ -360,6 +360,8 @@ class PodplayClient:
         extra_filters: Optional[Dict] = None,
         member_since_min: Optional[datetime] = None,
         member_since_max: Optional[datetime] = None,
+        tenure_min: Optional[datetime] = None,
+        tenure_max: Optional[datetime] = None,
     ) -> List[Dict]:
         params: Dict = {"ipp": page_size}
 
@@ -376,6 +378,10 @@ class PodplayClient:
             params["memberSinceMin"] = self._to_iso(member_since_min)
         if member_since_max:
             params["memberSinceMax"] = self._to_iso(member_since_max)
+        if tenure_min:
+            params["tenureMin"] = self._to_iso(tenure_min)
+        if tenure_max:
+            params["tenureMax"] = self._to_iso(tenure_max)
 
         return list(
             self._paginate(

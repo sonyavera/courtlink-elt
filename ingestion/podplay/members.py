@@ -56,6 +56,21 @@ def normalize_members(
             if parsed_birthday:
                 birthday_date = parsed_birthday.date()
 
+        # Extract memberSince from profile (when member joined)
+        profile = user.get("profile") or {}
+        member_since_raw = profile.get("memberSince")
+        member_since_date = None
+        if member_since_raw:
+            parsed_member_since = parse_iso_datetime(member_since_raw)
+            if parsed_member_since:
+                member_since_date = parsed_member_since.date()
+
+        # Extract membership type from Podplay API
+        membership_type_name = user.get("membershipType") or "NONE"
+        
+        # is_premium_member: 1 if membershipType is NOT "NONE", 0 if it is "NONE"
+        is_premium_member = 1 if membership_type_name != "NONE" else 0
+
         normalized.append(
             {
                 "client_code": facility_code,
@@ -67,6 +82,9 @@ def normalize_members(
                 "date_of_birth": birthday_date,
                 "email": email,
                 "phone_number": phone_number,
+                "membership_type_name": membership_type_name,
+                "is_premium_member": is_premium_member,
+                "member_since": member_since_date,
             }
         )
 
