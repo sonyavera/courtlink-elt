@@ -23,6 +23,21 @@ def map_member_to_row(member: dict, facility_code: str) -> dict:
     phone_number = normalize_phone_number(raw_phone)
     email = normalize_email(member.get("Email"))
 
+    # Extract membership type from CourtReserve API
+    # Check if member is Staff first, then use MembershipTypeName
+    membership_type_name = None
+    if member.get("Staff") or member.get("IsStaff"):
+        membership_type_name = "Staff"
+    else:
+        membership_type_name = member.get("MembershipTypeName") or "Non-Member Account"
+    
+    # is_premium_member: 1 if membership_type_name is NOT "Non-Member Account", 0 if it is
+    # This means Staff, Founder, Premium, etc. are all premium (1)
+    is_premium_member = 1 if membership_type_name and membership_type_name != "Non-Member Account" else 0
+
+    # Extract MembershipStartDate from CourtReserve API
+    member_since_date = parse_date(member.get("MembershipStartDate"))
+
     return {
         "client_code": facility_code,
         "member_id": str(member_id) if member_id is not None else None,
@@ -33,4 +48,7 @@ def map_member_to_row(member: dict, facility_code: str) -> dict:
         "date_of_birth": parse_date(member.get("DateOfBirth")),
         "email": email,
         "phone_number": phone_number,
+        "membership_type_name": membership_type_name,
+        "is_premium_member": is_premium_member,
+        "member_since": member_since_date,
     }

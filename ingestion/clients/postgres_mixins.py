@@ -298,8 +298,10 @@ class InsertMixin:
                 m["gender"],
                 m["phone_number"],
                 m["date_of_birth"],
-                m.get("club_member_key"),
                 m.get("email"),
+                m.get("membership_type_name"),
+                m.get("is_premium_member"),
+                m.get("member_since"),
                 datetime.now(timezone.utc),
             )
             for m in members
@@ -326,8 +328,10 @@ class InsertMixin:
                         gender,
                         phone_number,
                         date_of_birth,
-                        club_member_key,
                         email,
+                        membership_type_name,
+                        is_premium_member,
+                        member_since,
                         created_at
                     ) VALUES %s
                     ON CONFLICT (client_code, member_id) DO UPDATE SET
@@ -336,8 +340,10 @@ class InsertMixin:
                         gender = EXCLUDED.gender,
                         phone_number = EXCLUDED.phone_number,
                         date_of_birth = EXCLUDED.date_of_birth,
-                        club_member_key = EXCLUDED.club_member_key,
                         email = EXCLUDED.email,
+                        membership_type_name = EXCLUDED.membership_type_name,
+                        is_premium_member = EXCLUDED.is_premium_member,
+                        member_since = EXCLUDED.member_since,
                         created_at = EXCLUDED.created_at
                     """,
                     batch,

@@ -206,6 +206,9 @@ class PostgresClient(DedupeMixin, InsertMixin):
                     date_of_birth,
                     email,
                     phone_number,
+                    membership_type_name,
+                    is_premium_member,
+                    member_since,
                     created_at
                 )
                 SELECT
@@ -217,6 +220,9 @@ class PostgresClient(DedupeMixin, InsertMixin):
                     date_of_birth,
                     email,
                     phone_number,
+                    membership_type_name,
+                    is_premium_member,
+                    member_since,
                     created_at
                 FROM "{self.schema}"."{Tables.MEMBERS_RAW_STG}"
                 WHERE client_code = %s
@@ -227,6 +233,9 @@ class PostgresClient(DedupeMixin, InsertMixin):
                     date_of_birth = EXCLUDED.date_of_birth,
                     email = EXCLUDED.email,
                     phone_number = EXCLUDED.phone_number,
+                    membership_type_name = EXCLUDED.membership_type_name,
+                    is_premium_member = EXCLUDED.is_premium_member,
+                    member_since = EXCLUDED.member_since,
                     created_at = EXCLUDED.created_at
                 """,
                 (client_code,),
